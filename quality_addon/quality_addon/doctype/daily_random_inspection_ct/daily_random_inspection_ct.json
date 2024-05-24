@@ -1,0 +1,114 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-23 19:34:05.956843",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_name",
+  "at_design",
+  "at_size",
+  "at_color",
+  "total_pcs",
+  "major",
+  "critical",
+  "sample_pcs",
+  "passfall",
+  "minor",
+  "defects",
+  "defective_qty",
+  "inspected_qty",
+  "picture"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "at_design",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Design"
+  },
+  {
+   "fieldname": "at_size",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Size"
+  },
+  {
+   "fieldname": "at_color",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Color"
+  },
+  {
+   "fieldname": "total_pcs",
+   "fieldtype": "Float",
+   "in_standard_filter": 1,
+   "label": "Total Pcs"
+  },
+  {
+   "fieldname": "major",
+   "fieldtype": "Float",
+   "label": "Major"
+  },
+  {
+   "fieldname": "critical",
+   "fieldtype": "Float",
+   "label": "Critical"
+  },
+  {
+   "fieldname": "sample_pcs",
+   "fieldtype": "Data",
+   "label": "Sample Pcs"
+  },
+  {
+   "fieldname": "passfall",
+   "fieldtype": "Data",
+   "label": "Pass/Fall"
+  },
+  {
+   "fieldname": "minor",
+   "fieldtype": "Data",
+   "label": "Minor"
+  },
+  {
+   "fieldname": "defects",
+   "fieldtype": "Link",
+   "label": "Defects",
+   "options": "Defects"
+  },
+  {
+   "fieldname": "defective_qty",
+   "fieldtype": "Float",
+   "label": "Defective Qty"
+  },
+  {
+   "fieldname": "inspected_qty",
+   "fieldtype": "Float",
+   "label": "Inspected Qty"
+  },
+  {
+   "fieldname": "picture",
+   "fieldtype": "Attach Image",
+   "label": "Picture"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-05-24 13:28:02.750193",
+ "modified_by": "Administrator",
+ "module": "Quality Addon",
+ "name": "Daily Random Inspection CT",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

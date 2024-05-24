@@ -1,0 +1,475 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-05-23 19:00:35.183638",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "posing_date",
+  "column_break_wthen",
+  "reporting_date",
+  "column_break_cc1m1",
+  "time",
+  "column_break_xsmk8",
+  "inspection_level",
+  "column_break_rydqn",
+  "aql_major_acceptance",
+  "column_break_m9awe",
+  "aql_minor_acceptance",
+  "column_break_vsjmz",
+  "items",
+  "column_break_mj4i6",
+  "total_audit",
+  "column_break_aw008",
+  "total_major",
+  "column_break_jyanw",
+  "total_defects",
+  "column_break_ul7jh",
+  "total_minor",
+  "column_break_3p5h8",
+  "total_sample_qty",
+  "column_break_kqgeo",
+  "total_critical",
+  "column_break_sutfz",
+  "percent",
+  "column_break_n652z",
+  "remarks",
+  "weaving_defects",
+  "column_break_ybwrr",
+  "miss_pick__double_pick_total",
+  "incorrect_construct_total",
+  "fly_yarn_total",
+  "section_break_2dhru",
+  "registration_out_total",
+  "mis_print_total",
+  "bowing_total",
+  "column_break_lm9yk",
+  "touching_total",
+  "streaks_total",
+  "selvedge_total",
+  "column_break_ubob1",
+  "smash_total",
+  "weaving_other_total",
+  "finishing_defects",
+  "section_break_a8542",
+  "cliper_cut_total",
+  "un_cut__loose_thread_total",
+  "column_break_sbz5x",
+  "needle_hole_total",
+  "finishing_other_total",
+  "column_break_gc4mf",
+  "oil_stain_total",
+  "wash_mark_total",
+  "column_break_mzrpj",
+  "dust_mark_total",
+  "sewing_defects",
+  "column_break_gqt5z",
+  "missing__wrong_label_total",
+  "uneven_stitch_total",
+  "wrong_thread_total",
+  "puckering_total",
+  "section_break_zosgx",
+  "sewing_other_total",
+  "broken__loose_stitch_total",
+  "open_hem__sem_total",
+  "bad_stitch_total",
+  "column_break_quusn",
+  "wrong_direction_total",
+  "short_size_total",
+  "naming_series",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "posing_date",
+   "fieldtype": "Date",
+   "label": "Posing Date"
+  },
+  {
+   "fieldname": "reporting_date",
+   "fieldtype": "Date",
+   "label": "Reporting Date"
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time"
+  },
+  {
+   "fieldname": "inspection_level",
+   "fieldtype": "Select",
+   "label": "Inspection Level",
+   "options": "\nGeneral Inspection Level 1\nGeneral Inspection Level 2\nGeneral Inspection Level 3\nSpecial Inspection Level 1\nSpecial Inspection Level 2\nSpecial Inspection Level 3\nSpecial Inspection Level 4"
+  },
+  {
+   "fieldname": "aql_major_acceptance",
+   "fieldtype": "Select",
+   "label": "AQL Major Acceptance",
+   "options": "\n1.0\n1.5\n2.5\n4.0"
+  },
+  {
+   "fieldname": "aql_minor_acceptance",
+   "fieldtype": "Select",
+   "label": "AQL Minor Acceptance",
+   "options": "\n1.0\n1.5\n2.5\n4.0"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Daily Checking Inspection CT",
+   "options": "Daily Random Inspection CT"
+  },
+  {
+   "fieldname": "total_audit",
+   "fieldtype": "Int",
+   "label": "Total Audit"
+  },
+  {
+   "fieldname": "total_major",
+   "fieldtype": "Int",
+   "label": "Total Major"
+  },
+  {
+   "fieldname": "total_defects",
+   "fieldtype": "Int",
+   "label": "Total Defects"
+  },
+  {
+   "fieldname": "total_minor",
+   "fieldtype": "Int",
+   "label": "Total Minor"
+  },
+  {
+   "fieldname": "total_sample_qty",
+   "fieldtype": "Int",
+   "label": "Total Sample Qty"
+  },
+  {
+   "fieldname": "total_critical",
+   "fieldtype": "Int",
+   "label": "Total Critical"
+  },
+  {
+   "fieldname": "percent",
+   "fieldtype": "Data",
+   "label": "Percent"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Data",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "miss_pick__double_pick_total",
+   "fieldtype": "Int",
+   "label": "Miss Pick / Double Pick Total"
+  },
+  {
+   "fieldname": "fly_yarn_total",
+   "fieldtype": "Int",
+   "label": "Fly Yarn Total"
+  },
+  {
+   "fieldname": "incorrect_construct_total",
+   "fieldtype": "Int",
+   "label": "Incorrect construct Total"
+  },
+  {
+   "fieldname": "registration_out_total",
+   "fieldtype": "Int",
+   "label": "Registration out Total"
+  },
+  {
+   "fieldname": "mis_print_total",
+   "fieldtype": "Int",
+   "label": "Mis Print Total"
+  },
+  {
+   "fieldname": "bowing_total",
+   "fieldtype": "Int",
+   "label": "Bowing Total"
+  },
+  {
+   "fieldname": "touching_total",
+   "fieldtype": "Int",
+   "label": "Touching Total"
+  },
+  {
+   "fieldname": "streaks_total",
+   "fieldtype": "Int",
+   "label": "Streaks Total"
+  },
+  {
+   "fieldname": "selvedge_total",
+   "fieldtype": "Int",
+   "label": "Selvedge Total"
+  },
+  {
+   "fieldname": "smash_total",
+   "fieldtype": "Int",
+   "label": "Smash Total"
+  },
+  {
+   "fieldname": "weaving_other_total",
+   "fieldtype": "Int",
+   "label": "Weaving Other Total"
+  },
+  {
+   "fieldname": "finishing_defects",
+   "fieldtype": "Int",
+   "label": "Finishing Defects"
+  },
+  {
+   "fieldname": "cliper_cut_total",
+   "fieldtype": "Int",
+   "label": "Cliper Cut Total"
+  },
+  {
+   "fieldname": "un_cut__loose_thread_total",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Total"
+  },
+  {
+   "fieldname": "needle_hole_total",
+   "fieldtype": "Int",
+   "label": "Needle Hole Total"
+  },
+  {
+   "fieldname": "finishing_other_total",
+   "fieldtype": "Int",
+   "label": "Finishing Other Total"
+  },
+  {
+   "fieldname": "oil_stain_total",
+   "fieldtype": "Int",
+   "label": "Oil Stain Total"
+  },
+  {
+   "fieldname": "wash_mark_total",
+   "fieldtype": "Int",
+   "label": "Wash Mark Total "
+  },
+  {
+   "fieldname": "dust_mark_total",
+   "fieldtype": "Int",
+   "label": "Dust Mark Total"
+  },
+  {
+   "fieldname": "sewing_defects",
+   "fieldtype": "Int",
+   "label": "Sewing Defects"
+  },
+  {
+   "fieldname": "missing__wrong_label_total",
+   "fieldtype": "Int",
+   "label": "Missing / Wrong Label Total"
+  },
+  {
+   "fieldname": "uneven_stitch_total",
+   "fieldtype": "Int",
+   "label": "Uneven stitch Total"
+  },
+  {
+   "fieldname": "wrong_thread_total",
+   "fieldtype": "Int",
+   "label": "Wrong Thread Total"
+  },
+  {
+   "fieldname": "puckering_total",
+   "fieldtype": "Int",
+   "label": "Puckering Total"
+  },
+  {
+   "fieldname": "sewing_other_total",
+   "fieldtype": "Int",
+   "label": "Sewing Other Total"
+  },
+  {
+   "fieldname": "broken__loose_stitch_total",
+   "fieldtype": "Int",
+   "label": "Broken / Loose Stitch Total"
+  },
+  {
+   "fieldname": "open_hem__sem_total",
+   "fieldtype": "Int",
+   "label": "Open Hem / Sem Total"
+  },
+  {
+   "fieldname": "bad_stitch_total",
+   "fieldtype": "Int",
+   "label": "Bad Stitch Total"
+  },
+  {
+   "fieldname": "wrong_direction_total",
+   "fieldtype": "Int",
+   "label": "Wrong Direction Total"
+  },
+  {
+   "fieldname": "short_size_total",
+   "fieldtype": "Data",
+   "label": "Short Size Total"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "\nDIR-.MM.-.YY.-"
+  },
+  {
+   "fieldname": "column_break_wthen",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_cc1m1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_xsmk8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_rydqn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_m9awe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_vsjmz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_mj4i6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_aw008",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_jyanw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_ul7jh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_3p5h8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_kqgeo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_sutfz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Daily Checking",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "section_break_2dhru",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_n652z",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "column_break_ybwrr",
+   "fieldtype": "Section Break",
+   "label": "Weaving Defects"
+  },
+  {
+   "fieldname": "column_break_lm9yk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_ubob1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_a8542",
+   "fieldtype": "Section Break",
+   "label": "Finishing Defects"
+  },
+  {
+   "fieldname": "column_break_gc4mf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "column_break_gqt5z",
+   "fieldtype": "Section Break",
+   "label": "Sewing Defect"
+  },
+  {
+   "fieldname": "section_break_zosgx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "weaving_defects",
+   "fieldtype": "Tab Break",
+   "label": "Weaving Defects"
+  },
+  {
+   "fieldname": "column_break_quusn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_sbz5x",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_mzrpj",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-05-23 21:38:25.801751",
+ "modified_by": "Administrator",
+ "module": "Quality Addon",
+ "name": "Daily Checking",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
