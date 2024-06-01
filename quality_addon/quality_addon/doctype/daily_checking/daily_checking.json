@@ -9,7 +9,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "posing_date",
+  "date",
   "column_break_wthen",
   "reporting_date",
   "column_break_cc1m1",
@@ -17,9 +17,9 @@
   "column_break_xsmk8",
   "inspection_level",
   "column_break_rydqn",
-  "aql_major_acceptance",
+  "aql_major",
   "column_break_m9awe",
-  "aql_minor_acceptance",
+  "aql_minor",
   "column_break_vsjmz",
   "items",
   "column_break_mj4i6",
@@ -40,9 +40,9 @@
   "remarks",
   "weaving_defects",
   "column_break_ybwrr",
-  "miss_pick__double_pick_total",
-  "incorrect_construct_total",
+  "miss_pick__double_pick_qty",
   "fly_yarn_total",
+  "incorrect_construct_qty",
   "section_break_2dhru",
   "registration_out_total",
   "mis_print_total",
@@ -56,40 +56,34 @@
   "weaving_other_total",
   "finishing_defects",
   "section_break_a8542",
-  "cliper_cut_total",
+  "cc_qty",
   "un_cut__loose_thread_total",
   "column_break_sbz5x",
   "needle_hole_total",
-  "finishing_other_total",
+  "finishing_qty",
   "column_break_gc4mf",
-  "oil_stain_total",
+  "os_qty",
   "wash_mark_total",
   "column_break_mzrpj",
   "dust_mark_total",
   "sewing_defects",
   "column_break_gqt5z",
-  "missing__wrong_label_total",
-  "uneven_stitch_total",
-  "wrong_thread_total",
-  "puckering_total",
+  "mwl_qty",
+  "us_qty",
+  "wt_qty",
+  "p_qty",
   "section_break_zosgx",
-  "sewing_other_total",
+  "sewing_qty",
   "broken__loose_stitch_total",
   "open_hem__sem_total",
-  "bad_stitch_total",
+  "bs_qty",
   "column_break_quusn",
-  "wrong_direction_total",
-  "short_size_total",
+  "wd_qty",
+  "ss_qty",
   "naming_series",
   "amended_from"
  ],
  "fields": [
-  {
-   "default": "Today",
-   "fieldname": "posing_date",
-   "fieldtype": "Date",
-   "label": "Posing Date"
-  },
   {
    "fieldname": "reporting_date",
    "fieldtype": "Date",
@@ -105,18 +99,6 @@
    "fieldtype": "Select",
    "label": "Inspection Level",
    "options": "\nGeneral Inspection Level 1\nGeneral Inspection Level 2\nGeneral Inspection Level 3\nSpecial Inspection Level 1\nSpecial Inspection Level 2\nSpecial Inspection Level 3\nSpecial Inspection Level 4"
-  },
-  {
-   "fieldname": "aql_major_acceptance",
-   "fieldtype": "Select",
-   "label": "AQL Major Acceptance",
-   "options": "\n1.0\n1.5\n2.5\n4.0"
-  },
-  {
-   "fieldname": "aql_minor_acceptance",
-   "fieldtype": "Select",
-   "label": "AQL Minor Acceptance",
-   "options": "\n1.0\n1.5\n2.5\n4.0"
   },
   {
    "fieldname": "items",
@@ -165,19 +147,9 @@
    "label": "Remarks"
   },
   {
-   "fieldname": "miss_pick__double_pick_total",
-   "fieldtype": "Int",
-   "label": "Miss Pick / Double Pick Total"
-  },
-  {
    "fieldname": "fly_yarn_total",
    "fieldtype": "Int",
    "label": "Fly Yarn Total"
-  },
-  {
-   "fieldname": "incorrect_construct_total",
-   "fieldtype": "Int",
-   "label": "Incorrect construct Total"
   },
   {
    "fieldname": "registration_out_total",
@@ -225,11 +197,6 @@
    "label": "Finishing Defects"
   },
   {
-   "fieldname": "cliper_cut_total",
-   "fieldtype": "Int",
-   "label": "Cliper Cut Total"
-  },
-  {
    "fieldname": "un_cut__loose_thread_total",
    "fieldtype": "Int",
    "label": "Un cut / Loose Thread Total"
@@ -238,16 +205,6 @@
    "fieldname": "needle_hole_total",
    "fieldtype": "Int",
    "label": "Needle Hole Total"
-  },
-  {
-   "fieldname": "finishing_other_total",
-   "fieldtype": "Int",
-   "label": "Finishing Other Total"
-  },
-  {
-   "fieldname": "oil_stain_total",
-   "fieldtype": "Int",
-   "label": "Oil Stain Total"
   },
   {
    "fieldname": "wash_mark_total",
@@ -265,31 +222,6 @@
    "label": "Sewing Defects"
   },
   {
-   "fieldname": "missing__wrong_label_total",
-   "fieldtype": "Int",
-   "label": "Missing / Wrong Label Total"
-  },
-  {
-   "fieldname": "uneven_stitch_total",
-   "fieldtype": "Int",
-   "label": "Uneven stitch Total"
-  },
-  {
-   "fieldname": "wrong_thread_total",
-   "fieldtype": "Int",
-   "label": "Wrong Thread Total"
-  },
-  {
-   "fieldname": "puckering_total",
-   "fieldtype": "Int",
-   "label": "Puckering Total"
-  },
-  {
-   "fieldname": "sewing_other_total",
-   "fieldtype": "Int",
-   "label": "Sewing Other Total"
-  },
-  {
    "fieldname": "broken__loose_stitch_total",
    "fieldtype": "Int",
    "label": "Broken / Loose Stitch Total"
@@ -298,21 +230,6 @@
    "fieldname": "open_hem__sem_total",
    "fieldtype": "Int",
    "label": "Open Hem / Sem Total"
-  },
-  {
-   "fieldname": "bad_stitch_total",
-   "fieldtype": "Int",
-   "label": "Bad Stitch Total"
-  },
-  {
-   "fieldname": "wrong_direction_total",
-   "fieldtype": "Int",
-   "label": "Wrong Direction Total"
-  },
-  {
-   "fieldname": "short_size_total",
-   "fieldtype": "Data",
-   "label": "Short Size Total"
   },
   {
    "fieldname": "naming_series",
@@ -440,12 +357,94 @@
   {
    "fieldname": "column_break_mzrpj",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "os_qty",
+   "fieldtype": "Int",
+   "label": "Oil Stain Total"
+  },
+  {
+   "fieldname": "us_qty",
+   "fieldtype": "Int",
+   "label": "Uneven stitch Total"
+  },
+  {
+   "fieldname": "wt_qty",
+   "fieldtype": "Int",
+   "label": "Wrong Thread Total"
+  },
+  {
+   "fieldname": "cc_qty",
+   "fieldtype": "Int",
+   "label": "Cliper Cut Total"
+  },
+  {
+   "fieldname": "finishing_qty",
+   "fieldtype": "Int",
+   "label": "Finishing Other Total"
+  },
+  {
+   "fieldname": "p_qty",
+   "fieldtype": "Int",
+   "label": "Puckering Total"
+  },
+  {
+   "fieldname": "bs_qty",
+   "fieldtype": "Int",
+   "label": "Bad Stitch Total"
+  },
+  {
+   "fieldname": "mwl_qty",
+   "fieldtype": "Int",
+   "label": "Missing / Wrong Label Total"
+  },
+  {
+   "fieldname": "wd_qty",
+   "fieldtype": "Int",
+   "label": "Wrong Direction Total"
+  },
+  {
+   "fieldname": "ss_qty",
+   "fieldtype": "Data",
+   "label": "Short Size Total"
+  },
+  {
+   "fieldname": "sewing_qty",
+   "fieldtype": "Int",
+   "label": "Sewing Other Total"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Posing Date"
+  },
+  {
+   "fieldname": "aql_major",
+   "fieldtype": "Select",
+   "label": "AQL Major Acceptance",
+   "options": "\n1.0\n1.5\n2.5\n4.0"
+  },
+  {
+   "fieldname": "aql_minor",
+   "fieldtype": "Select",
+   "label": "AQL Minor Acceptance",
+   "options": "\n1.0\n1.5\n2.5\n4.0"
+  },
+  {
+   "fieldname": "miss_pick__double_pick_qty",
+   "fieldtype": "Int",
+   "label": "Miss Pick / Double Pick Total"
+  },
+  {
+   "fieldname": "incorrect_construct_qty",
+   "fieldtype": "Int",
+   "label": "Incorrect construct Total"
   }
  ],
  "index_web_pages_for_search": 1,
- "is_submittable": 1,
  "links": [],
- "modified": "2024-05-31 19:23:09.073062",
+ "modified": "2024-06-01 14:40:51.156264",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking",
