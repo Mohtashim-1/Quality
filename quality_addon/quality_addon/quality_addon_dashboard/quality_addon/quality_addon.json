@@ -1,0 +1,25 @@
+{
+ "cards": [
+  {
+   "card": "Daily Checkin"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Daily Checking",
+   "width": "Full"
+  }
+ ],
+ "creation": "2024-05-31 19:15:58.631327",
+ "dashboard_name": "Quality Addon",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 1,
+ "is_standard": 1,
+ "modified": "2024-05-31 19:17:27.179684",
+ "modified_by": "Administrator",
+ "module": "Quality Addon",
+ "name": "Quality Addon",
+ "owner": "Administrator"
+}

@@ -50,9 +50,8 @@
   "column_break_r357f",
   "miss_pick__double_pick_image",
   "column_break_qoawc",
-  "miss_pick__double_pick_total",
+  "miss_pick__double_pick_qty",
   "column_break_snf8p",
-  "fly_yarn",
   "column_break_8s0xr",
   "fly_yarn_major",
   "column_break_qgy2d",
@@ -62,7 +61,7 @@
   "column_break_wt0py",
   "fly_yarn_image",
   "column_break_4mgre",
-  "fly_yarn_total",
+  "fly_yarn_qty",
   "section_break_yia3p",
   "incorrect_construct",
   "column_break_z3l3g",
@@ -74,7 +73,7 @@
   "column_break_0ebvq",
   "incorrect_construct_image",
   "column_break_4k2xh",
-  "incorrect_construct_total",
+  "incorrect_construct_qty",
   "section_break_yhlay",
   "registreation_out",
   "column_break_oy0wt",
@@ -86,7 +85,7 @@
   "column_break_1szzi",
   "registreation_out_image",
   "column_break_g6icf",
-  "registration_out_total",
+  "registration_out_qty",
   "section_break_mpaql",
   "miss_print",
   "column_break_nhlc8",
@@ -98,7 +97,7 @@
   "column_break_teg8j",
   "miss_print_image",
   "column_break_a0dj7",
-  "mis_print_total",
+  "miss_print_qty",
   "section_break_k8fua",
   "bowing",
   "section_break_rsyln",
@@ -110,7 +109,7 @@
   "column_break_lz1zc",
   "bowing_image",
   "column_break_qlzjp",
-  "bowing_total",
+  "bowing_qty",
   "section_break_ryihr",
   "touching",
   "column_break_ntgyg",
@@ -122,7 +121,7 @@
   "column_break_w9tuv",
   "touching_image",
   "section_break_voa2c",
-  "touching_total",
+  "touching_qty",
   "section_break_pqnnf",
   "streaks",
   "column_break_wo32f",
@@ -134,7 +133,7 @@
   "column_break_7yvbl",
   "streaks_image",
   "column_break_goyi5",
-  "streaks_total",
+  "streaks_qty",
   "section_break_uuzcn",
   "salvage",
   "column_break_kq0ou",
@@ -146,7 +145,7 @@
   "column_break_nfdj9",
   "salvage_image",
   "column_break_0savr",
-  "selvedge_qty",
+  "salvage_qty",
   "section_break_zg3sg",
   "smash",
   "column_break_pjx4c",
@@ -158,15 +157,166 @@
   "column_break_xuo2f",
   "smash_image",
   "column_break_gjmnj",
-  "smash_total",
-  "section_break_c2fsp"
+  "smash_qty",
+  "section_break_c2fsp",
+  "other",
+  "weaving_total",
+  "column_break_0qc79",
+  "defects",
+  "column_break_aqwok",
+  "other_major",
+  "other_minor",
+  "column_break_73cjd",
+  "other_critical",
+  "column_break_t4ss0",
+  "image",
+  "finishing_defects_section",
+  "un_cut__loose_thread",
+  "column_break_oxccr",
+  "un_cut__loose_thread_major",
+  "column_break_9opj3",
+  "un_cut__loose_thread_minor",
+  "column_break_m2ydp",
+  "un_cut__loose_thread_critical",
+  "column_break_g01c7",
+  "un_cut__loose_thread_image",
+  "column_break_7zhbg",
+  "un_cut__loose_thread_total",
+  "section_break_ogspg",
+  "oil_stain",
+  "column_break_hfely",
+  "oil_stain_major",
+  "column_break_p9kjg",
+  "oil_stain_minor",
+  "column_break_mkuvo",
+  "oil_stain_critical",
+  "column_break_yeiag",
+  "oil_stain_image",
+  "column_break_xl1bn",
+  "oil_stain_total",
+  "section_break_v4sth",
+  "wash_mark",
+  "column_break_dyok8",
+  "wash_mark_major",
+  "column_break_klxbu",
+  "wash_mark_minor",
+  "column_break_0uead",
+  "wash_mark_critical",
+  "column_break_e8iz2",
+  "wash_mark_image",
+  "column_break_xuuas",
+  "wash_mark_total",
+  "section_break_nqy3e",
+  "cliper_cut",
+  "column_break_m3cjq",
+  "cliper_cut_major",
+  "column_break_brjut",
+  "cliper_cut_minor",
+  "column_break_quolh",
+  "cliper_cut_critical",
+  "column_break_wrqux",
+  "cliper_cut_image",
+  "column_break_8jiw3",
+  "clipper_cut_total",
+  "section_break_auiku",
+  "needle_hole",
+  "column_break_kck3l",
+  "needle_hole_major",
+  "column_break_6nexc",
+  "needle_hole_minor",
+  "column_break_ryvcd",
+  "needle_hole_critical",
+  "column_break_lmx0w",
+  "needle_hole_image",
+  "column_break_fntes",
+  "needle_hole_total",
+  "section_break_nly3d",
+  "dust_mark",
+  "column_break_fqizg",
+  "dust_mark_major",
+  "column_break_fgixc",
+  "dust_mark_minor",
+  "column_break_wfbgv",
+  "dust_mark_crtitcal",
+  "column_break_c0mel",
+  "dust_mark_image",
+  "column_break_hcigi",
+  "dust_mark_total",
+  "section_break_xgcav",
+  "fdo_check",
+  "finishing_qty",
+  "column_break_owbx6",
+  "fdo_defects",
+  "column_break_rk9n3",
+  "fdo_major",
+  "column_break_aofh4",
+  "fdo_minor",
+  "column_break_vgmpk",
+  "fdo_critical",
+  "column_break_nh17a",
+  "fdo_image",
+  "column_break_ywvns",
+  "sewing_defects_section",
+  "missing__wrong_label",
+  "column_break_fdkzr",
+  "missing__wrong_label_major",
+  "column_break_uosp6",
+  "missing__wrong_label_minor",
+  "column_break_xm03h",
+  "missing__wrong_label_critical",
+  "column_break_lpt3x",
+  "missing__wrong_label_image",
+  "column_break_vyhpp",
+  "missing__wrong_label_total",
+  "section_break_1nzke",
+  "uneven_stitch",
+  "column_break_y6cqu",
+  "uneven_stitch_major",
+  "column_break_a3kt8",
+  "uneven_stitch_minor",
+  "column_break_z3ste",
+  "uneven_stitch_critical",
+  "column_break_v7ytu",
+  "uneven_stitch_image",
+  "column_break_xe0gj",
+  "uneven_stitch_total",
+  "section_break_pubko",
+  "broken__loose_stitch",
+  "column_break_lluti",
+  "broken__loose_stitch_major",
+  "column_break_jkb5n",
+  "broken__loose_stitch_minor",
+  "column_break_ex7so",
+  "broken__loose_stitch_critical",
+  "column_break_e7m1a",
+  "broken__loose_stitch_image",
+  "column_break_xllhy",
+  "broken__loose_stitch_total",
+  "section_break_8huc5",
+  "open_hem__sem",
+  "column_break_kgnc5",
+  "open_hem__sem_major",
+  "column_break_a8ue9",
+  "open_hem__sem_minor",
+  "column_break_gayzn",
+  "open_hem__sem_critical",
+  "column_break_nnzfd",
+  "open_hem__sem_image",
+  "column_break_ue0yb",
+  "open_hem__sem_total"
  ],
  "fields": [
   {
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_filter": 1,
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "width": "1"
   },
   {
    "fieldname": "column_break_h7hs1",
@@ -183,6 +333,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "depends_on": "eval:doc.check_po==1",
    "fieldname": "code",
    "fieldtype": "Link",
    "label": "Code",
@@ -191,17 +342,26 @@
   {
    "fieldname": "article",
    "fieldtype": "Data",
-   "label": "Article"
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Article",
+   "width": "1"
   },
   {
    "fieldname": "size",
    "fieldtype": "Data",
-   "label": "Size"
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Size",
+   "width": "1"
   },
   {
    "fieldname": "design",
    "fieldtype": "Data",
-   "label": "Design"
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Design",
+   "width": "1"
   },
   {
    "fieldname": "column_break_izdi3",
@@ -210,7 +370,10 @@
   {
    "fieldname": "audit_qty",
    "fieldtype": "Int",
-   "label": "Audit Qty"
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Audit Qty",
+   "width": "1"
   },
   {
    "fieldname": "column_break_0l3qj",
@@ -224,7 +387,13 @@
   {
    "fieldname": "checker_name",
    "fieldtype": "Data",
-   "label": "Checker Name"
+   "in_filter": 1,
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Checker Name",
+   "width": "1"
   },
   {
    "fieldname": "item_details_section",
@@ -260,7 +429,10 @@
   {
    "fieldname": "aql_major_accepted",
    "fieldtype": "Int",
-   "label": "AQL Major Accepted"
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "AQL Major Accepted",
+   "width": "1"
   },
   {
    "fieldname": "column_break_uxvod",
@@ -269,7 +441,10 @@
   {
    "fieldname": "aql_minor_accepted",
    "fieldtype": "Int",
-   "label": "AQL Minor Accepted"
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "AQL Minor Accepted",
+   "width": "1"
   },
   {
    "fieldname": "column_break_azldo",
@@ -333,6 +508,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.miss_pick__double_pick==1",
    "fieldname": "miss_pick__double_pick_major",
    "fieldtype": "Int",
    "label": "Miss Pick / Double Pick Major"
@@ -342,6 +518,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.miss_pick__double_pick==1",
    "fieldname": "miss_pick__double_pick_minor",
    "fieldtype": "Int",
    "label": "Miss Pick / Double Pick Minor"
@@ -351,6 +528,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.miss_pick__double_pick==1",
    "fieldname": "miss_pick__double_pick_critical",
    "fieldtype": "Int",
    "label": "Miss Pick / Double Pick Critical"
@@ -360,6 +538,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.miss_pick__double_pick==1",
    "fieldname": "miss_pick__double_pick_image",
    "fieldtype": "Attach Image",
    "label": "Miss Pick / Double Pick Image"
@@ -369,24 +548,15 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "miss_pick__double_pick_total",
-   "fieldtype": "Int",
-   "label": "Miss Pick / Double Pick Total"
-  },
-  {
    "fieldname": "column_break_snf8p",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "fly_yarn",
-   "fieldtype": "Data",
-   "label": "Fly Yarn"
   },
   {
    "fieldname": "column_break_8s0xr",
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.fly_yarn==1",
    "fieldname": "fly_yarn_major",
    "fieldtype": "Data",
    "label": "Fly Yarn Major"
@@ -396,6 +566,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.fly_yarn==1",
    "fieldname": "fly_yarn_minor",
    "fieldtype": "Int",
    "label": "Fly Yarn Minor"
@@ -405,6 +576,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.fly_yarn==1",
    "fieldname": "fly_yarn_critical",
    "fieldtype": "Int",
    "label": "Fly Yarn Critical"
@@ -414,6 +586,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.fly_yarn==1",
    "fieldname": "fly_yarn_image",
    "fieldtype": "Attach Image",
    "label": "Fly Yarn Image"
@@ -421,11 +594,6 @@
   {
    "fieldname": "column_break_4mgre",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "fly_yarn_total",
-   "fieldtype": "Int",
-   "label": "Fly Yarn Total"
   },
   {
    "fieldname": "section_break_yia3p",
@@ -442,6 +610,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.incorrect_construct==1",
    "fieldname": "incorrect_construct_major",
    "fieldtype": "Int",
    "label": "Incorrect construct Major"
@@ -451,6 +620,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.incorrect_construct==1",
    "fieldname": "incorrect_construct_minor",
    "fieldtype": "Int",
    "label": "Incorrect construct Minor"
@@ -460,6 +630,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.incorrect_construct==1",
    "fieldname": "incorrect_construct_critical",
    "fieldtype": "Int",
    "label": "Incorrect construct Critical"
@@ -469,6 +640,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.incorrect_construct==1",
    "fieldname": "incorrect_construct_image",
    "fieldtype": "Attach Image",
    "label": "Incorrect construct Image"
@@ -476,11 +648,6 @@
   {
    "fieldname": "column_break_4k2xh",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "incorrect_construct_total",
-   "fieldtype": "Int",
-   "label": "Incorrect construct Total"
   },
   {
    "fieldname": "section_break_yhlay",
@@ -497,6 +664,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.registreation_out==1",
    "fieldname": "registration_out_major",
    "fieldtype": "Int",
    "label": "Registration out Major"
@@ -506,6 +674,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.registreation_out==1",
    "fieldname": "registration_out_minor",
    "fieldtype": "Int",
    "label": "Registration out Minor"
@@ -515,6 +684,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.registreation_out==1",
    "fieldname": "registration_out_critical",
    "fieldtype": "Int",
    "label": "Registration out Critical"
@@ -524,6 +694,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.registreation_out==1",
    "fieldname": "registreation_out_image",
    "fieldtype": "Attach Image",
    "label": "Registreation out Image"
@@ -531,11 +702,6 @@
   {
    "fieldname": "column_break_g6icf",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "registration_out_total",
-   "fieldtype": "Int",
-   "label": "Registration Out Total"
   },
   {
    "fieldname": "section_break_mpaql",
@@ -552,6 +718,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.miss_print==1",
    "fieldname": "miss_print_major",
    "fieldtype": "Int",
    "label": "Miss Print Major"
@@ -561,6 +728,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.miss_print==1",
    "fieldname": "miss_print_minor",
    "fieldtype": "Int",
    "label": "Miss Print Minor"
@@ -570,6 +738,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.miss_print==1",
    "fieldname": "miss_print_critical",
    "fieldtype": "Int",
    "label": "Miss Print Critical"
@@ -579,6 +748,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.miss_print==1",
    "fieldname": "miss_print_image",
    "fieldtype": "Attach Image",
    "label": "Miss Print Image"
@@ -586,11 +756,6 @@
   {
    "fieldname": "column_break_a0dj7",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "mis_print_total",
-   "fieldtype": "Int",
-   "label": "Mis Print Total"
   },
   {
    "fieldname": "section_break_k8fua",
@@ -607,6 +772,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "depends_on": "eval:doc.bowing==1",
    "fieldname": "bowing_major",
    "fieldtype": "Int",
    "label": "Bowing Major"
@@ -616,6 +782,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.bowing==1",
    "fieldname": "bowing_minor",
    "fieldtype": "Int",
    "label": "Bowing Minor"
@@ -625,6 +792,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.bowing==1",
    "fieldname": "bowing_critical",
    "fieldtype": "Int",
    "label": "Bowing Critical"
@@ -634,6 +802,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.bowing==1",
    "fieldname": "bowing_image",
    "fieldtype": "Attach Image",
    "label": "Bowing Image"
@@ -641,11 +810,6 @@
   {
    "fieldname": "column_break_qlzjp",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "bowing_total",
-   "fieldtype": "Int",
-   "label": "Bowing Total"
   },
   {
    "fieldname": "section_break_ryihr",
@@ -698,11 +862,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "touching_total",
-   "fieldtype": "Int",
-   "label": "Touching Total"
-  },
-  {
    "fieldname": "section_break_pqnnf",
    "fieldtype": "Section Break"
   },
@@ -751,11 +910,6 @@
   {
    "fieldname": "column_break_goyi5",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "streaks_total",
-   "fieldtype": "Int",
-   "label": "Streaks Total"
   },
   {
    "fieldname": "section_break_uuzcn",
@@ -808,11 +962,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "selvedge_qty",
-   "fieldtype": "Int",
-   "label": "Selvedge Qty"
-  },
-  {
    "fieldname": "section_break_zg3sg",
    "fieldtype": "Section Break"
   },
@@ -863,19 +1012,745 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "smash_total",
+   "fieldname": "section_break_c2fsp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.miss_pick__double_pick==1",
+   "fieldname": "miss_pick__double_pick_qty",
+   "fieldtype": "Int",
+   "label": "Miss Pick / Double Pick Total"
+  },
+  {
+   "depends_on": "eval:doc.fly_yarn==1",
+   "fieldname": "fly_yarn_qty",
+   "fieldtype": "Int",
+   "label": "Fly Yarn Total"
+  },
+  {
+   "depends_on": "eval:doc.incorrect_construct==1",
+   "fieldname": "incorrect_construct_qty",
+   "fieldtype": "Int",
+   "label": "Incorrect construct Total"
+  },
+  {
+   "depends_on": "eval:doc.registreation_out==1",
+   "fieldname": "registration_out_qty",
+   "fieldtype": "Int",
+   "label": "Registration Out Total"
+  },
+  {
+   "depends_on": "eval:doc.miss_print==1",
+   "fieldname": "miss_print_qty",
+   "fieldtype": "Int",
+   "label": "Mis Print Total"
+  },
+  {
+   "depends_on": "eval:doc.bowing==1",
+   "fieldname": "bowing_qty",
+   "fieldtype": "Int",
+   "label": "Bowing Total"
+  },
+  {
+   "fieldname": "touching_qty",
+   "fieldtype": "Int",
+   "label": "Touching Total"
+  },
+  {
+   "fieldname": "streaks_qty",
+   "fieldtype": "Int",
+   "label": "Streaks Total"
+  },
+  {
+   "fieldname": "salvage_qty",
+   "fieldtype": "Int",
+   "label": "Selvedge Qty"
+  },
+  {
+   "fieldname": "smash_qty",
    "fieldtype": "Int",
    "label": "Smash Total"
   },
   {
-   "fieldname": "section_break_c2fsp",
+   "default": "0",
+   "fieldname": "other",
+   "fieldtype": "Check",
+   "label": "Other"
+  },
+  {
+   "fieldname": "weaving_total",
+   "fieldtype": "Int",
+   "label": "Weaving Total"
+  },
+  {
+   "fieldname": "column_break_0qc79",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.oop_check==1",
+   "fieldname": "defects",
+   "fieldtype": "Link",
+   "label": "Defects",
+   "options": "Defects"
+  },
+  {
+   "fieldname": "column_break_aqwok",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.oop_check==1",
+   "fieldname": "other_major",
+   "fieldtype": "Int",
+   "label": "Other Major"
+  },
+  {
+   "depends_on": "eval:doc.oop_check==1",
+   "fieldname": "other_minor",
+   "fieldtype": "Int",
+   "label": "Other Minor"
+  },
+  {
+   "fieldname": "column_break_73cjd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.oop_check==1",
+   "fieldname": "other_critical",
+   "fieldtype": "Int",
+   "label": "Other Critical"
+  },
+  {
+   "fieldname": "column_break_t4ss0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.oop_check==1",
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "finishing_defects_section",
+   "fieldtype": "Section Break",
+   "label": "Finishing Defects"
+  },
+  {
+   "default": "0",
+   "fieldname": "un_cut__loose_thread",
+   "fieldtype": "Check",
+   "label": "Un cut / Loose Thread"
+  },
+  {
+   "fieldname": "column_break_oxccr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "un_cut__loose_thread_major",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Major"
+  },
+  {
+   "fieldname": "column_break_9opj3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "un_cut__loose_thread_minor",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Minor"
+  },
+  {
+   "fieldname": "column_break_m2ydp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "un_cut__loose_thread_critical",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Critical"
+  },
+  {
+   "fieldname": "column_break_g01c7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "un_cut__loose_thread_image",
+   "fieldtype": "Attach Image",
+   "label": "Un cut / Loose Thread Image"
+  },
+  {
+   "fieldname": "column_break_7zhbg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "un_cut__loose_thread_total",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Total"
+  },
+  {
+   "fieldname": "section_break_ogspg",
    "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "oil_stain",
+   "fieldtype": "Check",
+   "label": "Oil Stain"
+  },
+  {
+   "fieldname": "column_break_hfely",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "oil_stain_major",
+   "fieldtype": "Int",
+   "label": "Oil Stain Major"
+  },
+  {
+   "fieldname": "column_break_p9kjg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "oil_stain_minor",
+   "fieldtype": "Int",
+   "label": "Oil Stain Minor"
+  },
+  {
+   "fieldname": "column_break_mkuvo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "oil_stain_critical",
+   "fieldtype": "Int",
+   "label": "Oil Stain Critical"
+  },
+  {
+   "fieldname": "column_break_yeiag",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "oil_stain_image",
+   "fieldtype": "Attach Image",
+   "label": "Oil Stain Image"
+  },
+  {
+   "fieldname": "column_break_xl1bn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "oil_stain_total",
+   "fieldtype": "Int",
+   "label": "Oil Stain Total"
+  },
+  {
+   "fieldname": "section_break_v4sth",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "wash_mark",
+   "fieldtype": "Check",
+   "label": "Wash Mark"
+  },
+  {
+   "fieldname": "column_break_dyok8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wash_mark_major",
+   "fieldtype": "Int",
+   "label": "Wash Mark Major"
+  },
+  {
+   "fieldname": "column_break_klxbu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wash_mark_minor",
+   "fieldtype": "Int",
+   "label": "Wash Mark Minor"
+  },
+  {
+   "fieldname": "column_break_0uead",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wash_mark_critical",
+   "fieldtype": "Int",
+   "label": "Wash Mark Critical"
+  },
+  {
+   "fieldname": "column_break_e8iz2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wash_mark_image",
+   "fieldtype": "Attach Image",
+   "label": "Wash Mark Image"
+  },
+  {
+   "fieldname": "column_break_xuuas",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wash_mark_total",
+   "fieldtype": "Int",
+   "label": "Wash Mark Total"
+  },
+  {
+   "fieldname": "section_break_nqy3e",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "cliper_cut",
+   "fieldtype": "Check",
+   "label": "Cliper Cut"
+  },
+  {
+   "fieldname": "column_break_m3cjq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cliper_cut_major",
+   "fieldtype": "Int",
+   "label": "Cliper Cut Major"
+  },
+  {
+   "fieldname": "column_break_brjut",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cliper_cut_minor",
+   "fieldtype": "Int",
+   "label": "Cliper Cut Minor"
+  },
+  {
+   "fieldname": "column_break_quolh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cliper_cut_critical",
+   "fieldtype": "Int",
+   "label": "Cliper Cut Critical"
+  },
+  {
+   "fieldname": "column_break_wrqux",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cliper_cut_image",
+   "fieldtype": "Attach Image",
+   "label": "Cliper Cut Image"
+  },
+  {
+   "fieldname": "column_break_8jiw3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "clipper_cut_total",
+   "fieldtype": "Int",
+   "label": "Clipper Cut Total"
+  },
+  {
+   "fieldname": "section_break_auiku",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "needle_hole",
+   "fieldtype": "Check",
+   "label": "Needle Hole"
+  },
+  {
+   "fieldname": "column_break_kck3l",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "needle_hole_major",
+   "fieldtype": "Int",
+   "label": "Needle Hole Major"
+  },
+  {
+   "fieldname": "column_break_6nexc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "needle_hole_minor",
+   "fieldtype": "Int",
+   "label": "Needle Hole Minor"
+  },
+  {
+   "fieldname": "column_break_ryvcd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "needle_hole_critical",
+   "fieldtype": "Int",
+   "label": "Needle Hole Critical"
+  },
+  {
+   "fieldname": "column_break_lmx0w",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "needle_hole_image",
+   "fieldtype": "Attach Image",
+   "label": "Needle Hole Image"
+  },
+  {
+   "fieldname": "column_break_fntes",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "needle_hole_total",
+   "fieldtype": "Int",
+   "label": "Needle Hole Total"
+  },
+  {
+   "fieldname": "section_break_nly3d",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "dust_mark",
+   "fieldtype": "Check",
+   "label": "Dust Mark"
+  },
+  {
+   "fieldname": "column_break_fqizg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dust_mark_major",
+   "fieldtype": "Int",
+   "label": "Dust Mark Major"
+  },
+  {
+   "fieldname": "column_break_fgixc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dust_mark_minor",
+   "fieldtype": "Int",
+   "label": "Dust Mark Minor"
+  },
+  {
+   "fieldname": "column_break_wfbgv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dust_mark_crtitcal",
+   "fieldtype": "Int",
+   "label": "Dust Mark Crtitcal"
+  },
+  {
+   "fieldname": "column_break_c0mel",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dust_mark_image",
+   "fieldtype": "Attach Image",
+   "label": "Dust Mark Image"
+  },
+  {
+   "fieldname": "column_break_hcigi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dust_mark_total",
+   "fieldtype": "Int",
+   "label": "Dust Mark Total"
+  },
+  {
+   "fieldname": "section_break_xgcav",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "fdo_check",
+   "fieldtype": "Check",
+   "label": "Other"
+  },
+  {
+   "fieldname": "finishing_qty",
+   "fieldtype": "Int",
+   "label": "Finishing Others Total"
+  },
+  {
+   "fieldname": "column_break_owbx6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fdo_defects",
+   "fieldtype": "Link",
+   "label": "Defects",
+   "options": "Defects"
+  },
+  {
+   "fieldname": "column_break_rk9n3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fdo_major",
+   "fieldtype": "Int",
+   "label": "Other Major"
+  },
+  {
+   "fieldname": "column_break_aofh4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fdo_minor",
+   "fieldtype": "Int",
+   "label": "Other Minor"
+  },
+  {
+   "fieldname": "column_break_vgmpk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fdo_critical",
+   "fieldtype": "Int",
+   "label": "Other Critical"
+  },
+  {
+   "fieldname": "column_break_nh17a",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fdo_image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "column_break_ywvns",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sewing_defects_section",
+   "fieldtype": "Section Break",
+   "label": "Sewing Defects"
+  },
+  {
+   "default": "0",
+   "fieldname": "missing__wrong_label",
+   "fieldtype": "Check",
+   "label": "Missing / Wrong Label"
+  },
+  {
+   "fieldname": "column_break_fdkzr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "missing__wrong_label_major",
+   "fieldtype": "Int",
+   "label": "Missing / Wrong Label Major"
+  },
+  {
+   "fieldname": "column_break_uosp6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "missing__wrong_label_minor",
+   "fieldtype": "Int",
+   "label": "Missing / Wrong Label Minor"
+  },
+  {
+   "fieldname": "column_break_xm03h",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "missing__wrong_label_critical",
+   "fieldtype": "Int",
+   "label": "Missing / Wrong Label Critical"
+  },
+  {
+   "fieldname": "column_break_lpt3x",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "missing__wrong_label_image",
+   "fieldtype": "Int",
+   "label": "Missing / Wrong Label Image"
+  },
+  {
+   "fieldname": "column_break_vyhpp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "missing__wrong_label_total",
+   "fieldtype": "Int",
+   "label": "Missing / Wrong Label Total"
+  },
+  {
+   "fieldname": "section_break_1nzke",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "uneven_stitch",
+   "fieldtype": "Check",
+   "label": "Uneven stitch"
+  },
+  {
+   "fieldname": "column_break_y6cqu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uneven_stitch_major",
+   "fieldtype": "Int",
+   "label": "Uneven stitch Major"
+  },
+  {
+   "fieldname": "column_break_a3kt8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uneven_stitch_minor",
+   "fieldtype": "Int",
+   "label": "Uneven stitch Minor"
+  },
+  {
+   "fieldname": "column_break_z3ste",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uneven_stitch_critical",
+   "fieldtype": "Int",
+   "label": "Uneven stitch Critical"
+  },
+  {
+   "fieldname": "column_break_v7ytu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uneven_stitch_image",
+   "fieldtype": "Attach Image",
+   "label": "Uneven stitch Image"
+  },
+  {
+   "fieldname": "column_break_xe0gj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uneven_stitch_total",
+   "fieldtype": "Int",
+   "label": "Uneven stitch Total"
+  },
+  {
+   "fieldname": "section_break_pubko",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "broken__loose_stitch",
+   "fieldtype": "Check",
+   "label": "Broken / Loose Stitch"
+  },
+  {
+   "fieldname": "column_break_lluti",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "broken__loose_stitch_major",
+   "fieldtype": "Int",
+   "label": "Broken / Loose Stitch Major"
+  },
+  {
+   "fieldname": "column_break_jkb5n",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "broken__loose_stitch_minor",
+   "fieldtype": "Int",
+   "label": "Broken / Loose Stitch Minor"
+  },
+  {
+   "fieldname": "column_break_ex7so",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "broken__loose_stitch_critical",
+   "fieldtype": "Int",
+   "label": "Broken / Loose Stitch Critical"
+  },
+  {
+   "fieldname": "column_break_e7m1a",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "broken__loose_stitch_image",
+   "fieldtype": "Attach Image",
+   "label": "Broken / Loose Stitch Image"
+  },
+  {
+   "fieldname": "column_break_xllhy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "broken__loose_stitch_total",
+   "fieldtype": "Int",
+   "label": "Broken / Loose Stitch Total"
+  },
+  {
+   "fieldname": "section_break_8huc5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "open_hem__sem",
+   "fieldtype": "Check",
+   "label": "Open Hem / sem"
+  },
+  {
+   "fieldname": "column_break_kgnc5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "open_hem__sem_major",
+   "fieldtype": "Int",
+   "label": "Open Hem / Sem Major"
+  },
+  {
+   "fieldname": "column_break_a8ue9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "open_hem__sem_minor",
+   "fieldtype": "Int",
+   "label": "Open Hem / Sem Minor"
+  },
+  {
+   "fieldname": "column_break_gayzn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "open_hem__sem_critical",
+   "fieldtype": "Int",
+   "label": "Open Hem / Sem Critical"
+  },
+  {
+   "fieldname": "column_break_nnzfd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "open_hem__sem_image",
+   "fieldtype": "Attach Image",
+   "label": "Open Hem / sem Image"
+  },
+  {
+   "fieldname": "column_break_ue0yb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "open_hem__sem_total",
+   "fieldtype": "Int",
+   "label": "Open Hem / Sem Total"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-24 14:15:23.058359",
+ "modified": "2024-05-31 21:04:20.693413",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",

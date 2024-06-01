@@ -122,7 +122,7 @@
    "fieldname": "items",
    "fieldtype": "Table",
    "label": "Daily Checking Inspection CT",
-   "options": "Daily Random Inspection CT"
+   "options": "Daily Checking Inspection CT"
   },
   {
    "fieldname": "total_audit",
@@ -445,7 +445,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-05-23 21:38:25.801751",
+ "modified": "2024-05-31 19:23:09.073062",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking",
