@@ -26,9 +26,9 @@
   "column_break_wjkjh",
   "color",
   "section_break_su2wk",
-  "aql_major_accepted",
+  "aql_accepted",
   "column_break_uxvod",
-  "aql_minor_accepted",
+  "aql_rejected",
   "column_break_azldo",
   "section_break_wjtp0",
   "major",
@@ -51,7 +51,6 @@
   "miss_pick__double_pick_image",
   "column_break_qoawc",
   "miss_pick__double_pick_qty",
-  "column_break_snf8p",
   "column_break_8s0xr",
   "fly_yarn_major",
   "column_break_qgy2d",
@@ -100,7 +99,7 @@
   "miss_print_qty",
   "section_break_k8fua",
   "bowing",
-  "section_break_rsyln",
+  "column_break_gvrsp",
   "bowing_major",
   "column_break_0goxm",
   "bowing_minor",
@@ -165,23 +164,24 @@
   "defects",
   "column_break_aqwok",
   "other_major",
+  "column_break_7mbyg",
   "other_minor",
   "column_break_73cjd",
   "other_critical",
   "column_break_t4ss0",
   "image",
   "finishing_defects_section",
-  "un_cut__loose_thread",
+  "un_cut",
   "column_break_oxccr",
-  "un_cut__loose_thread_major",
+  "un_cut_major",
   "column_break_9opj3",
-  "un_cut__loose_thread_minor",
+  "un_cut_minor",
   "column_break_m2ydp",
-  "un_cut__loose_thread_critical",
+  "un_cut_critical",
   "column_break_g01c7",
-  "un_cut__loose_thread_image",
+  "un_cut_image",
   "column_break_7zhbg",
-  "un_cut__loose_thread_total",
+  "un_cut_qty",
   "section_break_ogspg",
   "oil_stain",
   "column_break_hfely",
@@ -231,15 +231,15 @@
   "column_break_fntes",
   "nh_qty",
   "section_break_nly3d",
-  "dust_mark",
+  "dust_marka",
   "column_break_fqizg",
-  "dust_mark_major",
+  "dm_major",
   "column_break_fgixc",
-  "dust_mark_minor",
+  "dm_minor",
   "column_break_wfbgv",
-  "dust_mark_crtitcal",
+  "dm_critical",
   "column_break_c0mel",
-  "dust_mark_image",
+  "dust_marka_image",
   "column_break_hcigi",
   "dm_qty",
   "section_break_xgcav",
@@ -500,24 +500,8 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "aql_major_accepted",
-   "fieldtype": "Int",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "AQL Major Accepted",
-   "width": "1"
-  },
-  {
    "fieldname": "column_break_uxvod",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "aql_minor_accepted",
-   "fieldtype": "Int",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "AQL Minor Accepted",
-   "width": "1"
   },
   {
    "fieldname": "column_break_azldo",
@@ -528,18 +512,22 @@
    "fieldtype": "Section Break"
   },
   {
+   "columns": 1,
    "fieldname": "major",
    "fieldtype": "Int",
-   "label": "Major"
+   "label": "Major",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_tquaw",
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "minor",
    "fieldtype": "Int",
-   "label": "Minor"
+   "label": "Minor",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_qj24q",
@@ -621,12 +609,8 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_snf8p",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "column_break_8s0xr",
-   "fieldtype": "Column Break"
+   "fieldtype": "Section Break"
   },
   {
    "depends_on": "eval:doc.fly_yarn==1",
@@ -841,10 +825,6 @@
    "label": "Bowing"
   },
   {
-   "fieldname": "section_break_rsyln",
-   "fieldtype": "Section Break"
-  },
-  {
    "depends_on": "eval:doc.bowing==1",
    "fieldname": "bowing_major",
    "fieldtype": "Int",
@@ -899,6 +879,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.touching==1",
    "fieldname": "touching_major",
    "fieldtype": "Int",
    "label": "Touching Major"
@@ -908,6 +889,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.touching==1",
    "fieldname": "touching_minor",
    "fieldtype": "Int",
    "label": "Touching Minor"
@@ -917,6 +899,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.touching==1",
    "fieldname": "touching_critical",
    "fieldtype": "Int",
    "label": "Touching Critical"
@@ -926,13 +909,14 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.touching==1",
    "fieldname": "touching_image",
    "fieldtype": "Attach Image",
    "label": "Touching Image"
   },
   {
    "fieldname": "section_break_voa2c",
-   "fieldtype": "Section Break"
+   "fieldtype": "Column Break"
   },
   {
    "fieldname": "section_break_pqnnf",
@@ -949,6 +933,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.streaks==1",
    "fieldname": "streaks_major",
    "fieldtype": "Int",
    "label": "Streaks Major"
@@ -958,6 +943,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.streaks==1",
    "fieldname": "streaks_minor",
    "fieldtype": "Int",
    "label": "Streaks Minor"
@@ -967,6 +953,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.streaks==1",
    "fieldname": "streaks_critical",
    "fieldtype": "Int",
    "label": "Streaks Critical"
@@ -976,6 +963,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.streaks==1",
    "fieldname": "streaks_image",
    "fieldtype": "Attach Image",
    "label": "Streaks Image"
@@ -999,6 +987,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.salvage==1",
    "fieldname": "salvage_major",
    "fieldtype": "Int",
    "label": "Salvage Major"
@@ -1008,6 +997,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.salvage==1",
    "fieldname": "salvage_minor",
    "fieldtype": "Int",
    "label": "Salvage Minor"
@@ -1017,6 +1007,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.salvage==1",
    "fieldname": "salvage_critical",
    "fieldtype": "Int",
    "label": "Salvage Critical"
@@ -1026,6 +1017,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.salvage==1",
    "fieldname": "salvage_image",
    "fieldtype": "Data",
    "label": "Salvage Image"
@@ -1049,6 +1041,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.smash==1",
    "fieldname": "smash_major",
    "fieldtype": "Int",
    "label": "Smash Major"
@@ -1058,6 +1051,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.smash==1",
    "fieldname": "smash_minor",
    "fieldtype": "Int",
    "label": "Smash Minor"
@@ -1067,6 +1061,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.smash==1",
    "fieldname": "smash_critical",
    "fieldtype": "Int",
    "label": "Smash Critical"
@@ -1076,6 +1071,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.smash==1",
    "fieldname": "smash_image",
    "fieldtype": "Attach Image",
    "label": "Smash Image"
@@ -1125,21 +1121,25 @@
    "label": "Bowing Total"
   },
   {
+   "depends_on": "eval:doc.touching==1",
    "fieldname": "touching_qty",
    "fieldtype": "Int",
    "label": "Touching Total"
   },
   {
+   "depends_on": "eval:doc.streaks==1",
    "fieldname": "streaks_qty",
    "fieldtype": "Int",
    "label": "Streaks Total"
   },
   {
+   "depends_on": "eval:doc.salvage==1",
    "fieldname": "salvage_qty",
    "fieldtype": "Int",
    "label": "Selvedge Qty"
   },
   {
+   "depends_on": "eval:doc.smash==1",
    "fieldname": "smash_qty",
    "fieldtype": "Int",
    "label": "Smash Total"
@@ -1160,7 +1160,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "depends_on": "eval:doc.oop_check==1",
+   "depends_on": "eval:doc.other==1",
    "fieldname": "defects",
    "fieldtype": "Link",
    "label": "Defects",
@@ -1171,13 +1171,13 @@
    "fieldtype": "Column Break"
   },
   {
-   "depends_on": "eval:doc.oop_check==1",
+   "depends_on": "eval:doc.other==1",
    "fieldname": "other_major",
    "fieldtype": "Int",
    "label": "Other Major"
   },
   {
-   "depends_on": "eval:doc.oop_check==1",
+   "depends_on": "eval:doc.other==1",
    "fieldname": "other_minor",
    "fieldtype": "Int",
    "label": "Other Minor"
@@ -1187,7 +1187,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "depends_on": "eval:doc.oop_check==1",
+   "depends_on": "eval:doc.other==1",
    "fieldname": "other_critical",
    "fieldtype": "Int",
    "label": "Other Critical"
@@ -1197,7 +1197,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "depends_on": "eval:doc.oop_check==1",
+   "depends_on": "eval:doc.other==1",
    "fieldname": "image",
    "fieldtype": "Attach Image",
    "label": "Image"
@@ -1208,55 +1208,24 @@
    "label": "Finishing Defects"
   },
   {
-   "default": "0",
-   "fieldname": "un_cut__loose_thread",
-   "fieldtype": "Check",
-   "label": "Un cut / Loose Thread"
-  },
-  {
    "fieldname": "column_break_oxccr",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "un_cut__loose_thread_major",
-   "fieldtype": "Int",
-   "label": "Un cut / Loose Thread Major"
   },
   {
    "fieldname": "column_break_9opj3",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "un_cut__loose_thread_minor",
-   "fieldtype": "Int",
-   "label": "Un cut / Loose Thread Minor"
-  },
-  {
    "fieldname": "column_break_m2ydp",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "un_cut__loose_thread_critical",
-   "fieldtype": "Int",
-   "label": "Un cut / Loose Thread Critical"
   },
   {
    "fieldname": "column_break_g01c7",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "un_cut__loose_thread_image",
-   "fieldtype": "Attach Image",
-   "label": "Un cut / Loose Thread Image"
-  },
-  {
    "fieldname": "column_break_7zhbg",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "un_cut__loose_thread_total",
-   "fieldtype": "Int",
-   "label": "Un cut / Loose Thread Total"
   },
   {
    "fieldname": "section_break_ogspg",
@@ -1285,6 +1254,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.oil_stain==1",
    "fieldname": "oil_stain_image",
    "fieldtype": "Attach Image",
    "label": "Oil Stain Image"
@@ -1320,6 +1290,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.wash_mark==1",
    "fieldname": "wash_mark_image",
    "fieldtype": "Attach Image",
    "label": "Wash Mark Image"
@@ -1355,6 +1326,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.cliper_cut==1",
    "fieldname": "cliper_cut_image",
    "fieldtype": "Attach Image",
    "label": "Cliper Cut Image"
@@ -1392,46 +1364,20 @@
    "fieldtype": "Section Break"
   },
   {
-   "default": "0",
-   "fieldname": "dust_mark",
-   "fieldtype": "Check",
-   "label": "Dust Mark"
-  },
-  {
    "fieldname": "column_break_fqizg",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "dust_mark_major",
-   "fieldtype": "Int",
-   "label": "Dust Mark Major"
   },
   {
    "fieldname": "column_break_fgixc",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "dust_mark_minor",
-   "fieldtype": "Int",
-   "label": "Dust Mark Minor"
-  },
-  {
    "fieldname": "column_break_wfbgv",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "dust_mark_crtitcal",
-   "fieldtype": "Int",
-   "label": "Dust Mark Crtitcal"
-  },
-  {
    "fieldname": "column_break_c0mel",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "dust_mark_image",
-   "fieldtype": "Attach Image",
-   "label": "Dust Mark Image"
   },
   {
    "fieldname": "column_break_hcigi",
@@ -1467,6 +1413,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.fdo_check==1",
    "fieldname": "fdo_major",
    "fieldtype": "Int",
    "label": "Other Major"
@@ -1476,6 +1423,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.fdo_check==1",
    "fieldname": "fdo_minor",
    "fieldtype": "Int",
    "label": "Other Minor"
@@ -1485,6 +1433,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.fdo_check==1",
    "fieldname": "fdo_critical",
    "fieldtype": "Int",
    "label": "Other Critical"
@@ -1494,13 +1443,14 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.fdo_check==1",
    "fieldname": "fdo_image",
    "fieldtype": "Attach Image",
    "label": "Image"
   },
   {
    "fieldname": "column_break_ywvns",
-   "fieldtype": "Column Break"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "sewing_defects_section",
@@ -1554,6 +1504,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.uneven_stitch==1",
    "fieldname": "uneven_stitch_image",
    "fieldtype": "Attach Image",
    "label": "Uneven stitch Image"
@@ -1637,6 +1588,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.wrong_thread==1",
    "fieldname": "wrong_thread_image",
    "fieldtype": "Attach Image",
    "label": "Wrong Thread Image"
@@ -1672,6 +1624,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.puckering==1",
    "fieldname": "puckering_image",
    "fieldtype": "Int",
    "label": "Puckering Image"
@@ -1707,6 +1660,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.bed_stitch==1",
    "fieldname": "bed_stitch_image",
    "fieldtype": "Attach Image",
    "label": "Bed Stitch Image"
@@ -1742,6 +1696,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.wrong_direction==1",
    "fieldname": "wrong_direction_image",
    "fieldtype": "Attach Image",
    "label": "Wrong Direction Image"
@@ -1777,6 +1732,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.short_size==1",
    "fieldname": "short_size_image",
    "fieldtype": "Attach Image",
    "label": "Short Size Image"
@@ -1800,6 +1756,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.sdo_check==1",
    "fieldname": "sdo_defects",
    "fieldtype": "Link",
    "label": "Defects",
@@ -1810,6 +1767,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.sdo_check==1",
    "fieldname": "sdo_major",
    "fieldtype": "Int",
    "label": "Major"
@@ -1819,186 +1777,223 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.sdo_check==1",
    "fieldname": "sdo_minor",
    "fieldtype": "Int",
    "label": "Minor"
   },
   {
+   "depends_on": "eval:doc.wash_mark==1",
    "fieldname": "wm_qty",
    "fieldtype": "Int",
    "label": "Wash Mark Total"
   },
   {
+   "depends_on": "eval:doc.cliper_cut==1",
    "fieldname": "cc_qty",
    "fieldtype": "Int",
    "label": "Clipper Cut Total"
   },
   {
+   "depends_on": "eval:doc.niddel_hole==1",
    "fieldname": "nh_qty",
    "fieldtype": "Int",
    "label": "Needle Hole Total"
   },
   {
+   "depends_on": "eval:doc.dust_marka==1",
    "fieldname": "dm_qty",
    "fieldtype": "Int",
    "label": "Dust Mark Total"
   },
   {
+   "depends_on": "eval:doc.missing_label==1",
    "fieldname": "mwl_qty",
    "fieldtype": "Int",
    "label": "Missing / Wrong Label Total"
   },
   {
+   "depends_on": "eval:doc.uneven_stitch==1",
    "fieldname": "us_qty",
    "fieldtype": "Int",
    "label": "Uneven stitch Total"
   },
   {
+   "depends_on": "eval:doc.broken_stitch==1",
    "fieldname": "bls_qty",
    "fieldtype": "Int",
    "label": "Broken / Loose Stitch Total"
   },
   {
+   "depends_on": "eval:doc.open_hem==1",
    "fieldname": "ohs_qty",
    "fieldtype": "Int",
    "label": "Open Hem / Sem Total"
   },
   {
+   "depends_on": "eval:doc.wrong_thread==1",
    "fieldname": "wt_qty",
    "fieldtype": "Int",
    "label": "Wrong Thread Total"
   },
   {
+   "depends_on": "eval:doc.puckering==1",
    "fieldname": "p_qty",
    "fieldtype": "Int",
    "label": " Puckering Total"
   },
   {
+   "depends_on": "eval:doc.bed_stitch==1",
    "fieldname": "bs_qty",
    "fieldtype": "Int",
    "label": "Bed Stitch Total"
   },
   {
+   "depends_on": "eval:doc.wrong_direction==1",
    "fieldname": "wd_qty",
    "fieldtype": "Int",
    "label": "Wrong Direction Total"
   },
   {
+   "depends_on": "eval:doc.short_size==1",
    "fieldname": "ss_qty",
    "fieldtype": "Int",
    "label": "Short Size Total"
   },
   {
+   "depends_on": "eval:doc.sdo_check==1",
    "fieldname": "sewing_qty",
    "fieldtype": "Int",
    "label": "Sewing Total"
   },
   {
+   "depends_on": "eval:doc.oil_stain==1",
    "fieldname": "os_major",
    "fieldtype": "Int",
    "label": "Oil Stain Major"
   },
   {
+   "depends_on": "eval:doc.oil_stain==1",
    "fieldname": "os_minor",
    "fieldtype": "Int",
    "label": "Oil Stain Minor"
   },
   {
+   "depends_on": "eval:doc.oil_stain==1",
    "fieldname": "os_critical",
    "fieldtype": "Int",
    "label": "Oil Stain Critical"
   },
   {
+   "depends_on": "eval:doc.wash_mark==1",
    "fieldname": "wm_major",
    "fieldtype": "Int",
    "label": "Wash Mark Major"
   },
   {
+   "depends_on": "eval:doc.wash_mark==1",
    "fieldname": "wm_minor",
    "fieldtype": "Int",
    "label": "Wash Mark Minor"
   },
   {
+   "depends_on": "eval:doc.wash_mark==1",
    "fieldname": "wm_critical",
    "fieldtype": "Int",
    "label": "Wash Mark Critical"
   },
   {
+   "depends_on": "eval:doc.oil_stain==1",
    "fieldname": "oil_stain_total",
    "fieldtype": "Int",
    "label": "Oil Stain Total"
   },
   {
+   "depends_on": "eval:doc.uneven_stitch==1",
    "fieldname": "us_major",
    "fieldtype": "Int",
    "label": "Uneven stitch Major"
   },
   {
+   "depends_on": "eval:doc.uneven_stitch==1",
    "fieldname": "us_minor",
    "fieldtype": "Int",
    "label": "Uneven stitch Minor"
   },
   {
+   "depends_on": "eval:doc.uneven_stitch==1",
    "fieldname": "us_critical",
    "fieldtype": "Int",
    "label": "Uneven stitch Critical"
   },
   {
+   "depends_on": "eval:doc.puckering==1",
    "fieldname": "p_major",
    "fieldtype": "Int",
    "label": " Puckering Major"
   },
   {
+   "depends_on": "eval:doc.puckering==1",
    "fieldname": "p_minor",
    "fieldtype": "Int",
    "label": " Puckering Minor"
   },
   {
+   "depends_on": "eval:doc.puckering==1",
    "fieldname": "p_critical",
    "fieldtype": "Int",
    "label": " Puckering Critical"
   },
   {
+   "depends_on": "eval:doc.bed_stitch==1",
    "fieldname": "bs_major",
    "fieldtype": "Int",
    "label": "Bed Stitch Major"
   },
   {
+   "depends_on": "eval:doc.bed_stitch==1",
    "fieldname": "bs_minor",
    "fieldtype": "Int",
    "label": "Bed Stitch Minor"
   },
   {
+   "depends_on": "eval:doc.bed_stitch==1",
    "fieldname": "ms_critical",
    "fieldtype": "Int",
    "label": "Bed Stitch Critical"
   },
   {
+   "depends_on": "eval:doc.short_size==1",
    "fieldname": "ss_major",
    "fieldtype": "Int",
    "label": "Short Size Major"
   },
   {
+   "depends_on": "eval:doc.short_size==1",
    "fieldname": "ss_minor",
    "fieldtype": "Int",
    "label": "Short Size Minor"
   },
   {
+   "depends_on": "eval:doc.short_size==1",
    "fieldname": "ss_critical",
    "fieldtype": "Data",
    "label": "Short Size Critical"
   },
   {
+   "depends_on": "eval:doc.cliper_cut==1",
    "fieldname": "cc_major",
    "fieldtype": "Int",
    "label": "Cliper Cut Major"
   },
   {
+   "depends_on": "eval:doc.cliper_cut==1",
    "fieldname": "cc_minor",
    "fieldtype": "Int",
    "label": "Cliper Cut Minor"
   },
   {
+   "depends_on": "eval:doc.cliper_cut==1",
    "fieldname": "cc_critical",
    "fieldtype": "Int",
    "label": "Cliper Cut Critical"
@@ -2010,21 +2005,25 @@
    "label": "Needle Hole"
   },
   {
+   "depends_on": "eval:doc.niddel_hole==1",
    "fieldname": "nh_major",
    "fieldtype": "Int",
    "label": "Needle Hole Major"
   },
   {
+   "depends_on": "eval:doc.niddel_hole==1",
    "fieldname": "nh_minor",
    "fieldtype": "Int",
    "label": "Needle Hole Minor"
   },
   {
+   "depends_on": "eval:doc.niddel_hole==1",
    "fieldname": "nh_critical",
    "fieldtype": "Int",
    "label": "Needle Hole Critical"
   },
   {
+   "depends_on": "eval:doc.niddel_hole==1",
    "fieldname": "niddel_hole_image",
    "fieldtype": "Attach Image",
    "label": "Needle Hole Image"
@@ -2036,21 +2035,25 @@
    "label": "Missing / Wrong Label"
   },
   {
+   "depends_on": "eval:doc.missing_label==1",
    "fieldname": "mwl_major",
    "fieldtype": "Int",
    "label": "Missing / Wrong Label Major"
   },
   {
+   "depends_on": "eval:doc.missing_label==1",
    "fieldname": "mwl_minor",
    "fieldtype": "Int",
    "label": "Missing / Wrong Label Minor"
   },
   {
+   "depends_on": "eval:doc.missing_label==1",
    "fieldname": "mwc_critical",
    "fieldtype": "Int",
    "label": "Missing / Wrong Label Critical"
   },
   {
+   "depends_on": "eval:doc.missing_label==1",
    "fieldname": "missing_label_image",
    "fieldtype": "Int",
    "label": "Missing / Wrong Label Image"
@@ -2062,21 +2065,25 @@
    "label": "Broken / Loose Stitch"
   },
   {
+   "depends_on": "eval:doc.broken_stitch==1",
    "fieldname": "bls_major",
    "fieldtype": "Int",
    "label": "Broken / Loose Stitch Major"
   },
   {
+   "depends_on": "eval:doc.broken_stitch==1",
    "fieldname": "bls_minor",
    "fieldtype": "Int",
    "label": "Broken / Loose Stitch Minor"
   },
   {
+   "depends_on": "eval:doc.broken_stitch==1",
    "fieldname": "bls_critical",
    "fieldtype": "Int",
    "label": "Broken / Loose Stitch Critical"
   },
   {
+   "depends_on": "eval:doc.broken_stitch==1",
    "fieldname": "broken_stitch_image",
    "fieldtype": "Attach Image",
    "label": "Broken / Loose Stitch Image"
@@ -2088,60 +2095,160 @@
    "label": "Open Hem / sem"
   },
   {
+   "depends_on": "eval:doc.open_hem==1",
    "fieldname": "ohs_major",
    "fieldtype": "Int",
    "label": "Open Hem / Sem Major"
   },
   {
+   "depends_on": "eval:doc.open_hem==1",
    "fieldname": "ohs_minor",
    "fieldtype": "Int",
    "label": "Open Hem / Sem Minor"
   },
   {
+   "depends_on": "eval:doc.open_hem==1",
    "fieldname": "ohs_critical",
    "fieldtype": "Int",
    "label": "Open Hem / Sem Critical"
   },
   {
+   "depends_on": "eval:doc.open_hem==1",
    "fieldname": "open_hem_image",
    "fieldtype": "Attach Image",
    "label": "Open Hem / sem Image"
   },
   {
+   "depends_on": "eval:doc.wrong_thread==1",
    "fieldname": "wt_major",
    "fieldtype": "Int",
    "label": "Wrong Thread Major"
   },
   {
+   "depends_on": "eval:doc.wrong_thread==1",
    "fieldname": "wt_minor",
    "fieldtype": "Int",
    "label": "Wrong Thread Minor"
   },
   {
+   "depends_on": "eval:doc.wrong_thread==1",
    "fieldname": "wt_critical",
    "fieldtype": "Int",
    "label": "Wrong Thread Critical"
   },
   {
+   "depends_on": "eval:doc.wrong_direction==1",
    "fieldname": "wd_major",
    "fieldtype": "Int",
    "label": "Wrong Direction Major"
   },
   {
+   "depends_on": "eval:doc.wrong_direction==1",
    "fieldname": "wd_minor",
    "fieldtype": "Int",
    "label": "Wrong Direction Minor"
   },
   {
+   "depends_on": "eval:doc.wrong_direction==1",
    "fieldname": "wd_critical",
    "fieldtype": "Int",
    "label": "Wrong Direction Critical"
+  },
+  {
+   "fieldname": "column_break_gvrsp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_7mbyg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "un_cut",
+   "fieldtype": "Check",
+   "label": "Un cut / Loose Thread"
+  },
+  {
+   "depends_on": "eval:doc.un_cut==1",
+   "fieldname": "un_cut_major",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Major"
+  },
+  {
+   "depends_on": "eval:doc.un_cut==1",
+   "fieldname": "un_cut_minor",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Minor"
+  },
+  {
+   "depends_on": "eval:doc.un_cut==1",
+   "fieldname": "un_cut_critical",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Critical"
+  },
+  {
+   "depends_on": "eval:doc.un_cut==1",
+   "fieldname": "un_cut_image",
+   "fieldtype": "Attach Image",
+   "label": "Un cut / Loose Thread Image"
+  },
+  {
+   "depends_on": "eval:doc.un_cut==1",
+   "fieldname": "un_cut_qty",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Total"
+  },
+  {
+   "default": "0",
+   "fieldname": "dust_marka",
+   "fieldtype": "Check",
+   "label": "Dust Mark"
+  },
+  {
+   "depends_on": "eval:doc.dust_marka==1",
+   "fieldname": "dm_major",
+   "fieldtype": "Int",
+   "label": "Dust Mark Major"
+  },
+  {
+   "depends_on": "eval:doc.dust_marka==1",
+   "fieldname": "dm_minor",
+   "fieldtype": "Int",
+   "label": "Dust Mark Minor"
+  },
+  {
+   "depends_on": "eval:doc.dust_marka==1",
+   "fieldname": "dm_critical",
+   "fieldtype": "Int",
+   "label": "Dust Mark Crtitcal"
+  },
+  {
+   "depends_on": "eval:doc.dust_marka==1",
+   "fieldname": "dust_marka_image",
+   "fieldtype": "Attach Image",
+   "label": "Dust Mark Image"
+  },
+  {
+   "fieldname": "aql_accepted",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "AQL Major Accepted",
+   "width": "1"
+  },
+  {
+   "fieldname": "aql_rejected",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "AQL Minor Accepted",
+   "width": "1"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-01 15:08:20.778633",
+ "modified": "2024-06-04 15:09:10.772938",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",
