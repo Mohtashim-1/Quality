@@ -42,53 +42,67 @@
  ],
  "fields": [
   {
+   "columns": 1,
    "fieldname": "machine",
    "fieldtype": "Link",
    "label": "Machine #",
-   "options": "Asset"
+   "options": "Asset",
+   "width": "1"
   },
   {
+   "columns": 1,
    "fieldname": "operator_name",
    "fieldtype": "Link",
    "label": "Operator Name",
-   "options": "Machine Operator"
+   "options": "Machine Operator",
+   "width": "1"
   },
   {
+   "columns": 1,
    "fieldname": "article",
    "fieldtype": "Link",
    "label": "Article",
-   "options": "Stitching Article"
+   "options": "Stitching Article",
+   "width": "1"
   },
   {
+   "columns": 1,
    "fieldname": "size",
    "fieldtype": "Link",
    "label": "Size",
-   "options": "Attribute Size"
+   "options": "Attribute Size",
+   "width": "1"
   },
   {
    "fieldname": "column_break_audjl",
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "design",
    "fieldtype": "Link",
    "label": "Design",
-   "options": "Stitching Design"
+   "options": "Stitching Design",
+   "width": "1"
   },
   {
    "fieldname": "column_break_tud4l",
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "operation",
    "fieldtype": "Link",
    "label": "Operation",
-   "options": "Inspection Operation"
+   "options": "Inspection Operation",
+   "width": "1"
   },
   {
+   "columns": 1,
    "fieldname": "no_of_pcs",
    "fieldtype": "Int",
-   "label": "No of Pcs"
+   "label": "No of Pcs",
+   "width": "1"
   },
   {
    "fieldname": "defects_totals_section",
@@ -96,9 +110,11 @@
    "label": "Defects Totals"
   },
   {
+   "columns": 1,
    "fieldname": "double_stitch",
    "fieldtype": "Int",
-   "label": "Double Stitch"
+   "label": "Double Stitch",
+   "width": "1"
   },
   {
    "fieldname": "open_seam",
@@ -211,7 +227,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-06 21:59:52.870792",
+ "modified": "2024-06-06 22:12:04.275523",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Inline Stitching CT",

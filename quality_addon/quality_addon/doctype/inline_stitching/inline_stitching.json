@@ -74,6 +74,7 @@
  ],
  "fields": [
   {
+   "default": "Now",
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Posting Date"
@@ -83,6 +84,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "Now",
    "fieldname": "reporting_date",
    "fieldtype": "Date",
    "label": "Reporting Date"
@@ -102,6 +104,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "Now",
    "fieldname": "time",
    "fieldtype": "Time",
    "label": "Time"
@@ -109,6 +112,7 @@
   {
    "fieldname": "department",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Department",
    "options": "Operation"
   },
@@ -139,26 +143,31 @@
    "label": "Total Defects"
   },
   {
+   "default": "0",
    "fieldname": "double_stitch_total",
    "fieldtype": "Int",
    "label": "Double Stitch Total"
   },
   {
+   "default": "0",
    "fieldname": "overlap_feb_total",
    "fieldtype": "Int",
    "label": "Overlap Feb Total"
   },
   {
+   "default": "0",
    "fieldname": "uneven_stitch_total",
    "fieldtype": "Int",
    "label": "Uneven Stitch Total"
   },
   {
+   "default": "0",
    "fieldname": "boot_mark_total",
    "fieldtype": "Int",
    "label": "Boot Mark Total"
   },
   {
+   "default": "0",
    "fieldname": "other_defect_qty",
    "fieldtype": "Int",
    "label": "Other Defect Qty"
@@ -168,21 +177,25 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "open_seam_total",
    "fieldtype": "Int",
    "label": "Open Seam Total"
   },
   {
+   "default": "0",
    "fieldname": "puckering_total",
    "fieldtype": "Int",
    "label": "Puckering Total"
   },
   {
+   "default": "0",
    "fieldname": "bad_stitch_total",
    "fieldtype": "Int",
    "label": "Bad Stitch Total"
   },
   {
+   "default": "0",
    "fieldname": "damage_total",
    "fieldtype": "Int",
    "label": "Damage Total"
@@ -192,21 +205,25 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "loose_stitch_total",
    "fieldtype": "Int",
    "label": "Loose Stitch Total"
   },
   {
+   "default": "0",
    "fieldname": "raw_edge_total",
    "fieldtype": "Int",
    "label": "Raw Edge Total"
   },
   {
+   "default": "0",
    "fieldname": "open_safty_total",
    "fieldtype": "Int",
    "label": "Open Safty Total"
   },
   {
+   "default": "0",
    "fieldname": "wrong_direction_total",
    "fieldtype": "Int",
    "label": "Wrong Direction Total"
@@ -216,21 +233,25 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "oil_stain_total",
    "fieldtype": "Int",
    "label": "Oil Stain Total"
   },
   {
+   "default": "0",
    "fieldname": "spi_total",
    "fieldtype": "Int",
    "label": "Spi Total"
   },
   {
+   "default": "0",
    "fieldname": "skip_stitch_total",
    "fieldtype": "Int",
    "label": "Skip Stitch Total"
   },
   {
+   "default": "0",
    "fieldname": "number_label_missing_total",
    "fieldtype": "Int",
    "label": "Number Label Missing Total"
@@ -241,26 +262,31 @@
    "label": "Total Defects Percentage"
   },
   {
+   "default": "0",
    "fieldname": "ds_percent",
    "fieldtype": "Percent",
    "label": "Double Stitch %"
   },
   {
+   "default": "0",
    "fieldname": "of_percent",
    "fieldtype": "Percent",
    "label": "Overlap Feb %"
   },
   {
+   "default": "0",
    "fieldname": "us_percent",
    "fieldtype": "Percent",
    "label": "Uneven Stitch %"
   },
   {
+   "default": "0",
    "fieldname": "bm_percent",
    "fieldtype": "Percent",
    "label": "Boot Mark %"
   },
   {
+   "default": "0",
    "fieldname": "od_percent",
    "fieldtype": "Percent",
    "label": "Other Defect %"
@@ -270,21 +296,25 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "o_seam_percent",
    "fieldtype": "Percent",
    "label": "Open Seam %"
   },
   {
+   "default": "0",
    "fieldname": "p_percent",
    "fieldtype": "Percent",
    "label": "Puckering %"
   },
   {
+   "default": "0",
    "fieldname": "bs_percent",
    "fieldtype": "Percent",
    "label": "Bad Stitch %"
   },
   {
+   "default": "0",
    "fieldname": "d_percent",
    "fieldtype": "Percent",
    "label": "Damage %"
@@ -294,21 +324,25 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "ls_percent",
    "fieldtype": "Percent",
    "label": "Loose Stitch %"
   },
   {
+   "default": "0",
    "fieldname": "re_percent",
    "fieldtype": "Percent",
    "label": "Raw Edge %"
   },
   {
+   "default": "0",
    "fieldname": "o_percent",
    "fieldtype": "Percent",
    "label": "Open Safty %"
   },
   {
+   "default": "0",
    "fieldname": "wd_percent",
    "fieldtype": "Percent",
    "label": "Wrong Direction %"
@@ -318,21 +352,25 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "os_percent",
    "fieldtype": "Percent",
    "label": "Oil Stain %"
   },
   {
+   "default": "0",
    "fieldname": "s_percent",
    "fieldtype": "Percent",
    "label": "Spi %"
   },
   {
+   "default": "0",
    "fieldname": "ss_percent",
    "fieldtype": "Percent",
    "label": "Skip Stitch %"
   },
   {
+   "default": "0",
    "fieldname": "nlm_percent",
    "fieldtype": "Percent",
    "label": "Number Label Missing %"
@@ -342,6 +380,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "default": "0",
    "fieldname": "total_defects",
    "fieldtype": "Int",
    "label": "Total Defects"
@@ -351,6 +390,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "total_number_pcs",
    "fieldtype": "Int",
    "label": "Total Number Pcs"
@@ -360,6 +400,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "defect_percentage",
    "fieldtype": "Percent",
    "label": "Defect %"
@@ -367,6 +408,7 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Series",
    "options": "\nISI-.MM.-.YY.-"
   },
@@ -383,7 +425,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-06 21:45:28.496992",
+ "modified": "2024-06-06 22:21:56.149987",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Inline Stitching",
