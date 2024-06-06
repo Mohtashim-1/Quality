@@ -1,0 +1,409 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-06-06 21:30:05.289070",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "column_break_grn8u",
+  "reporting_date",
+  "column_break_ltgie",
+  "process_type",
+  "column_break_6ncpm",
+  "time",
+  "department",
+  "column_break_pb2sp",
+  "select_po",
+  "detail_section",
+  "inline_stitching_ct",
+  "total_defects_section",
+  "double_stitch_total",
+  "overlap_feb_total",
+  "uneven_stitch_total",
+  "boot_mark_total",
+  "other_defect_qty",
+  "column_break_xuixz",
+  "open_seam_total",
+  "puckering_total",
+  "bad_stitch_total",
+  "damage_total",
+  "column_break_w9vr2",
+  "loose_stitch_total",
+  "raw_edge_total",
+  "open_safty_total",
+  "wrong_direction_total",
+  "column_break_ghnde",
+  "oil_stain_total",
+  "spi_total",
+  "skip_stitch_total",
+  "number_label_missing_total",
+  "total_defects_percentage_section",
+  "ds_percent",
+  "of_percent",
+  "us_percent",
+  "bm_percent",
+  "od_percent",
+  "column_break_rgmuk",
+  "o_seam_percent",
+  "p_percent",
+  "bs_percent",
+  "d_percent",
+  "column_break_xabnb",
+  "ls_percent",
+  "re_percent",
+  "o_percent",
+  "wd_percent",
+  "column_break_curky",
+  "os_percent",
+  "s_percent",
+  "ss_percent",
+  "nlm_percent",
+  "section_break_nathd",
+  "total_defects",
+  "column_break_pvxym",
+  "total_number_pcs",
+  "column_break_nlkny",
+  "defect_percentage",
+  "naming_series",
+  "remarks_section",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "column_break_grn8u",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reporting_date",
+   "fieldtype": "Date",
+   "label": "Reporting Date"
+  },
+  {
+   "fieldname": "column_break_ltgie",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "process_type",
+   "fieldtype": "Select",
+   "label": "Process TIme",
+   "options": "\n09 to 12\n12 to 03\n03 to 06"
+  },
+  {
+   "fieldname": "column_break_6ncpm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Operation"
+  },
+  {
+   "fieldname": "column_break_pb2sp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "select_po",
+   "fieldtype": "Link",
+   "label": "Select PO#",
+   "options": "Sales Order"
+  },
+  {
+   "fieldname": "detail_section",
+   "fieldtype": "Section Break",
+   "label": "Detail"
+  },
+  {
+   "fieldname": "inline_stitching_ct",
+   "fieldtype": "Table",
+   "label": "Inline Stitching CT",
+   "options": "Inline Stitching CT"
+  },
+  {
+   "fieldname": "total_defects_section",
+   "fieldtype": "Section Break",
+   "label": "Total Defects"
+  },
+  {
+   "fieldname": "double_stitch_total",
+   "fieldtype": "Int",
+   "label": "Double Stitch Total"
+  },
+  {
+   "fieldname": "overlap_feb_total",
+   "fieldtype": "Int",
+   "label": "Overlap Feb Total"
+  },
+  {
+   "fieldname": "uneven_stitch_total",
+   "fieldtype": "Int",
+   "label": "Uneven Stitch Total"
+  },
+  {
+   "fieldname": "boot_mark_total",
+   "fieldtype": "Int",
+   "label": "Boot Mark Total"
+  },
+  {
+   "fieldname": "other_defect_qty",
+   "fieldtype": "Int",
+   "label": "Other Defect Qty"
+  },
+  {
+   "fieldname": "column_break_xuixz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "open_seam_total",
+   "fieldtype": "Int",
+   "label": "Open Seam Total"
+  },
+  {
+   "fieldname": "puckering_total",
+   "fieldtype": "Int",
+   "label": "Puckering Total"
+  },
+  {
+   "fieldname": "bad_stitch_total",
+   "fieldtype": "Int",
+   "label": "Bad Stitch Total"
+  },
+  {
+   "fieldname": "damage_total",
+   "fieldtype": "Int",
+   "label": "Damage Total"
+  },
+  {
+   "fieldname": "column_break_w9vr2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "loose_stitch_total",
+   "fieldtype": "Int",
+   "label": "Loose Stitch Total"
+  },
+  {
+   "fieldname": "raw_edge_total",
+   "fieldtype": "Int",
+   "label": "Raw Edge Total"
+  },
+  {
+   "fieldname": "open_safty_total",
+   "fieldtype": "Int",
+   "label": "Open Safty Total"
+  },
+  {
+   "fieldname": "wrong_direction_total",
+   "fieldtype": "Int",
+   "label": "Wrong Direction Total"
+  },
+  {
+   "fieldname": "column_break_ghnde",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "oil_stain_total",
+   "fieldtype": "Int",
+   "label": "Oil Stain Total"
+  },
+  {
+   "fieldname": "spi_total",
+   "fieldtype": "Int",
+   "label": "Spi Total"
+  },
+  {
+   "fieldname": "skip_stitch_total",
+   "fieldtype": "Int",
+   "label": "Skip Stitch Total"
+  },
+  {
+   "fieldname": "number_label_missing_total",
+   "fieldtype": "Int",
+   "label": "Number Label Missing Total"
+  },
+  {
+   "fieldname": "total_defects_percentage_section",
+   "fieldtype": "Section Break",
+   "label": "Total Defects Percentage"
+  },
+  {
+   "fieldname": "ds_percent",
+   "fieldtype": "Percent",
+   "label": "Double Stitch %"
+  },
+  {
+   "fieldname": "of_percent",
+   "fieldtype": "Percent",
+   "label": "Overlap Feb %"
+  },
+  {
+   "fieldname": "us_percent",
+   "fieldtype": "Percent",
+   "label": "Uneven Stitch %"
+  },
+  {
+   "fieldname": "bm_percent",
+   "fieldtype": "Percent",
+   "label": "Boot Mark %"
+  },
+  {
+   "fieldname": "od_percent",
+   "fieldtype": "Percent",
+   "label": "Other Defect %"
+  },
+  {
+   "fieldname": "column_break_rgmuk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "o_seam_percent",
+   "fieldtype": "Percent",
+   "label": "Open Seam %"
+  },
+  {
+   "fieldname": "p_percent",
+   "fieldtype": "Percent",
+   "label": "Puckering %"
+  },
+  {
+   "fieldname": "bs_percent",
+   "fieldtype": "Percent",
+   "label": "Bad Stitch %"
+  },
+  {
+   "fieldname": "d_percent",
+   "fieldtype": "Percent",
+   "label": "Damage %"
+  },
+  {
+   "fieldname": "column_break_xabnb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ls_percent",
+   "fieldtype": "Percent",
+   "label": "Loose Stitch %"
+  },
+  {
+   "fieldname": "re_percent",
+   "fieldtype": "Percent",
+   "label": "Raw Edge %"
+  },
+  {
+   "fieldname": "o_percent",
+   "fieldtype": "Percent",
+   "label": "Open Safty %"
+  },
+  {
+   "fieldname": "wd_percent",
+   "fieldtype": "Percent",
+   "label": "Wrong Direction %"
+  },
+  {
+   "fieldname": "column_break_curky",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "os_percent",
+   "fieldtype": "Percent",
+   "label": "Oil Stain %"
+  },
+  {
+   "fieldname": "s_percent",
+   "fieldtype": "Percent",
+   "label": "Spi %"
+  },
+  {
+   "fieldname": "ss_percent",
+   "fieldtype": "Percent",
+   "label": "Skip Stitch %"
+  },
+  {
+   "fieldname": "nlm_percent",
+   "fieldtype": "Percent",
+   "label": "Number Label Missing %"
+  },
+  {
+   "fieldname": "section_break_nathd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_defects",
+   "fieldtype": "Int",
+   "label": "Total Defects"
+  },
+  {
+   "fieldname": "column_break_pvxym",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_number_pcs",
+   "fieldtype": "Int",
+   "label": "Total Number Pcs"
+  },
+  {
+   "fieldname": "column_break_nlkny",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "defect_percentage",
+   "fieldtype": "Percent",
+   "label": "Defect %"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "\nISI-.MM.-.YY.-"
+  },
+  {
+   "fieldname": "remarks_section",
+   "fieldtype": "Section Break",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text",
+   "label": "Remarks"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-06-06 21:45:28.496992",
+ "modified_by": "Administrator",
+ "module": "Quality Addon",
+ "name": "Inline Stitching",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
