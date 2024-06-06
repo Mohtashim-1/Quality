@@ -32,6 +32,7 @@
   "sample_qty",
   "section_break_wjtp0",
   "major",
+  "total_major",
   "column_break_tquaw",
   "minor",
   "column_break_qj24q",
@@ -43,6 +44,7 @@
   "miss_pick__double_pick",
   "column_break_fskhl",
   "miss_pick__double_pick_major",
+  "virtual_major",
   "column_break_cdfik",
   "miss_pick__double_pick_minor",
   "column_break_qr8bx",
@@ -163,7 +165,7 @@
   "column_break_0qc79",
   "defects",
   "column_break_aqwok",
-  "other_major",
+  "owp_major",
   "column_break_7mbyg",
   "other_minor",
   "column_break_73cjd",
@@ -1158,12 +1160,6 @@
   {
    "fieldname": "column_break_aqwok",
    "fieldtype": "Column Break"
-  },
-  {
-   "depends_on": "eval:doc.other==1",
-   "fieldname": "other_major",
-   "fieldtype": "Int",
-   "label": "Other Major"
   },
   {
    "depends_on": "eval:doc.other==1",
@@ -2254,12 +2250,29 @@
    "label": "Design",
    "options": "Stitching Design",
    "width": "1"
+  },
+  {
+   "fieldname": "virtual_major",
+   "fieldtype": "Data",
+   "is_virtual": 1,
+   "label": "Virtual Major"
+  },
+  {
+   "fieldname": "total_major",
+   "fieldtype": "Int",
+   "label": "Total Major"
+  },
+  {
+   "depends_on": "eval:doc.other==1",
+   "fieldname": "owp_major",
+   "fieldtype": "Int",
+   "label": "Other Major"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-06 15:48:19.002476",
+ "modified": "2024-06-06 17:24:36.122040",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",
