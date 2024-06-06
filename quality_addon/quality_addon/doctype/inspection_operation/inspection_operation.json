@@ -1,29 +1,29 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:article",
- "creation": "2024-06-06 21:51:17.747215",
+ "autoname": "field:operation",
+ "creation": "2024-06-06 21:55:21.278504",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "article"
+  "operation"
  ],
  "fields": [
   {
-   "fieldname": "article",
+   "fieldname": "operation",
    "fieldtype": "Data",
-   "label": "Article",
+   "label": "Operation",
    "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-06 21:51:26.158188",
+ "modified": "2024-06-06 21:55:21.278504",
  "modified_by": "Administrator",
  "module": "Quality Addon",
- "name": "Stitching Article",
+ "name": "Inspection Operation",
  "name_case": "Title Case",
  "naming_rule": "By fieldname",
  "owner": "Administrator",

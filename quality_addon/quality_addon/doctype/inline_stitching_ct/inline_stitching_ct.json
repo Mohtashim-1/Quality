@@ -6,19 +6,212 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "name1"
+  "machine",
+  "operator_name",
+  "article",
+  "size",
+  "column_break_audjl",
+  "design",
+  "column_break_tud4l",
+  "operation",
+  "no_of_pcs",
+  "defects_totals_section",
+  "double_stitch",
+  "open_seam",
+  "loose_stitch",
+  "oil_stain",
+  "other_defects",
+  "column_break_nwjul",
+  "overlap_feb",
+  "puckering",
+  "raw_edge",
+  "spi",
+  "defects_qty",
+  "column_break_bedav",
+  "uneven_stitch",
+  "bad_stitch",
+  "open_safty",
+  "skip_stitch",
+  "column_break_cqacv",
+  "boot_mark",
+  "damage",
+  "wrong_direction",
+  "number_label_missing",
+  "section_break_assgq",
+  "total_defect_pcs"
  ],
  "fields": [
   {
-   "fieldname": "name1",
-   "fieldtype": "Data",
-   "label": "name"
+   "fieldname": "machine",
+   "fieldtype": "Link",
+   "label": "Machine #",
+   "options": "Asset"
+  },
+  {
+   "fieldname": "operator_name",
+   "fieldtype": "Link",
+   "label": "Operator Name",
+   "options": "Machine Operator"
+  },
+  {
+   "fieldname": "article",
+   "fieldtype": "Link",
+   "label": "Article",
+   "options": "Stitching Article"
+  },
+  {
+   "fieldname": "size",
+   "fieldtype": "Link",
+   "label": "Size",
+   "options": "Attribute Size"
+  },
+  {
+   "fieldname": "column_break_audjl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "design",
+   "fieldtype": "Link",
+   "label": "Design",
+   "options": "Stitching Design"
+  },
+  {
+   "fieldname": "column_break_tud4l",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "operation",
+   "fieldtype": "Link",
+   "label": "Operation",
+   "options": "Inspection Operation"
+  },
+  {
+   "fieldname": "no_of_pcs",
+   "fieldtype": "Int",
+   "label": "No of Pcs"
+  },
+  {
+   "fieldname": "defects_totals_section",
+   "fieldtype": "Section Break",
+   "label": "Defects Totals"
+  },
+  {
+   "fieldname": "double_stitch",
+   "fieldtype": "Int",
+   "label": "Double Stitch"
+  },
+  {
+   "fieldname": "open_seam",
+   "fieldtype": "Int",
+   "label": "Open Seam"
+  },
+  {
+   "fieldname": "loose_stitch",
+   "fieldtype": "Int",
+   "label": "Loose Stitch"
+  },
+  {
+   "fieldname": "oil_stain",
+   "fieldtype": "Int",
+   "label": "Oil Stain"
+  },
+  {
+   "fieldname": "other_defects",
+   "fieldtype": "Link",
+   "label": "Other Defects",
+   "options": "Defects"
+  },
+  {
+   "fieldname": "column_break_nwjul",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "overlap_feb",
+   "fieldtype": "Int",
+   "label": "Overlap Feb"
+  },
+  {
+   "fieldname": "puckering",
+   "fieldtype": "Int",
+   "label": "Puckering"
+  },
+  {
+   "fieldname": "raw_edge",
+   "fieldtype": "Int",
+   "label": "Raw Edge"
+  },
+  {
+   "fieldname": "spi",
+   "fieldtype": "Int",
+   "label": "Spi"
+  },
+  {
+   "fieldname": "defects_qty",
+   "fieldtype": "Int",
+   "label": "Defects Quantity"
+  },
+  {
+   "fieldname": "column_break_bedav",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uneven_stitch",
+   "fieldtype": "Int",
+   "label": "Uneven Stitch"
+  },
+  {
+   "fieldname": "bad_stitch",
+   "fieldtype": "Int",
+   "label": "Bad Stitch"
+  },
+  {
+   "fieldname": "open_safty",
+   "fieldtype": "Int",
+   "label": "Open Safty"
+  },
+  {
+   "fieldname": "skip_stitch",
+   "fieldtype": "Int",
+   "label": "Skip Stitch"
+  },
+  {
+   "fieldname": "column_break_cqacv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "boot_mark",
+   "fieldtype": "Int",
+   "label": "Boot Mark"
+  },
+  {
+   "fieldname": "damage",
+   "fieldtype": "Int",
+   "label": "Damage"
+  },
+  {
+   "fieldname": "wrong_direction",
+   "fieldtype": "Int",
+   "label": "Wrong Direction"
+  },
+  {
+   "fieldname": "number_label_missing",
+   "fieldtype": "Int",
+   "label": "Number Label Missing"
+  },
+  {
+   "fieldname": "section_break_assgq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_defect_pcs",
+   "fieldtype": "Int",
+   "label": "Total Defect Pcs"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-06 21:33:01.145896",
+ "modified": "2024-06-06 21:59:52.870792",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Inline Stitching CT",

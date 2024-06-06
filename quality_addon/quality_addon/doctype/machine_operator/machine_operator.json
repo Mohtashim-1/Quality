@@ -1,29 +1,29 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:article",
- "creation": "2024-06-06 21:51:17.747215",
+ "autoname": "field:machine_operator_name",
+ "creation": "2024-06-06 21:49:25.550552",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "article"
+  "machine_operator_name"
  ],
  "fields": [
   {
-   "fieldname": "article",
+   "fieldname": "machine_operator_name",
    "fieldtype": "Data",
-   "label": "Article",
+   "label": "Machine Operator Name",
    "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-06 21:51:26.158188",
+ "modified": "2024-06-06 21:49:25.550552",
  "modified_by": "Administrator",
  "module": "Quality Addon",
- "name": "Stitching Article",
+ "name": "Machine Operator",
  "name_case": "Title Case",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
