@@ -41,31 +41,31 @@
   "weaving_defects",
   "column_break_ybwrr",
   "miss_pick__double_pick_qty",
-  "fly_yarn_total",
+  "fly_yarn_qty",
   "incorrect_construct_qty",
   "section_break_2dhru",
-  "registration_out_total",
-  "mis_print_total",
-  "bowing_total",
+  "registration_out_qty",
+  "miss_print_qty",
+  "bowing_qty",
   "column_break_lm9yk",
-  "touching_total",
-  "streaks_total",
-  "selvedge_total",
+  "touching_qty",
+  "streaks_qty",
+  "salvage_qty",
   "column_break_ubob1",
-  "smash_total",
-  "weaving_other_total",
+  "smash_qty",
+  "weaving_qty",
   "finishing_defects",
   "section_break_a8542",
   "cc_qty",
-  "un_cut__loose_thread_total",
+  "un_cut_qty",
   "column_break_sbz5x",
-  "needle_hole_total",
+  "nh_qty",
   "finishing_qty",
   "column_break_gc4mf",
   "os_qty",
   "wash_mark_total",
   "column_break_mzrpj",
-  "dust_mark_total",
+  "dm_qty",
   "sewing_defects",
   "column_break_gqt5z",
   "mwl_qty",
@@ -74,8 +74,8 @@
   "p_qty",
   "section_break_zosgx",
   "sewing_qty",
-  "broken__loose_stitch_total",
-  "open_hem__sem_total",
+  "bls_qty",
+  "ohs_qty",
   "bs_qty",
   "column_break_quusn",
   "wd_qty",
@@ -147,64 +147,9 @@
    "label": "Remarks"
   },
   {
-   "fieldname": "fly_yarn_total",
-   "fieldtype": "Int",
-   "label": "Fly Yarn Total"
-  },
-  {
-   "fieldname": "registration_out_total",
-   "fieldtype": "Int",
-   "label": "Registration out Total"
-  },
-  {
-   "fieldname": "mis_print_total",
-   "fieldtype": "Int",
-   "label": "Mis Print Total"
-  },
-  {
-   "fieldname": "bowing_total",
-   "fieldtype": "Int",
-   "label": "Bowing Total"
-  },
-  {
-   "fieldname": "touching_total",
-   "fieldtype": "Int",
-   "label": "Touching Total"
-  },
-  {
-   "fieldname": "streaks_total",
-   "fieldtype": "Int",
-   "label": "Streaks Total"
-  },
-  {
-   "fieldname": "selvedge_total",
-   "fieldtype": "Int",
-   "label": "Selvedge Total"
-  },
-  {
-   "fieldname": "smash_total",
-   "fieldtype": "Int",
-   "label": "Smash Total"
-  },
-  {
-   "fieldname": "weaving_other_total",
-   "fieldtype": "Int",
-   "label": "Weaving Other Total"
-  },
-  {
    "fieldname": "finishing_defects",
    "fieldtype": "Int",
    "label": "Finishing Defects"
-  },
-  {
-   "fieldname": "un_cut__loose_thread_total",
-   "fieldtype": "Int",
-   "label": "Un cut / Loose Thread Total"
-  },
-  {
-   "fieldname": "needle_hole_total",
-   "fieldtype": "Int",
-   "label": "Needle Hole Total"
   },
   {
    "fieldname": "wash_mark_total",
@@ -212,24 +157,9 @@
    "label": "Wash Mark Total "
   },
   {
-   "fieldname": "dust_mark_total",
-   "fieldtype": "Int",
-   "label": "Dust Mark Total"
-  },
-  {
    "fieldname": "sewing_defects",
    "fieldtype": "Int",
    "label": "Sewing Defects"
-  },
-  {
-   "fieldname": "broken__loose_stitch_total",
-   "fieldtype": "Int",
-   "label": "Broken / Loose Stitch Total"
-  },
-  {
-   "fieldname": "open_hem__sem_total",
-   "fieldtype": "Int",
-   "label": "Open Hem / Sem Total"
   },
   {
    "fieldname": "naming_series",
@@ -440,11 +370,82 @@
    "fieldname": "incorrect_construct_qty",
    "fieldtype": "Int",
    "label": "Incorrect construct Total"
+  },
+  {
+   "fieldname": "fly_yarn_qty",
+   "fieldtype": "Int",
+   "label": "Fly Yarn Total"
+  },
+  {
+   "fieldname": "registration_out_qty",
+   "fieldtype": "Int",
+   "label": "Registration out Total"
+  },
+  {
+   "fieldname": "miss_print_qty",
+   "fieldtype": "Int",
+   "label": "Mis Print Total"
+  },
+  {
+   "fieldname": "bowing_qty",
+   "fieldtype": "Int",
+   "label": "Bowing Total"
+  },
+  {
+   "fieldname": "touching_qty",
+   "fieldtype": "Int",
+   "label": "Touching Total"
+  },
+  {
+   "fieldname": "streaks_qty",
+   "fieldtype": "Int",
+   "label": "Streaks Total"
+  },
+  {
+   "fieldname": "salvage_qty",
+   "fieldtype": "Int",
+   "label": "Selvedge Total"
+  },
+  {
+   "fieldname": "smash_qty",
+   "fieldtype": "Int",
+   "label": "Smash Total"
+  },
+  {
+   "fieldname": "weaving_qty",
+   "fieldtype": "Int",
+   "label": "Weaving Other Total"
+  },
+  {
+   "fieldname": "un_cut_qty",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Total"
+  },
+  {
+   "fieldname": "nh_qty",
+   "fieldtype": "Int",
+   "label": "Needle Hole Total"
+  },
+  {
+   "fieldname": "dm_qty",
+   "fieldtype": "Int",
+   "label": "Dust Mark Total"
+  },
+  {
+   "fieldname": "bls_qty",
+   "fieldtype": "Int",
+   "label": "Broken / Loose Stitch Total"
+  },
+  {
+   "fieldname": "ohs_qty",
+   "fieldtype": "Int",
+   "label": "Open Hem / Sem Total"
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2024-06-01 14:40:51.156264",
+ "modified": "2024-06-06 14:25:13.179405",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking",
