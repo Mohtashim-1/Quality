@@ -372,7 +372,11 @@
   "column_break_8jnff",
   "sdo_major",
   "column_break_z6wdt",
-  "sdo_minor"
+  "sdo_minor",
+  "column_break_cz69j",
+  "sdo_critical",
+  "column_break_cllau",
+  "sdo_image"
  ],
  "fields": [
   {
@@ -2242,12 +2246,30 @@
    "fieldname": "owp_major",
    "fieldtype": "Int",
    "label": "Other Major"
+  },
+  {
+   "fieldname": "column_break_cz69j",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sdo_critical",
+   "fieldtype": "Int",
+   "label": "Other Critical"
+  },
+  {
+   "fieldname": "column_break_cllau",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sdo_image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-06 19:34:31.134464",
+ "modified": "2024-06-06 19:41:00.580946",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",
