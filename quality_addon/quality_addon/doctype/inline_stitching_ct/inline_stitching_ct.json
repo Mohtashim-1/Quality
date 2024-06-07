@@ -42,17 +42,26 @@
  ],
  "fields": [
   {
-   "columns": 1,
+   "columns": 2,
    "fieldname": "machine",
    "fieldtype": "Link",
+   "in_filter": 1,
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Machine #",
    "options": "Asset",
-   "width": "1"
+   "width": "2"
   },
   {
    "columns": 1,
    "fieldname": "operator_name",
    "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Operator Name",
    "options": "Machine Operator",
    "width": "1"
@@ -61,6 +70,10 @@
    "columns": 1,
    "fieldname": "article",
    "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Article",
    "options": "Stitching Article",
    "width": "1"
@@ -69,6 +82,10 @@
    "columns": 1,
    "fieldname": "size",
    "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Size",
    "options": "Attribute Size",
    "width": "1"
@@ -81,6 +98,10 @@
    "columns": 1,
    "fieldname": "design",
    "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Design",
    "options": "Stitching Design",
    "width": "1"
@@ -93,6 +114,10 @@
    "columns": 1,
    "fieldname": "operation",
    "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Operation",
    "options": "Inspection Operation",
    "width": "1"
@@ -101,6 +126,10 @@
    "columns": 1,
    "fieldname": "no_of_pcs",
    "fieldtype": "Int",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "No of Pcs",
    "width": "1"
   },
@@ -221,13 +250,17 @@
   {
    "fieldname": "total_defect_pcs",
    "fieldtype": "Int",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Total Defect Pcs"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-06 22:12:04.275523",
+ "modified": "2024-06-08 00:49:30.087582",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Inline Stitching CT",
