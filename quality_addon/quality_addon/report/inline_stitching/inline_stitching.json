@@ -1,0 +1,27 @@
+{
+ "add_total_row": 1,
+ "columns": [],
+ "creation": "2024-06-08 17:43:13.716987",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "modified": "2024-06-08 17:43:18.416176",
+ "modified_by": "Administrator",
+ "module": "Quality Addon",
+ "name": "Inline Stitching",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "Select \nisi.reporting_date as \"Date\",\nisi.name as \"ID\",\nisct.operator_name as \"Operator Name:Data:100\",\nisct.machine as \"Machine:Link/Machine\",\nSUM(isct.total_defect_pcs) as \"Total Defects\",\nSUM(isct.double_stitch) as \"Double Stitch\",\nSUM(isct.open_seam) as \"Open Seam\",\nSUM(isct.loose_stitch) as \"Loose Stitch\",\nSUM(isct.oil_stain) as \"Oil Stain\",\nSUM(isct.overlap_feb) as \"Overlap Feb\",\nSUM(isct.puckering) as \"Puckering\",\nSUM(isct.raw_edge) as \"Raw Edge\",\nSUM(isct.defects_qty) as \"Defects Qty\",\nSUM(isct.uneven_stitch) as \"Uneven Stitch\",\nSUM(isct.bad_stitch) as \"Bad Stitch\",\nSUM(isct.open_safty) as \"Open Safty\",\nSUM(isct.skip_stitch) as \"Skip Stitch\",\nSUM(isct.boot_mark) as \"Boot Mark\",\nSUM(isct.damage) as \"Damage\",\nSUM(isct.wrong_direction) as \"Wrong Direction\",\nSUM(isct.number_label_missing) as \"Number Label Missing\"\n\n\n\nfrom\n`tabInline Stitching Inspection` as isi\njoin `tabInline Stitching CT`  as isct \non isct.parent=isi.name \n\n\n\n\n\nwhere\nisi.reporting_date between %(from_date)s and %(to_date)s \n\nGROUP BY\n    isct.machine\nORDER BY\n    isct.total_defect_pcs DESC\n\n",
+ "ref_doctype": "Inline Stitching",
+ "report_name": "Inline Stitching",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ]
+}
