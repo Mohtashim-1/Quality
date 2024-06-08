@@ -380,6 +380,7 @@
  ],
  "fields": [
   {
+   "columns": 1,
    "fieldname": "customer",
    "fieldtype": "Link",
    "in_filter": 1,
@@ -413,9 +414,13 @@
    "options": "Item"
   },
   {
+   "columns": 1,
    "fieldname": "size",
    "fieldtype": "Data",
+   "in_filter": 1,
+   "in_global_search": 1,
    "in_list_view": 1,
+   "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Size",
    "width": "1"
@@ -425,9 +430,13 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "audit_qty",
    "fieldtype": "Int",
+   "in_filter": 1,
+   "in_global_search": 1,
    "in_list_view": 1,
+   "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Audit Qty",
    "width": "1"
@@ -437,23 +446,28 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "sample_qty",
    "fieldtype": "Int",
    "in_filter": 1,
+   "in_global_search": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Sample Qty"
+   "label": "Sample Qty",
+   "width": "1"
   },
   {
+   "columns": 1,
    "fieldname": "checker_name",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_filter": 1,
    "in_global_search": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Checker Name",
+   "options": "Checker",
    "width": "1"
   },
   {
@@ -500,7 +514,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "columns": 1,
    "fieldname": "major",
    "fieldtype": "Int",
    "label": "Major",
@@ -511,7 +524,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "columns": 1,
    "fieldname": "minor",
    "fieldtype": "Int",
    "label": "Minor",
@@ -2200,17 +2212,25 @@
    "label": "Dust Mark Image"
   },
   {
+   "columns": 1,
    "fieldname": "aql_accepted",
    "fieldtype": "Int",
+   "in_filter": 1,
+   "in_global_search": 1,
    "in_list_view": 1,
+   "in_preview": 1,
    "in_standard_filter": 1,
    "label": "AQL Major Accepted",
    "width": "1"
   },
   {
+   "columns": 1,
    "fieldname": "aql_rejected",
    "fieldtype": "Int",
+   "in_filter": 1,
+   "in_global_search": 1,
    "in_list_view": 1,
+   "in_preview": 1,
    "in_standard_filter": 1,
    "label": "AQL Minor Accepted",
    "width": "1"
@@ -2252,18 +2272,26 @@
    "label": "Other Minor"
   },
   {
+   "columns": 1,
    "fieldname": "at_article",
    "fieldtype": "Link",
+   "in_filter": 1,
+   "in_global_search": 1,
    "in_list_view": 1,
+   "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Article",
    "options": "Stitching Article",
    "width": "1"
   },
   {
+   "columns": 1,
    "fieldname": "at_design",
    "fieldtype": "Link",
+   "in_filter": 1,
+   "in_global_search": 1,
    "in_list_view": 1,
+   "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Design",
    "options": "Stitching Design",
@@ -2273,7 +2301,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-09 00:59:53.173123",
+ "modified": "2024-06-09 01:04:55.847081",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",
