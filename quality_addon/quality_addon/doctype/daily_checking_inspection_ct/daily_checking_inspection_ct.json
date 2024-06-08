@@ -503,7 +503,8 @@
    "columns": 1,
    "fieldname": "major",
    "fieldtype": "Int",
-   "label": "Major"
+   "label": "Major",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_tquaw",
@@ -523,7 +524,8 @@
   {
    "fieldname": "critical",
    "fieldtype": "Int",
-   "label": "Critical"
+   "label": "Critical",
+   "read_only": 1
   },
   {
    "fieldname": "status",
@@ -2271,7 +2273,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-08 13:53:05.841909",
+ "modified": "2024-06-09 00:59:53.173123",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",
