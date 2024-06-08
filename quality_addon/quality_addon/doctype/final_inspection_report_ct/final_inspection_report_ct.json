@@ -355,7 +355,57 @@
   "ss_major",
   "column_break_663zn",
   "ss_minor",
-  "column_break_ewqe1"
+  "column_break_ewqe1",
+  "ss_critical",
+  "column_break_1pf6p",
+  "short_size_image",
+  "column_break_ab0ij",
+  "ss_qty",
+  "column_break_furyn",
+  "sdo_check",
+  "column_break_clrta",
+  "sdo_defects",
+  "column_break_4jeoz",
+  "sdo_major",
+  "column_break_7nlbl",
+  "sdo_minor",
+  "column_break_dbvr7",
+  "sdo_critical",
+  "column_break_skxf0",
+  "sdo_image",
+  "packing_defects_tab",
+  "section_break_andpw",
+  "wrong_barcode",
+  "column_break_s7bzo",
+  "wmb_major",
+  "column_break_izsq9",
+  "wmb_minor",
+  "column_break_n8mo1",
+  "wmb_critical",
+  "column_break_clear",
+  "wrong_barcode_image",
+  "column_break_nhrfi",
+  "wmb_qty",
+  "section_break_ai3r7",
+  "wrong_size",
+  "column_break_rfo0x",
+  "wms_major",
+  "column_break_mwssk",
+  "wms_minor",
+  "column_break_iq5yz",
+  "wms_critical",
+  "column_break_o4lgs",
+  "missing_size_image",
+  "column_break_kpaii",
+  "wms_qty",
+  "section_break_z7hyq",
+  "wrong_inlay",
+  "column_break_gvpnu",
+  "rwi_major",
+  "column_break_z51vp",
+  "rwi_minor",
+  "column_break_mvbqs",
+  "rwi_critical"
  ],
  "fields": [
   {
@@ -1965,12 +2015,243 @@
   {
    "fieldname": "column_break_ewqe1",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ss_critical",
+   "fieldtype": "Int",
+   "label": "Short Size Critical"
+  },
+  {
+   "fieldname": "column_break_1pf6p",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "short_size_image",
+   "fieldtype": "Attach Image",
+   "label": "Short Size Image"
+  },
+  {
+   "fieldname": "column_break_ab0ij",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ss_qty",
+   "fieldtype": "Int",
+   "label": "Short Size Qty"
+  },
+  {
+   "fieldname": "column_break_furyn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "sdo_check",
+   "fieldtype": "Check",
+   "label": "Other"
+  },
+  {
+   "fieldname": "column_break_clrta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sdo_defects",
+   "fieldtype": "Link",
+   "label": "Defects",
+   "options": "Defects"
+  },
+  {
+   "fieldname": "column_break_4jeoz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sdo_major",
+   "fieldtype": "Int",
+   "label": "Major"
+  },
+  {
+   "fieldname": "column_break_7nlbl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sdo_minor",
+   "fieldtype": "Int",
+   "label": "Minor"
+  },
+  {
+   "fieldname": "column_break_dbvr7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sdo_critical",
+   "fieldtype": "Int",
+   "label": "Other Critical"
+  },
+  {
+   "fieldname": "column_break_skxf0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sdo_image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "packing_defects_tab",
+   "fieldtype": "Tab Break",
+   "label": "Packing Defects"
+  },
+  {
+   "fieldname": "section_break_andpw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "wrong_barcode",
+   "fieldtype": "Check",
+   "label": "Wrong / Missing Barcode"
+  },
+  {
+   "fieldname": "column_break_s7bzo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wmb_major",
+   "fieldtype": "Int",
+   "label": "Wrong / Missing Barcode Major"
+  },
+  {
+   "fieldname": "column_break_izsq9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wmb_minor",
+   "fieldtype": "Int",
+   "label": "Wrong / Missing Barcode Minor"
+  },
+  {
+   "fieldname": "column_break_n8mo1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wmb_critical",
+   "fieldtype": "Int",
+   "label": "Wrong / Missing Barcode Critical"
+  },
+  {
+   "fieldname": "column_break_clear",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wrong_barcode_image",
+   "fieldtype": "Attach Image",
+   "label": "Wrong / Missing Barcode Image"
+  },
+  {
+   "fieldname": "column_break_nhrfi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wmb_qty",
+   "fieldtype": "Int",
+   "label": "Wrong / Missing Barcode Qty"
+  },
+  {
+   "fieldname": "section_break_ai3r7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "wrong_size",
+   "fieldtype": "Check",
+   "label": "Wrong / Missing Size"
+  },
+  {
+   "fieldname": "column_break_rfo0x",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wms_major",
+   "fieldtype": "Int",
+   "label": " Wrong / Missing Size Major"
+  },
+  {
+   "fieldname": "column_break_mwssk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wms_minor",
+   "fieldtype": "Int",
+   "label": " Wrong / Missing Size Minor"
+  },
+  {
+   "fieldname": "column_break_iq5yz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wms_critical",
+   "fieldtype": "Int",
+   "label": " Wrong / Missing Size Critical"
+  },
+  {
+   "fieldname": "column_break_o4lgs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "missing_size_image",
+   "fieldtype": "Attach Image",
+   "label": "Wrong / Missing Size Image"
+  },
+  {
+   "fieldname": "column_break_kpaii",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wms_qty",
+   "fieldtype": "Int",
+   "label": " Wrong / Missing Size Qty"
+  },
+  {
+   "fieldname": "section_break_z7hyq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "wrong_inlay",
+   "fieldtype": "Check",
+   "label": "Rejected / Wrong inlay"
+  },
+  {
+   "fieldname": "column_break_gvpnu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rwi_major",
+   "fieldtype": "Int",
+   "label": " Rejected / Wrong inlay Major"
+  },
+  {
+   "fieldname": "column_break_z51vp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rwi_minor",
+   "fieldtype": "Int",
+   "label": " Rejected / Wrong inlay Minor"
+  },
+  {
+   "fieldname": "column_break_mvbqs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rwi_critical",
+   "fieldtype": "Int",
+   "label": " Rejected / Wrong inlay Critical"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-08 16:43:26.524830",
+ "modified": "2024-06-08 16:50:51.502667",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Final Inspection Report CT",
