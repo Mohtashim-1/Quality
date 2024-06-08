@@ -255,7 +255,57 @@
   "sewing_defects_tab",
   "section_break_a5tfh",
   "missing_label",
-  "column_break_1cvuv"
+  "column_break_1cvuv",
+  "mwl_major",
+  "column_break_yodpt",
+  "mwl_minor",
+  "column_break_y31r0",
+  "mwc_critical",
+  "column_break_euuur",
+  "missing_label_image",
+  "column_break_wnn1i",
+  "mwl_qty",
+  "section_break_gdibc",
+  "uneven_stitch",
+  "column_break_vbeyj",
+  "us_major",
+  "column_break_wufjm",
+  "us_minor",
+  "column_break_thrq6",
+  "us_critical",
+  "column_break_4sato",
+  "uneven_stitch_image",
+  "column_break_leoh7",
+  "us_qty",
+  "section_break_a9zoh",
+  "broken_stitch",
+  "column_break_yeeos",
+  "bls_major",
+  "column_break_june2",
+  "bls_minor",
+  "column_break_k13tq",
+  "bls_critical",
+  "column_break_t4gor",
+  "broken_stitch_image",
+  "column_break_boptn",
+  "bls_qty",
+  "section_break_et30w",
+  "open_hem",
+  "column_break_gof69",
+  "ohs_major",
+  "column_break_b0i3i",
+  "ohs_minor",
+  "column_break_0rrro",
+  "ohs_critical",
+  "column_break_1u30y",
+  "open_hem_image",
+  "column_break_1cjko",
+  "ohs_qty",
+  "section_break_4mybi",
+  "wrong_thread",
+  "column_break_nr1av",
+  "wt_major",
+  "column_break_xhzcp"
  ],
  "fields": [
   {
@@ -1407,12 +1457,241 @@
   {
    "fieldname": "column_break_1cvuv",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mwl_major",
+   "fieldtype": "Int",
+   "label": "Missing / Wrong Label Major"
+  },
+  {
+   "fieldname": "column_break_yodpt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mwl_minor",
+   "fieldtype": "Int",
+   "label": "Missing / Wrong Label Minor"
+  },
+  {
+   "fieldname": "column_break_y31r0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mwc_critical",
+   "fieldtype": "Int",
+   "label": "Missing / Wrong Label Critical"
+  },
+  {
+   "fieldname": "column_break_euuur",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "missing_label_image",
+   "fieldtype": "Attach Image",
+   "label": "Missing / Wrong Label Image"
+  },
+  {
+   "fieldname": "column_break_wnn1i",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mwl_qty",
+   "fieldtype": "Int",
+   "label": "Missing / Wrong Label Qty"
+  },
+  {
+   "fieldname": "section_break_gdibc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "uneven_stitch",
+   "fieldtype": "Check",
+   "label": "Uneven stitch"
+  },
+  {
+   "fieldname": "column_break_vbeyj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "us_major",
+   "fieldtype": "Int",
+   "label": "Uneven stitch Major"
+  },
+  {
+   "fieldname": "column_break_wufjm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "us_minor",
+   "fieldtype": "Int",
+   "label": "Uneven stitch Minor"
+  },
+  {
+   "fieldname": "column_break_thrq6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "us_critical",
+   "fieldtype": "Int",
+   "label": "Uneven stitch Critical"
+  },
+  {
+   "fieldname": "column_break_4sato",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uneven_stitch_image",
+   "fieldtype": "Attach Image",
+   "label": "Uneven stitch Image"
+  },
+  {
+   "fieldname": "column_break_leoh7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "us_qty",
+   "fieldtype": "Int",
+   "label": "Uneven stitch Qty"
+  },
+  {
+   "fieldname": "section_break_a9zoh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "broken_stitch",
+   "fieldtype": "Check",
+   "label": "Broken / Loose Stitch"
+  },
+  {
+   "fieldname": "column_break_yeeos",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bls_major",
+   "fieldtype": "Int",
+   "label": "Broken / Loose Stitch Major"
+  },
+  {
+   "fieldname": "column_break_june2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bls_minor",
+   "fieldtype": "Int",
+   "label": "Broken / Loose Stitch Minor"
+  },
+  {
+   "fieldname": "column_break_k13tq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bls_critical",
+   "fieldtype": "Int",
+   "label": "Broken / Loose Stitch Critical"
+  },
+  {
+   "fieldname": "column_break_t4gor",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "broken_stitch_image",
+   "fieldtype": "Attach Image",
+   "label": "Broken / Loose Stitch Image"
+  },
+  {
+   "fieldname": "column_break_boptn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bls_qty",
+   "fieldtype": "Int",
+   "label": "Broken / Loose Stitch Qty"
+  },
+  {
+   "fieldname": "section_break_et30w",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "open_hem",
+   "fieldtype": "Check",
+   "label": "Open Hem / sem"
+  },
+  {
+   "fieldname": "column_break_gof69",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ohs_major",
+   "fieldtype": "Int",
+   "label": "Open Hem / Sem Major"
+  },
+  {
+   "fieldname": "column_break_b0i3i",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ohs_minor",
+   "fieldtype": "Int",
+   "label": "Open Hem / Sem Minor"
+  },
+  {
+   "fieldname": "column_break_0rrro",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ohs_critical",
+   "fieldtype": "Int",
+   "label": "Open Hem / Sem Critical"
+  },
+  {
+   "fieldname": "column_break_1u30y",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "open_hem_image",
+   "fieldtype": "Attach Image",
+   "label": "Open Hem / sem Image"
+  },
+  {
+   "fieldname": "column_break_1cjko",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ohs_qty",
+   "fieldtype": "Int",
+   "label": "Open Hem / Sem Qty"
+  },
+  {
+   "fieldname": "section_break_4mybi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "wrong_thread",
+   "fieldtype": "Check",
+   "label": "Wrong Thread"
+  },
+  {
+   "fieldname": "column_break_nr1av",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wt_major",
+   "fieldtype": "Int",
+   "label": "Wrong Thread Major"
+  },
+  {
+   "fieldname": "column_break_xhzcp",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-08 16:30:38.412518",
+ "modified": "2024-06-08 16:37:47.308846",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Final Inspection Report CT",
