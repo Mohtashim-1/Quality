@@ -457,7 +457,105 @@
   "column_break_9ufxn",
   "dust_in_poly_bag_image",
   "column_break_ev9ok",
-  "pdpb_qty"
+  "pdpb_qty",
+  "section_break_nkzag",
+  "miss_matching",
+  "column_break_4b48u",
+  "mm_major",
+  "column_break_39n6e",
+  "mm_minor",
+  "column_break_mjosk",
+  "mm_critical",
+  "column_break_qiun1",
+  "miss_matching_image",
+  "column_break_oz0bq",
+  "mm_qty",
+  "section_break_uyaqk",
+  "bed_presentation",
+  "column_break_m9bo6",
+  "bp_major",
+  "column_break_oactj",
+  "bp_minor",
+  "column_break_ymkfv",
+  "bp_critical",
+  "column_break_poe9u",
+  "bed_presentation_image",
+  "column_break_0dru7",
+  "bp_qty",
+  "section_break_bxuzc",
+  "wrong_assortment",
+  "column_break_toakg",
+  "wa_major",
+  "column_break_bjt5o",
+  "wa_minor",
+  "column_break_hyvra",
+  "wa_critical",
+  "column_break_7lqxo",
+  "wrong_assortment_image",
+  "column_break_j0dt6",
+  "wa_qty",
+  "section_break_ugwvy",
+  "pdo_check",
+  "column_break_8i2qq",
+  "pdo_defects",
+  "column_break_8x68e",
+  "pdo_major",
+  "column_break_fazvd",
+  "pdo_minor",
+  "column_break_jwagu",
+  "pdo_critical",
+  "column_break_px6jp",
+  "pdo_image",
+  "column_break_w7air",
+  "section_break_qmsch",
+  "damaged_cartons",
+  "column_break_bu86e",
+  "dc_major",
+  "column_break_xae5v",
+  "dc_minor",
+  "column_break_eoonl",
+  "dc_critical",
+  "column_break_asaoi",
+  "damaged_carton_image",
+  "column_break_5gwln",
+  "dc_qty",
+  "section_break_vop3y",
+  "wrong_making",
+  "column_break_htkx2",
+  "wmm_major",
+  "column_break_ffdpx",
+  "wmm_minor",
+  "column_break_o436n",
+  "wmm_critical",
+  "column_break_pzu0m",
+  "wrong_making_image",
+  "column_break_gkrrq",
+  "wmm_qty",
+  "section_break_tektn",
+  "carton_wrong_size",
+  "column_break_6opuj",
+  "ws_major",
+  "column_break_8jnlf",
+  "ws_minor",
+  "column_break_t9e67",
+  "ws_critical",
+  "column_break_as2dx",
+  "carton_wrong_size_image",
+  "column_break_xorya",
+  "ws_qty",
+  "section_break_8p75a",
+  "wrong_barcode_carton",
+  "column_break_jd6au",
+  "wbs_major",
+  "column_break_x1bq3",
+  "wbs_minor",
+  "column_break_6jzc5",
+  "wbs_critical",
+  "column_break_guh3t",
+  "wrong_barcode_carton_image",
+  "column_break_j61wp",
+  "wbs_qty",
+  "section_break_qjxn4"
  ],
  "fields": [
   {
@@ -2536,12 +2634,462 @@
    "fieldname": "pdpb_qty",
    "fieldtype": "Int",
    "label": "Powder / dust in poly bag Qty"
+  },
+  {
+   "fieldname": "section_break_nkzag",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "miss_matching",
+   "fieldtype": "Check",
+   "label": "Miss Matching"
+  },
+  {
+   "fieldname": "column_break_4b48u",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mm_major",
+   "fieldtype": "Int",
+   "label": "Miss Matching Major"
+  },
+  {
+   "fieldname": "column_break_39n6e",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mm_minor",
+   "fieldtype": "Int",
+   "label": "Miss Matching Minor"
+  },
+  {
+   "fieldname": "column_break_mjosk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mm_critical",
+   "fieldtype": "Int",
+   "label": "Miss Matching Critical"
+  },
+  {
+   "fieldname": "column_break_qiun1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miss_matching_image",
+   "fieldtype": "Attach Image",
+   "label": "Miss Matching Image"
+  },
+  {
+   "fieldname": "column_break_oz0bq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mm_qty",
+   "fieldtype": "Int",
+   "label": "Miss Matching Qty"
+  },
+  {
+   "fieldname": "section_break_uyaqk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "bed_presentation",
+   "fieldtype": "Check",
+   "label": "Bed Presentation"
+  },
+  {
+   "fieldname": "column_break_m9bo6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bp_major",
+   "fieldtype": "Int",
+   "label": "Bed Presentation Major"
+  },
+  {
+   "fieldname": "column_break_oactj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bp_minor",
+   "fieldtype": "Int",
+   "label": "Bed Presentation Minor"
+  },
+  {
+   "fieldname": "column_break_ymkfv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bp_critical",
+   "fieldtype": "Int",
+   "label": "Bed Presentation Critical"
+  },
+  {
+   "fieldname": "column_break_poe9u",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bed_presentation_image",
+   "fieldtype": "Attach Image",
+   "label": "Bed Presentation Image"
+  },
+  {
+   "fieldname": "column_break_0dru7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bp_qty",
+   "fieldtype": "Int",
+   "label": "Bed Presentation Qty"
+  },
+  {
+   "fieldname": "section_break_bxuzc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "wrong_assortment",
+   "fieldtype": "Check",
+   "label": "Wrong assortment"
+  },
+  {
+   "fieldname": "column_break_toakg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wa_major",
+   "fieldtype": "Int",
+   "label": "Wrong assortment Major"
+  },
+  {
+   "fieldname": "column_break_bjt5o",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wa_minor",
+   "fieldtype": "Int",
+   "label": "Wrong assortment Minor"
+  },
+  {
+   "fieldname": "column_break_hyvra",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wa_critical",
+   "fieldtype": "Int",
+   "label": "Wrong assortment Critical"
+  },
+  {
+   "fieldname": "column_break_7lqxo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wrong_assortment_image",
+   "fieldtype": "Attach Image",
+   "label": "Wrong assortment Image"
+  },
+  {
+   "fieldname": "column_break_j0dt6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wa_qty",
+   "fieldtype": "Int",
+   "label": "Wrong assortment Qty"
+  },
+  {
+   "fieldname": "section_break_ugwvy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "pdo_check",
+   "fieldtype": "Check",
+   "label": "Other"
+  },
+  {
+   "fieldname": "column_break_8i2qq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pdo_defects",
+   "fieldtype": "Link",
+   "label": "Defects",
+   "options": "Defects"
+  },
+  {
+   "fieldname": "column_break_8x68e",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pdo_major",
+   "fieldtype": "Int",
+   "label": "Major"
+  },
+  {
+   "fieldname": "column_break_fazvd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pdo_minor",
+   "fieldtype": "Int",
+   "label": "Minor"
+  },
+  {
+   "fieldname": "column_break_jwagu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pdo_critical",
+   "fieldtype": "Int",
+   "label": "Critical"
+  },
+  {
+   "fieldname": "column_break_px6jp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pdo_image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "column_break_w7air",
+   "fieldtype": "Tab Break",
+   "label": "Carton Defects"
+  },
+  {
+   "fieldname": "section_break_qmsch",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "damaged_cartons",
+   "fieldtype": "Check",
+   "label": "Damaged Cartons"
+  },
+  {
+   "fieldname": "column_break_bu86e",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dc_major",
+   "fieldtype": "Int",
+   "label": "Damaged Cartons Major"
+  },
+  {
+   "fieldname": "column_break_xae5v",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dc_minor",
+   "fieldtype": "Int",
+   "label": "Damaged Cartons Minor"
+  },
+  {
+   "fieldname": "column_break_eoonl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dc_critical",
+   "fieldtype": "Int",
+   "label": "Damaged Cartons Critical"
+  },
+  {
+   "fieldname": "column_break_asaoi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "damaged_carton_image",
+   "fieldtype": "Attach Image",
+   "label": "Damaged Carton Image"
+  },
+  {
+   "fieldname": "column_break_5gwln",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dc_qty",
+   "fieldtype": "Int",
+   "label": "Damaged Cartons Qty"
+  },
+  {
+   "fieldname": "section_break_vop3y",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "wrong_making",
+   "fieldtype": "Check",
+   "label": "Wrong / Missprint Macking"
+  },
+  {
+   "fieldname": "column_break_htkx2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wmm_major",
+   "fieldtype": "Int",
+   "label": "Wrong / Missprint Macking Major"
+  },
+  {
+   "fieldname": "column_break_ffdpx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wmm_minor",
+   "fieldtype": "Int",
+   "label": "Wrong / Missprint Macking Minor"
+  },
+  {
+   "fieldname": "column_break_o436n",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wmm_critical",
+   "fieldtype": "Int",
+   "label": "Wrong / Missprint Macking Critical"
+  },
+  {
+   "fieldname": "column_break_pzu0m",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wrong_making_image",
+   "fieldtype": "Attach Image",
+   "label": "Wrong / Missprint Macking Image"
+  },
+  {
+   "fieldname": "column_break_gkrrq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wmm_qty",
+   "fieldtype": "Int",
+   "label": "Wrong / Missprint Macking Qty"
+  },
+  {
+   "fieldname": "section_break_tektn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "carton_wrong_size",
+   "fieldtype": "Check",
+   "label": "Wrong Size"
+  },
+  {
+   "fieldname": "column_break_6opuj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ws_major",
+   "fieldtype": "Int",
+   "label": "Wrong Size Major"
+  },
+  {
+   "fieldname": "column_break_8jnlf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ws_minor",
+   "fieldtype": "Int",
+   "label": "Wrong Size Minor"
+  },
+  {
+   "fieldname": "column_break_t9e67",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ws_critical",
+   "fieldtype": "Int",
+   "label": "Wrong Size Critical"
+  },
+  {
+   "fieldname": "column_break_as2dx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "carton_wrong_size_image",
+   "fieldtype": "Attach Image",
+   "label": "Wrong Size Image"
+  },
+  {
+   "fieldname": "column_break_xorya",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ws_qty",
+   "fieldtype": "Int",
+   "label": "Wrong Size Qty"
+  },
+  {
+   "fieldname": "section_break_8p75a",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "wrong_barcode_carton",
+   "fieldtype": "Check",
+   "label": "Wrong Barcode Sticker"
+  },
+  {
+   "fieldname": "column_break_jd6au",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wbs_major",
+   "fieldtype": "Int",
+   "label": "Wrong Barcode Sticker Major"
+  },
+  {
+   "fieldname": "column_break_x1bq3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wbs_minor",
+   "fieldtype": "Int",
+   "label": "Wrong Barcode Sticker Minor"
+  },
+  {
+   "fieldname": "column_break_6jzc5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wbs_critical",
+   "fieldtype": "Int",
+   "label": "Wrong Barcode Sticker Critical"
+  },
+  {
+   "fieldname": "column_break_guh3t",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wrong_barcode_carton_image",
+   "fieldtype": "Attach Image",
+   "label": "Wrong Barcode Sticker Image"
+  },
+  {
+   "fieldname": "column_break_j61wp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wbs_qty",
+   "fieldtype": "Int",
+   "label": "Wrong Barcode Sticker Qty"
+  },
+  {
+   "fieldname": "section_break_qjxn4",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-08 16:57:22.639248",
+ "modified": "2024-06-08 17:08:30.791094",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Final Inspection Report CT",
