@@ -555,7 +555,18 @@
   "wrong_barcode_carton_image",
   "column_break_j61wp",
   "wbs_qty",
-  "section_break_qjxn4"
+  "section_break_qjxn4",
+  "cdo_check",
+  "column_break_9gagl",
+  "cdo_defects",
+  "column_break_aj1r6",
+  "cdo_major",
+  "column_break_aab5i",
+  "cdo_minor",
+  "column_break_8pzbe",
+  "cdo_critical",
+  "column_break_dg9pu",
+  "cdo_image"
  ],
  "fields": [
   {
@@ -3084,12 +3095,64 @@
   {
    "fieldname": "section_break_qjxn4",
    "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "cdo_check",
+   "fieldtype": "Check",
+   "label": "Other"
+  },
+  {
+   "fieldname": "column_break_9gagl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cdo_defects",
+   "fieldtype": "Link",
+   "label": "Defects",
+   "options": "Defects"
+  },
+  {
+   "fieldname": "column_break_aj1r6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cdo_major",
+   "fieldtype": "Int",
+   "label": "Major"
+  },
+  {
+   "fieldname": "column_break_aab5i",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cdo_minor",
+   "fieldtype": "Int",
+   "label": "Minor"
+  },
+  {
+   "fieldname": "column_break_8pzbe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cdo_critical",
+   "fieldtype": "Int",
+   "label": "Critical"
+  },
+  {
+   "fieldname": "column_break_dg9pu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cdo_image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-08 17:08:30.791094",
+ "modified": "2024-06-08 17:17:25.764164",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Final Inspection Report CT",
