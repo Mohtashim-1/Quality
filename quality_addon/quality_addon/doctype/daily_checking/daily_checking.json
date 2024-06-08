@@ -63,7 +63,7 @@
   "finishing_qty",
   "column_break_gc4mf",
   "os_qty",
-  "wash_mark_total",
+  "wm_qty",
   "column_break_mzrpj",
   "dm_qty",
   "sewing_defects",
@@ -150,11 +150,6 @@
    "fieldname": "finishing_defects",
    "fieldtype": "Int",
    "label": "Finishing Defects"
-  },
-  {
-   "fieldname": "wash_mark_total",
-   "fieldtype": "Int",
-   "label": "Wash Mark Total "
   },
   {
    "fieldname": "sewing_defects",
@@ -440,12 +435,17 @@
    "fieldname": "ohs_qty",
    "fieldtype": "Int",
    "label": "Open Hem / Sem Total"
+  },
+  {
+   "fieldname": "wm_qty",
+   "fieldtype": "Int",
+   "label": "Wash Mark Total "
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-06 14:25:13.179405",
+ "modified": "2024-06-08 13:56:46.510828",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking",
