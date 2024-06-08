@@ -11,9 +11,9 @@
   "po",
   "section_break_jupgm",
   "code",
-  "article",
+  "at_article",
   "size",
-  "design",
+  "at_design",
   "column_break_izdi3",
   "audit_qty",
   "column_break_0l3qj",
@@ -2214,22 +2214,6 @@
    "width": "1"
   },
   {
-   "fieldname": "article",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Article",
-   "width": "1"
-  },
-  {
-   "fieldname": "design",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Design",
-   "width": "1"
-  },
-  {
    "depends_on": "eval:doc.other==1",
    "fieldname": "owp_major",
    "fieldtype": "Int",
@@ -2264,12 +2248,30 @@
    "fieldname": "owp_minor",
    "fieldtype": "Int",
    "label": "Other Minor"
+  },
+  {
+   "fieldname": "at_article",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Article",
+   "options": "Stitching Article",
+   "width": "1"
+  },
+  {
+   "fieldname": "at_design",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Design",
+   "options": "Stitching Design",
+   "width": "1"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-06 19:47:08.416697",
+ "modified": "2024-06-08 13:53:05.841909",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",
