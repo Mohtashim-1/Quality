@@ -305,7 +305,57 @@
   "wrong_thread",
   "column_break_nr1av",
   "wt_major",
-  "column_break_xhzcp"
+  "column_break_xhzcp",
+  "wt_minor",
+  "column_break_symxi",
+  "wt_critical",
+  "column_break_xdhbw",
+  "wrong_thread_image",
+  "column_break_pnzry",
+  "wt_qty",
+  "section_break_e85do",
+  "puckering",
+  "column_break_skei0",
+  "p_major",
+  "column_break_u2z2m",
+  "p_minor",
+  "column_break_y8nxe",
+  "p_critical",
+  "column_break_8s8i6",
+  "puckering_image",
+  "column_break_9bkpi",
+  "p_qty",
+  "section_break_e3dln",
+  "bed_stitch",
+  "column_break_kacdg",
+  "bs_major",
+  "column_break_nk0bb",
+  "bs_minor",
+  "column_break_t01qi",
+  "ms_critical",
+  "column_break_lllv9",
+  "bed_stitch_image",
+  "column_break_tbp2d",
+  "bs_qty",
+  "section_break_apewx",
+  "wrong_direction",
+  "column_break_c9ei1",
+  "wd_major",
+  "column_break_ulbgm",
+  "wd_minor",
+  "column_break_al7ru",
+  "wd_critical",
+  "column_break_mzjka",
+  "wrong_direction_image",
+  "column_break_f1uaq",
+  "wd_qty",
+  "section_break_iwqad",
+  "short_size",
+  "column_break_ucjbc",
+  "ss_major",
+  "column_break_663zn",
+  "ss_minor",
+  "column_break_ewqe1"
  ],
  "fields": [
   {
@@ -1686,12 +1736,241 @@
   {
    "fieldname": "column_break_xhzcp",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wt_minor",
+   "fieldtype": "Int",
+   "label": "Wrong Thread Minor"
+  },
+  {
+   "fieldname": "column_break_symxi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wt_critical",
+   "fieldtype": "Int",
+   "label": "Wrong Thread Critical"
+  },
+  {
+   "fieldname": "column_break_xdhbw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wrong_thread_image",
+   "fieldtype": "Attach Image",
+   "label": "Wrong Thread Image"
+  },
+  {
+   "fieldname": "column_break_pnzry",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wt_qty",
+   "fieldtype": "Int",
+   "label": "Wrong Thread Qty"
+  },
+  {
+   "fieldname": "section_break_e85do",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "puckering",
+   "fieldtype": "Check",
+   "label": "Puckering"
+  },
+  {
+   "fieldname": "column_break_skei0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "p_major",
+   "fieldtype": "Int",
+   "label": " Puckering Major"
+  },
+  {
+   "fieldname": "column_break_u2z2m",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "p_minor",
+   "fieldtype": "Int",
+   "label": " Puckering Minor"
+  },
+  {
+   "fieldname": "column_break_y8nxe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "p_critical",
+   "fieldtype": "Int",
+   "label": " Puckering Critical"
+  },
+  {
+   "fieldname": "column_break_8s8i6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "puckering_image",
+   "fieldtype": "Attach Image",
+   "label": "Puckering Image"
+  },
+  {
+   "fieldname": "column_break_9bkpi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "p_qty",
+   "fieldtype": "Int",
+   "label": " Puckering Qty"
+  },
+  {
+   "fieldname": "section_break_e3dln",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "bed_stitch",
+   "fieldtype": "Check",
+   "label": "Bed Stitch"
+  },
+  {
+   "fieldname": "column_break_kacdg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bs_major",
+   "fieldtype": "Int",
+   "label": "Bed Stitch Major"
+  },
+  {
+   "fieldname": "column_break_nk0bb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bs_minor",
+   "fieldtype": "Int",
+   "label": "Bed Stitch Minor"
+  },
+  {
+   "fieldname": "column_break_t01qi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ms_critical",
+   "fieldtype": "Int",
+   "label": "Bed Stitch Critical"
+  },
+  {
+   "fieldname": "column_break_lllv9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bed_stitch_image",
+   "fieldtype": "Attach Image",
+   "label": "Bed Stitch Image"
+  },
+  {
+   "fieldname": "column_break_tbp2d",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bs_qty",
+   "fieldtype": "Int",
+   "label": "Bed Stitch Qty"
+  },
+  {
+   "fieldname": "section_break_apewx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "wrong_direction",
+   "fieldtype": "Check",
+   "label": "Wrong Direction"
+  },
+  {
+   "fieldname": "column_break_c9ei1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wd_major",
+   "fieldtype": "Int",
+   "label": "Wrong Direction Major"
+  },
+  {
+   "fieldname": "column_break_ulbgm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wd_minor",
+   "fieldtype": "Int",
+   "label": "Wrong Direction Minor"
+  },
+  {
+   "fieldname": "column_break_al7ru",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wd_critical",
+   "fieldtype": "Int",
+   "label": "Wrong Direction Critical"
+  },
+  {
+   "fieldname": "column_break_mzjka",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wrong_direction_image",
+   "fieldtype": "Attach Image",
+   "label": "Wrong Direction Image"
+  },
+  {
+   "fieldname": "column_break_f1uaq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wd_qty",
+   "fieldtype": "Int",
+   "label": "Wrong Direction Qty"
+  },
+  {
+   "fieldname": "section_break_iwqad",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "short_size",
+   "fieldtype": "Check",
+   "label": "Short Size"
+  },
+  {
+   "fieldname": "column_break_ucjbc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ss_major",
+   "fieldtype": "Int",
+   "label": "Short Size Major"
+  },
+  {
+   "fieldname": "column_break_663zn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ss_minor",
+   "fieldtype": "Int",
+   "label": "Short Size Minor"
+  },
+  {
+   "fieldname": "column_break_ewqe1",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-08 16:37:47.308846",
+ "modified": "2024-06-08 16:43:26.524830",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Final Inspection Report CT",
