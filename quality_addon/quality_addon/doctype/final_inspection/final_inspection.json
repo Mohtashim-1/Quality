@@ -1,0 +1,223 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-06-08 17:24:14.186179",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "hiddin_section",
+  "color",
+  "design",
+  "buyer_agent",
+  "section_break_cepvp",
+  "date",
+  "with_po",
+  "column_break_tpgmh",
+  "reporting_date",
+  "column_break_jk0az",
+  "customer",
+  "column_break_zoibo",
+  "po",
+  "section_break_13",
+  "audit_quantity",
+  "column_break_1rxto",
+  "order_qty",
+  "section_break_1p9wb",
+  "inspection_level",
+  "column_break_mdkoe",
+  "aql_major",
+  "column_break_mq1ae",
+  "aql_minor",
+  "section_break_4wmai",
+  "fir_ct",
+  "remarks_sec",
+  "remarks",
+  "naming_series",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "hiddin_section",
+   "fieldtype": "Section Break",
+   "label": "Hiddin"
+  },
+  {
+   "fieldname": "color",
+   "fieldtype": "Data",
+   "label": "Color"
+  },
+  {
+   "fieldname": "design",
+   "fieldtype": "Data",
+   "label": "Design"
+  },
+  {
+   "fieldname": "buyer_agent",
+   "fieldtype": "Link",
+   "label": "Buyer/Agent",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "section_break_cepvp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "default": "0",
+   "fieldname": "with_po",
+   "fieldtype": "Check",
+   "label": "PO"
+  },
+  {
+   "fieldname": "column_break_tpgmh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reporting_date",
+   "fieldtype": "Date",
+   "label": "Reporting Date"
+  },
+  {
+   "fieldname": "column_break_jk0az",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "column_break_zoibo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "po",
+   "fieldtype": "Link",
+   "label": "PO",
+   "options": "Sales Order"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break",
+   "label": "Quantities"
+  },
+  {
+   "fieldname": "audit_quantity",
+   "fieldtype": "Float",
+   "label": "Audit Quantity"
+  },
+  {
+   "fieldname": "column_break_1rxto",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "order_qty",
+   "fieldtype": "Float",
+   "label": "Order Qty"
+  },
+  {
+   "fieldname": "section_break_1p9wb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "inspection_level",
+   "fieldtype": "Select",
+   "label": "Inspection Level",
+   "options": "\nGeneral Inspection Level 1\nGeneral Inspection Level 2\nGeneral Inspection Level 3\nSpecial Inspection Level 1\nSpecial Inspection Level 2\nSpecial Inspection Level 3\nSpecial Inspection Level 4"
+  },
+  {
+   "fieldname": "column_break_mdkoe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "aql_major",
+   "fieldtype": "Select",
+   "label": "AQL Major",
+   "options": "\n1.0\n1.5\n2.5\n4.0"
+  },
+  {
+   "fieldname": "column_break_mq1ae",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "aql_minor",
+   "fieldtype": "Select",
+   "label": "AQL Minor",
+   "options": "\n1.0\n1.5\n2.5\n4.0"
+  },
+  {
+   "fieldname": "section_break_4wmai",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "fir_ct",
+   "fieldtype": "Table",
+   "label": "Item",
+   "options": "Final Inspection Report CT"
+  },
+  {
+   "fieldname": "remarks_sec",
+   "fieldtype": "Section Break",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "\nFIR-.MM.-.YY.-"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Final Inspection",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-06-08 17:24:14.186179",
+ "modified_by": "Administrator",
+ "module": "Quality Addon",
+ "name": "Final Inspection",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
