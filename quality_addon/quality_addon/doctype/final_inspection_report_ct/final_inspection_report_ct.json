@@ -205,7 +205,57 @@
   "column_break_5yl1o",
   "wm_qty",
   "section_break_cpge6",
-  "cliper_cut"
+  "cliper_cut",
+  "column_break_jru5i",
+  "cc_major",
+  "column_break_tcyww",
+  "cc_minor",
+  "column_break_xiob0",
+  "cc_critical",
+  "column_break_aiihk",
+  "cliper_cut_image",
+  "column_break_gffp5",
+  "cc_qty",
+  "section_break_t6hrx",
+  "niddel_hole",
+  "column_break_ifraa",
+  "nh_major",
+  "column_break_eznct",
+  "nh_minor",
+  "column_break_jfniv",
+  "nh_critical",
+  "column_break_eq2ll",
+  "niddel_hole_image",
+  "column_break_ydjsb",
+  "nh_qty",
+  "section_break_ke0ey",
+  "dust_marka",
+  "column_break_xrxej",
+  "dm_major",
+  "column_break_c5pgg",
+  "dm_minor",
+  "column_break_jlc4k",
+  "dm_critical",
+  "column_break_zwfkl",
+  "dust_marka_image",
+  "column_break_ew5ax",
+  "dm_qty",
+  "section_break_32jre",
+  "fdo_check",
+  "column_break_xwkct",
+  "fdo_defects",
+  "column_break_bzvek",
+  "fdo_major",
+  "column_break_ajpmt",
+  "fdo_minor",
+  "column_break_hwd0d",
+  "fdo_critical",
+  "column_break_1kq61",
+  "fdo_image",
+  "sewing_defects_tab",
+  "section_break_a5tfh",
+  "missing_label",
+  "column_break_1cvuv"
  ],
  "fields": [
   {
@@ -1128,12 +1178,241 @@
    "fieldname": "cliper_cut",
    "fieldtype": "Check",
    "label": "Cliper Cut"
+  },
+  {
+   "fieldname": "column_break_jru5i",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cc_major",
+   "fieldtype": "Int",
+   "label": "Cliper Cut Major"
+  },
+  {
+   "fieldname": "column_break_tcyww",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cc_minor",
+   "fieldtype": "Int",
+   "label": "Cliper Cut Minor"
+  },
+  {
+   "fieldname": "column_break_xiob0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cc_critical",
+   "fieldtype": "Int",
+   "label": "Cliper Cut Critical"
+  },
+  {
+   "fieldname": "column_break_aiihk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cliper_cut_image",
+   "fieldtype": "Attach Image",
+   "label": "Cliper Cut Image"
+  },
+  {
+   "fieldname": "column_break_gffp5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cc_qty",
+   "fieldtype": "Int",
+   "label": "Cliper Cut Qty"
+  },
+  {
+   "fieldname": "section_break_t6hrx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "niddel_hole",
+   "fieldtype": "Check",
+   "label": "Niddel Hole"
+  },
+  {
+   "fieldname": "column_break_ifraa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nh_major",
+   "fieldtype": "Int",
+   "label": "Niddel Hole Major"
+  },
+  {
+   "fieldname": "column_break_eznct",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nh_minor",
+   "fieldtype": "Int",
+   "label": "Niddel Hole Minor"
+  },
+  {
+   "fieldname": "column_break_jfniv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nh_critical",
+   "fieldtype": "Int",
+   "label": "Niddel Hole Critical"
+  },
+  {
+   "fieldname": "column_break_eq2ll",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "niddel_hole_image",
+   "fieldtype": "Attach Image",
+   "label": "Niddel Hole Image"
+  },
+  {
+   "fieldname": "column_break_ydjsb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nh_qty",
+   "fieldtype": "Int",
+   "label": "Niddel Hole Qty"
+  },
+  {
+   "fieldname": "section_break_ke0ey",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "dust_marka",
+   "fieldtype": "Select",
+   "label": "Dust Marka"
+  },
+  {
+   "fieldname": "column_break_xrxej",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dm_major",
+   "fieldtype": "Int",
+   "label": "Dust Marka Major"
+  },
+  {
+   "fieldname": "column_break_c5pgg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dm_minor",
+   "fieldtype": "Int",
+   "label": "Dust Marka Minor"
+  },
+  {
+   "fieldname": "column_break_jlc4k",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dm_critical",
+   "fieldtype": "Int",
+   "label": "Dust Marka Crtitcal"
+  },
+  {
+   "fieldname": "column_break_zwfkl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dust_marka_image",
+   "fieldtype": "Attach Image",
+   "label": "Dust Marka Image"
+  },
+  {
+   "fieldname": "column_break_ew5ax",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dm_qty",
+   "fieldtype": "Int",
+   "label": "Dust Marka Qty"
+  },
+  {
+   "fieldname": "section_break_32jre",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "fdo_check",
+   "fieldtype": "Check",
+   "label": "Other"
+  },
+  {
+   "fieldname": "column_break_xwkct",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fdo_defects",
+   "fieldtype": "Link",
+   "label": "Defects",
+   "options": "Defects"
+  },
+  {
+   "fieldname": "column_break_bzvek",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fdo_major",
+   "fieldtype": "Int",
+   "label": "Other Major"
+  },
+  {
+   "fieldname": "column_break_ajpmt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fdo_minor",
+   "fieldtype": "Int",
+   "label": "Other Minor"
+  },
+  {
+   "fieldname": "column_break_hwd0d",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fdo_critical",
+   "fieldtype": "Int",
+   "label": "Other Critical"
+  },
+  {
+   "fieldname": "column_break_1kq61",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fdo_image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "sewing_defects_tab",
+   "fieldtype": "Tab Break",
+   "label": "Sewing Defects"
+  },
+  {
+   "fieldname": "section_break_a5tfh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "missing_label",
+   "fieldtype": "Check",
+   "label": "Missing / Wrong Label"
+  },
+  {
+   "fieldname": "column_break_1cvuv",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-08 16:21:10.589920",
+ "modified": "2024-06-08 16:30:38.412518",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Final Inspection Report CT",
