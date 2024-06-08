@@ -1,0 +1,584 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-06-08 15:59:28.835129",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "details_tab",
+  "section_break_8tlfk",
+  "code",
+  "item",
+  "at_finished_size",
+  "column_break_ai8vk",
+  "qty",
+  "column_break_p9gew",
+  "audit_qty",
+  "at_color",
+  "column_break_9ou2k",
+  "at_article",
+  "at_design",
+  "section_break_pkhw8",
+  "sample_qty",
+  "column_break_c1bgy",
+  "aql_accepted",
+  "column_break_wjeuk",
+  "aql_rejected",
+  "section_break_g37bm",
+  "major",
+  "column_break_7puew",
+  "minor",
+  "column_break_n1tn8",
+  "critical",
+  "column_break_8fqpe",
+  "status",
+  "section_break_bsvxi",
+  "total",
+  "section_break_9ug20",
+  "miss_pick__double_pick",
+  "column_break_axhse",
+  "miss_pick__double_pick_major",
+  "column_break_d6893",
+  "miss_pick__double_pick_minor",
+  "column_break_nzj01",
+  "miss_pick__double_pick_critical",
+  "column_break_vuod1",
+  "miss_pick__double_pick_image",
+  "column_break_8qvfh",
+  "miss_pick__double_pick_qty",
+  "section_break_hfhnt",
+  "fly_yarn",
+  "column_break_hzptm",
+  "fly_yarn_major",
+  "column_break_nczbh",
+  "fly_yarn_minor",
+  "column_break_eypqa",
+  "fly_yarn_critical",
+  "column_break_k6uvu",
+  "fly_yarn_image",
+  "column_break_jnnpp",
+  "fly_yarn_qty",
+  "section_break_risf8",
+  "incorrect_construct",
+  "column_break_yidb3",
+  "incorrect_construct_major",
+  "column_break_zkbfz",
+  "incorrect_construct_minor",
+  "column_break_3nrq2",
+  "incorrect_construct_critical",
+  "column_break_f4nqh",
+  "incorrect_construct_image",
+  "column_break_fvwhp",
+  "incorrect_construct_qty",
+  "section_break_fgbhr",
+  "registreation_out",
+  "column_break_rvxky",
+  "registration_out_major",
+  "column_break_vnb1x",
+  "registration_out_minor",
+  "column_break_yxmgh",
+  "registration_out_critical",
+  "column_break_crxhu",
+  "registreation_out_image",
+  "column_break_van8d",
+  "registration_out_qty",
+  "section_break_japif",
+  "miss_print",
+  "column_break_qeqgg",
+  "miss_print_major",
+  "column_break_zsrux",
+  "miss_print_minor",
+  "column_break_hqfkn",
+  "miss_print_critical",
+  "column_break_x8bn1",
+  "miss_print_image",
+  "column_break_h8of6",
+  "miss_print_qty",
+  "section_break_u68ch",
+  "bowing",
+  "column_break_kgnto",
+  "bowing_major",
+  "column_break_t58ov",
+  "bowing_minor",
+  "column_break_v4n7p",
+  "bowing_critical",
+  "column_break_8dbpo",
+  "bowing_image",
+  "column_break_8tuy9"
+ ],
+ "fields": [
+  {
+   "fieldname": "details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "section_break_8tlfk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "code",
+   "fieldtype": "Link",
+   "label": "Code",
+   "options": "Item"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Data",
+   "label": "Item"
+  },
+  {
+   "fieldname": "at_finished_size",
+   "fieldtype": "Data",
+   "label": "Finished Size"
+  },
+  {
+   "fieldname": "column_break_ai8vk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "label": "Order Qty"
+  },
+  {
+   "fieldname": "column_break_p9gew",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "audit_qty",
+   "fieldtype": "Int",
+   "label": "Audit Qty"
+  },
+  {
+   "fieldname": "at_color",
+   "fieldtype": "Data",
+   "label": "Color"
+  },
+  {
+   "fieldname": "column_break_9ou2k",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "at_article",
+   "fieldtype": "Link",
+   "label": "Articale",
+   "options": "Stitching Article"
+  },
+  {
+   "fieldname": "at_design",
+   "fieldtype": "Data",
+   "label": "Design"
+  },
+  {
+   "fieldname": "section_break_pkhw8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "sample_qty",
+   "fieldtype": "Int",
+   "label": "Sample Qty"
+  },
+  {
+   "fieldname": "column_break_c1bgy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "aql_accepted",
+   "fieldtype": "Int",
+   "label": "AQL Major Accepted"
+  },
+  {
+   "fieldname": "column_break_wjeuk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "aql_rejected",
+   "fieldtype": "Int",
+   "label": "AQL Minor Accepted"
+  },
+  {
+   "fieldname": "section_break_g37bm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "major",
+   "fieldtype": "Int",
+   "label": "Major"
+  },
+  {
+   "fieldname": "column_break_7puew",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "minor",
+   "fieldtype": "Int",
+   "label": "Minor"
+  },
+  {
+   "fieldname": "column_break_n1tn8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "critical",
+   "fieldtype": "Int",
+   "label": "Critical"
+  },
+  {
+   "fieldname": "column_break_8fqpe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nPass\nFail"
+  },
+  {
+   "fieldname": "section_break_bsvxi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Int",
+   "label": "Total"
+  },
+  {
+   "fieldname": "section_break_9ug20",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "miss_pick__double_pick",
+   "fieldtype": "Check",
+   "label": "Miss Pick / Double Pick"
+  },
+  {
+   "fieldname": "column_break_axhse",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miss_pick__double_pick_major",
+   "fieldtype": "Int",
+   "label": "Miss Pick / Double Pick Major"
+  },
+  {
+   "fieldname": "column_break_d6893",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miss_pick__double_pick_minor",
+   "fieldtype": "Int",
+   "label": "Miss Pick / Double Pick Minor"
+  },
+  {
+   "fieldname": "column_break_nzj01",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miss_pick__double_pick_critical",
+   "fieldtype": "Int",
+   "label": "Miss Pick / Double Pick Critical"
+  },
+  {
+   "fieldname": "column_break_vuod1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miss_pick__double_pick_image",
+   "fieldtype": "Attach Image",
+   "label": "Miss Pick / Double Pick Image"
+  },
+  {
+   "fieldname": "column_break_8qvfh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miss_pick__double_pick_qty",
+   "fieldtype": "Int",
+   "label": "Miss Pick / Double Pick Qty"
+  },
+  {
+   "fieldname": "section_break_hfhnt",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "fly_yarn",
+   "fieldtype": "Check",
+   "label": "Fly Yarn"
+  },
+  {
+   "fieldname": "column_break_hzptm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fly_yarn_major",
+   "fieldtype": "Int",
+   "label": "Fly Yarn Major"
+  },
+  {
+   "fieldname": "column_break_nczbh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fly_yarn_minor",
+   "fieldtype": "Int",
+   "label": "Fly Yarn Minor"
+  },
+  {
+   "fieldname": "column_break_eypqa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fly_yarn_critical",
+   "fieldtype": "Int",
+   "label": "Fly Yarn Critical"
+  },
+  {
+   "fieldname": "column_break_k6uvu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fly_yarn_image",
+   "fieldtype": "Attach Image",
+   "label": "Fly Yarn Image"
+  },
+  {
+   "fieldname": "column_break_jnnpp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fly_yarn_qty",
+   "fieldtype": "Int",
+   "label": "Fly Yarn Qty"
+  },
+  {
+   "fieldname": "section_break_risf8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "incorrect_construct",
+   "fieldtype": "Select",
+   "label": "Incorrect construct"
+  },
+  {
+   "fieldname": "column_break_yidb3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "incorrect_construct_major",
+   "fieldtype": "Int",
+   "label": "Incorrect construct Major"
+  },
+  {
+   "fieldname": "column_break_zkbfz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "incorrect_construct_minor",
+   "fieldtype": "Int",
+   "label": "Incorrect construct Minor"
+  },
+  {
+   "fieldname": "column_break_3nrq2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "incorrect_construct_critical",
+   "fieldtype": "Int",
+   "label": "Incorrect construct Critical"
+  },
+  {
+   "fieldname": "column_break_f4nqh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "incorrect_construct_image",
+   "fieldtype": "Attach Image",
+   "label": "Incorrect construct Image"
+  },
+  {
+   "fieldname": "column_break_fvwhp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "incorrect_construct_qty",
+   "fieldtype": "Int",
+   "label": "Incorrect construct Qty"
+  },
+  {
+   "fieldname": "section_break_fgbhr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "registreation_out",
+   "fieldtype": "Check",
+   "label": "Registreation out"
+  },
+  {
+   "fieldname": "column_break_rvxky",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "registration_out_major",
+   "fieldtype": "Int",
+   "label": "Registration out Major"
+  },
+  {
+   "fieldname": "column_break_vnb1x",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "registration_out_minor",
+   "fieldtype": "Int",
+   "label": "Registration out Minor"
+  },
+  {
+   "fieldname": "column_break_yxmgh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "registration_out_critical",
+   "fieldtype": "Int",
+   "label": "Registration out Critical"
+  },
+  {
+   "fieldname": "column_break_crxhu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "registreation_out_image",
+   "fieldtype": "Attach Image",
+   "label": "Registreation out Image"
+  },
+  {
+   "fieldname": "column_break_van8d",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "registration_out_qty",
+   "fieldtype": "Int",
+   "label": "Registration out Qty"
+  },
+  {
+   "fieldname": "section_break_japif",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "miss_print",
+   "fieldtype": "Check",
+   "label": "Miss Print"
+  },
+  {
+   "fieldname": "column_break_qeqgg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miss_print_major",
+   "fieldtype": "Int",
+   "label": "Miss Print Major"
+  },
+  {
+   "fieldname": "column_break_zsrux",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miss_print_minor",
+   "fieldtype": "Int",
+   "label": "Miss Print Minor"
+  },
+  {
+   "fieldname": "column_break_hqfkn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miss_print_critical",
+   "fieldtype": "Int",
+   "label": "Miss Print Critical"
+  },
+  {
+   "fieldname": "column_break_x8bn1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miss_print_image",
+   "fieldtype": "Attach Image",
+   "label": "Miss Print Image"
+  },
+  {
+   "fieldname": "column_break_h8of6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "miss_print_qty",
+   "fieldtype": "Int",
+   "label": "Miss Print Qty"
+  },
+  {
+   "fieldname": "section_break_u68ch",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "bowing",
+   "fieldtype": "Check",
+   "label": "Bowing"
+  },
+  {
+   "fieldname": "column_break_kgnto",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bowing_major",
+   "fieldtype": "Int",
+   "label": "Bowing Major"
+  },
+  {
+   "fieldname": "column_break_t58ov",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bowing_minor",
+   "fieldtype": "Int",
+   "label": "Bowing Minor"
+  },
+  {
+   "fieldname": "column_break_v4n7p",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bowing_critical",
+   "fieldtype": "Int",
+   "label": "Bowing Critical"
+  },
+  {
+   "fieldname": "column_break_8dbpo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bowing_image",
+   "fieldtype": "Attach Image",
+   "label": "Bowing Image"
+  },
+  {
+   "fieldname": "column_break_8tuy9",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-06-08 16:05:39.522432",
+ "modified_by": "Administrator",
+ "module": "Quality Addon",
+ "name": "Final Inspection Report CT",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
