@@ -105,7 +105,107 @@
   "bowing_critical",
   "column_break_8dbpo",
   "bowing_image",
-  "column_break_8tuy9"
+  "column_break_8tuy9",
+  "bowing_qty",
+  "section_break_3rxsh",
+  "touching",
+  "column_break_lvqrj",
+  "touching_major",
+  "column_break_pb1a9",
+  "touching_minor",
+  "column_break_hiwz2",
+  "touching_critical",
+  "column_break_7mk5r",
+  "touching_image",
+  "column_break_o9huo",
+  "touching_qty",
+  "section_break_dosha",
+  "streaks",
+  "column_break_weaiu",
+  "streaks_major",
+  "column_break_5dlqa",
+  "streaks_minor",
+  "column_break_ythke",
+  "streaks_critical",
+  "column_break_ako2x",
+  "streaks_image",
+  "column_break_0bkzh",
+  "streaks_qty",
+  "section_break_bk0rj",
+  "salvage",
+  "column_break_98fza",
+  "salvage_major",
+  "column_break_s8ts9",
+  "salvage_minor",
+  "column_break_2avid",
+  "salvage_critical",
+  "column_break_hn6ql",
+  "salvage_image",
+  "column_break_vmfzh",
+  "salvage_qty",
+  "section_break_lz8e6",
+  "smash",
+  "column_break_d53vj",
+  "smash_major",
+  "column_break_kydeb",
+  "smash_minor",
+  "column_break_agind",
+  "smash_critical",
+  "column_break_l5czz",
+  "smash_image",
+  "column_break_ujfxr",
+  "smash_qty",
+  "section_break_mz4lb",
+  "oop_check",
+  "column_break_vwcsd",
+  "owp_defects",
+  "column_break_t6igb",
+  "owp_major",
+  "column_break_iheea",
+  "owp_minor",
+  "column_break_u3nva",
+  "owp_critical",
+  "column_break_hepvr",
+  "owp_image",
+  "finishing_defects_tab",
+  "section_break_5zpcn",
+  "un_cut",
+  "column_break_gzblc",
+  "un_cut_major",
+  "column_break_eeqta",
+  "un_cut_minor",
+  "column_break_egqjl",
+  "un_cut_critical",
+  "column_break_3q0tu",
+  "un_cut_image",
+  "column_break_87ngg",
+  "un_cut_qty",
+  "section_break_xusmc",
+  "oil_stain",
+  "column_break_kxj8k",
+  "os_major",
+  "column_break_xdnus",
+  "os_minor",
+  "column_break_aig9y",
+  "os_critical",
+  "column_break_9vvbg",
+  "oil_stain_image",
+  "column_break_bghuw",
+  "os_qty",
+  "section_break_bzfz0",
+  "wash_mark",
+  "column_break_az5mu",
+  "wm_major",
+  "column_break_ddkgk",
+  "wm_minor",
+  "column_break_orvzq",
+  "wm_critical",
+  "column_break_zwtsz",
+  "wash_mark_image",
+  "column_break_5yl1o",
+  "wm_qty",
+  "section_break_cpge6",
+  "cliper_cut"
  ],
  "fields": [
   {
@@ -567,12 +667,473 @@
   {
    "fieldname": "column_break_8tuy9",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bowing_qty",
+   "fieldtype": "Int",
+   "label": "Bowing Qty"
+  },
+  {
+   "fieldname": "section_break_3rxsh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "touching",
+   "fieldtype": "Check",
+   "label": "Touching"
+  },
+  {
+   "fieldname": "column_break_lvqrj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "touching_major",
+   "fieldtype": "Int",
+   "label": "Touching Major"
+  },
+  {
+   "fieldname": "column_break_pb1a9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "touching_minor",
+   "fieldtype": "Int",
+   "label": "Touching Minor"
+  },
+  {
+   "fieldname": "column_break_hiwz2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "touching_critical",
+   "fieldtype": "Int",
+   "label": "Touching Critical"
+  },
+  {
+   "fieldname": "column_break_7mk5r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "touching_image",
+   "fieldtype": "Attach Image",
+   "label": "Touching Image"
+  },
+  {
+   "fieldname": "column_break_o9huo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "touching_qty",
+   "fieldtype": "Int",
+   "label": "Touching Qty"
+  },
+  {
+   "fieldname": "section_break_dosha",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "streaks",
+   "fieldtype": "Check",
+   "label": "Streaks"
+  },
+  {
+   "fieldname": "column_break_weaiu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "streaks_major",
+   "fieldtype": "Int",
+   "label": "Streaks Major"
+  },
+  {
+   "fieldname": "column_break_5dlqa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "streaks_minor",
+   "fieldtype": "Int",
+   "label": "Streaks Minor"
+  },
+  {
+   "fieldname": "column_break_ythke",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "streaks_critical",
+   "fieldtype": "Int",
+   "label": "Streaks Critical"
+  },
+  {
+   "fieldname": "column_break_ako2x",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "streaks_image",
+   "fieldtype": "Attach Image",
+   "label": "Streaks Image"
+  },
+  {
+   "fieldname": "column_break_0bkzh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "streaks_qty",
+   "fieldtype": "Int",
+   "label": "Streaks Qty"
+  },
+  {
+   "fieldname": "section_break_bk0rj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "salvage",
+   "fieldtype": "Check",
+   "label": "Salvage"
+  },
+  {
+   "fieldname": "column_break_98fza",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "salvage_major",
+   "fieldtype": "Int",
+   "label": "Salvage Major"
+  },
+  {
+   "fieldname": "column_break_s8ts9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "salvage_minor",
+   "fieldtype": "Int",
+   "label": "Salvage Minor"
+  },
+  {
+   "fieldname": "column_break_2avid",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "salvage_critical",
+   "fieldtype": "Int",
+   "label": "Salvage Critical"
+  },
+  {
+   "fieldname": "column_break_hn6ql",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "salvage_image",
+   "fieldtype": "Attach Image",
+   "label": "Salvage Image"
+  },
+  {
+   "fieldname": "column_break_vmfzh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "salvage_qty",
+   "fieldtype": "Int",
+   "label": "Salvage Qty"
+  },
+  {
+   "fieldname": "section_break_lz8e6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "smash",
+   "fieldtype": "Check",
+   "label": "Smash"
+  },
+  {
+   "fieldname": "column_break_d53vj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "smash_major",
+   "fieldtype": "Int",
+   "label": "Smash Major"
+  },
+  {
+   "fieldname": "column_break_kydeb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "smash_minor",
+   "fieldtype": "Int",
+   "label": "Smash Minor"
+  },
+  {
+   "fieldname": "column_break_agind",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "smash_critical",
+   "fieldtype": "Int",
+   "label": "Smash Critical"
+  },
+  {
+   "fieldname": "column_break_l5czz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "smash_image",
+   "fieldtype": "Attach Image",
+   "label": "Smash Image"
+  },
+  {
+   "fieldname": "column_break_ujfxr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "smash_qty",
+   "fieldtype": "Int",
+   "label": "Smash Qty"
+  },
+  {
+   "fieldname": "section_break_mz4lb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "oop_check",
+   "fieldtype": "Check",
+   "label": "Other"
+  },
+  {
+   "fieldname": "column_break_vwcsd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "owp_defects",
+   "fieldtype": "Link",
+   "label": "Defects",
+   "options": "Defects"
+  },
+  {
+   "fieldname": "column_break_t6igb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "owp_major",
+   "fieldtype": "Int",
+   "label": "Other Major"
+  },
+  {
+   "fieldname": "column_break_iheea",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "owp_minor",
+   "fieldtype": "Int",
+   "label": "Other Minor"
+  },
+  {
+   "fieldname": "column_break_u3nva",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "owp_critical",
+   "fieldtype": "Int",
+   "label": "Other Critical"
+  },
+  {
+   "fieldname": "column_break_hepvr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "owp_image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "finishing_defects_tab",
+   "fieldtype": "Tab Break",
+   "label": "Finishing Defects"
+  },
+  {
+   "fieldname": "section_break_5zpcn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "un_cut",
+   "fieldtype": "Check",
+   "label": "Un cut / Loose Thread"
+  },
+  {
+   "fieldname": "column_break_gzblc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "un_cut_major",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Major"
+  },
+  {
+   "fieldname": "column_break_eeqta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "un_cut_minor",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Minor"
+  },
+  {
+   "fieldname": "column_break_egqjl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "un_cut_critical",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Critical"
+  },
+  {
+   "fieldname": "column_break_3q0tu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "un_cut_image",
+   "fieldtype": "Attach Image",
+   "label": "Un cut / Loose Thread Image"
+  },
+  {
+   "fieldname": "column_break_87ngg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "un_cut_qty",
+   "fieldtype": "Int",
+   "label": "Un cut / Loose Thread Qty"
+  },
+  {
+   "fieldname": "section_break_xusmc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "oil_stain",
+   "fieldtype": "Check",
+   "label": "Oil Stain"
+  },
+  {
+   "fieldname": "column_break_kxj8k",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "os_major",
+   "fieldtype": "Int",
+   "label": "Oil Stain Major"
+  },
+  {
+   "fieldname": "column_break_xdnus",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "os_minor",
+   "fieldtype": "Int",
+   "label": "Oil Stain Minor"
+  },
+  {
+   "fieldname": "column_break_aig9y",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "os_critical",
+   "fieldtype": "Int",
+   "label": "Oil Stain Critical"
+  },
+  {
+   "fieldname": "column_break_9vvbg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "oil_stain_image",
+   "fieldtype": "Attach Image",
+   "label": "Oil Stain Image"
+  },
+  {
+   "fieldname": "column_break_bghuw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "os_qty",
+   "fieldtype": "Int",
+   "label": "Oil Stain Qty"
+  },
+  {
+   "fieldname": "section_break_bzfz0",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "wash_mark",
+   "fieldtype": "Check",
+   "label": "Wash Mark"
+  },
+  {
+   "fieldname": "column_break_az5mu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wm_major",
+   "fieldtype": "Int",
+   "label": "Wash Mark Major"
+  },
+  {
+   "fieldname": "column_break_ddkgk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wm_minor",
+   "fieldtype": "Int",
+   "label": "Wash Mark Minor"
+  },
+  {
+   "fieldname": "column_break_orvzq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wm_critical",
+   "fieldtype": "Int",
+   "label": "Wash Mark Critical"
+  },
+  {
+   "fieldname": "column_break_zwtsz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wash_mark_image",
+   "fieldtype": "Attach Image",
+   "label": "Wash Mark Image"
+  },
+  {
+   "fieldname": "column_break_5yl1o",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wm_qty",
+   "fieldtype": "Int",
+   "label": "Wash Mark Qty "
+  },
+  {
+   "fieldname": "section_break_cpge6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "cliper_cut",
+   "fieldtype": "Check",
+   "label": "Cliper Cut"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-08 16:05:39.522432",
+ "modified": "2024-06-08 16:21:10.589920",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Final Inspection Report CT",
