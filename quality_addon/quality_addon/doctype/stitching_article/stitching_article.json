@@ -20,7 +20,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-06 21:51:26.158188",
+ "modified": "2024-06-08 17:30:44.307922",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Stitching Article",
@@ -41,6 +41,7 @@
    "write": 1
   }
  ],
+ "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
