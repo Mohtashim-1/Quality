@@ -1,0 +1,72 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"ApdWkxAzaC\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quality Addon</span>\",\"col\":12}},{\"id\":\"OtDieEmkeu\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Daily Checkin\",\"col\":4}},{\"id\":\"gfimWoxBmn\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Inline Stitching\",\"col\":4}},{\"id\":\"cBqJZM8TgB\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Final Inspection\",\"col\":4}}]",
+ "creation": "2024-06-08 17:35:04.028339",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "quality",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Quality Addon",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Daily Checking",
+   "link_count": 0,
+   "link_to": "Daily Checking",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Inline Stitching",
+   "link_count": 0,
+   "link_to": "Inline Stitching",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Final Inspection",
+   "link_count": 0,
+   "link_to": "Final Inspection",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-06-08 17:38:54.601800",
+ "modified_by": "Administrator",
+ "module": "Quality Addon",
+ "name": "Quality Addon",
+ "number_cards": [
+  {
+   "label": "Daily Checkin",
+   "number_card_name": "Daily Checkin"
+  },
+  {
+   "label": "Inline Stitching",
+   "number_card_name": "Inline Stitching"
+  },
+  {
+   "label": "Final Inspection",
+   "number_card_name": "Final Inspection"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 23.0,
+ "shortcuts": [],
+ "title": "Quality Addon"
+}
