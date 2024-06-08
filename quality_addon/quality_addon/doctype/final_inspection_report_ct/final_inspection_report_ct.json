@@ -405,7 +405,59 @@
   "column_break_z51vp",
   "rwi_minor",
   "column_break_mvbqs",
-  "rwi_critical"
+  "rwi_critical",
+  "column_break_mqjjc",
+  "wrong_inlay_image",
+  "column_break_zopa5",
+  "rwi_qty",
+  "section_break_92wob",
+  "damaged_poly_bags",
+  "column_break_zj9ez",
+  "dpb_major",
+  "column_break_bi5qa",
+  "dpb_minor",
+  "column_break_p2sle",
+  "dpb_critical",
+  "column_break_ymlad",
+  "damaged_poly_bags_image",
+  "column_break_cndaq",
+  "dpb_qty",
+  "section_break_1fqee",
+  "loos_bag",
+  "column_break_midfj",
+  "lbb_major",
+  "column_break_rqfjp",
+  "lbb_minor",
+  "column_break_edx7a",
+  "lbb_critical",
+  "column_break_iccdn",
+  "loos_bag_image",
+  "column_break_j9nfd",
+  "lbb_qty",
+  "section_break_pvuya",
+  "incorrect_filling",
+  "column_break_vvgsw",
+  "if_major",
+  "column_break_zpg6g",
+  "if_minor",
+  "column_break_xhli0",
+  "if_critical",
+  "column_break_km9tc",
+  "incorrect_filling_image",
+  "column_break_oov2y",
+  "if_qty",
+  "section_break_p0xhv",
+  "dust_in_poly_bag",
+  "column_break_uek9e",
+  "pdpb_major",
+  "column_break_x2pgn",
+  "pdpb_minor",
+  "column_break_uiwlz",
+  "pdpb_critical",
+  "column_break_9ufxn",
+  "dust_in_poly_bag_image",
+  "column_break_ev9ok",
+  "pdpb_qty"
  ],
  "fields": [
   {
@@ -2246,12 +2298,250 @@
    "fieldname": "rwi_critical",
    "fieldtype": "Int",
    "label": " Rejected / Wrong inlay Critical"
+  },
+  {
+   "fieldname": "column_break_mqjjc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wrong_inlay_image",
+   "fieldtype": "Attach Image",
+   "label": "Rejected / Wrong inlay Image"
+  },
+  {
+   "fieldname": "column_break_zopa5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rwi_qty",
+   "fieldtype": "Int",
+   "label": " Rejected / Wrong inlay Qty"
+  },
+  {
+   "fieldname": "section_break_92wob",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "damaged_poly_bags",
+   "fieldtype": "Check",
+   "label": "Damaged Poly bags"
+  },
+  {
+   "fieldname": "column_break_zj9ez",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dpb_major",
+   "fieldtype": "Int",
+   "label": " Damaged Poly bags Major"
+  },
+  {
+   "fieldname": "column_break_bi5qa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dpb_minor",
+   "fieldtype": "Int",
+   "label": " Damaged Poly bags Minor"
+  },
+  {
+   "fieldname": "column_break_p2sle",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dpb_critical",
+   "fieldtype": "Int",
+   "label": " Damaged Poly bags Critical"
+  },
+  {
+   "fieldname": "column_break_ymlad",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "damaged_poly_bags_image",
+   "fieldtype": "Attach Image",
+   "label": "Damaged Poly bags Image"
+  },
+  {
+   "fieldname": "column_break_cndaq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dpb_qty",
+   "fieldtype": "Int",
+   "label": " Damaged Poly bags Qty"
+  },
+  {
+   "fieldname": "section_break_1fqee",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "loos_bag",
+   "fieldtype": "Check",
+   "label": "Loos / Buldgy bag"
+  },
+  {
+   "fieldname": "column_break_midfj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "lbb_major",
+   "fieldtype": "Int",
+   "label": " Loos / Buldgy bag Major"
+  },
+  {
+   "fieldname": "column_break_rqfjp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "lbb_minor",
+   "fieldtype": "Int",
+   "label": " Loos / Buldgy bag Minor"
+  },
+  {
+   "fieldname": "column_break_edx7a",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "lbb_critical",
+   "fieldtype": "Int",
+   "label": " Loos / Buldgy bag Critical"
+  },
+  {
+   "fieldname": "column_break_iccdn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "loos_bag_image",
+   "fieldtype": "Attach Image",
+   "label": "Loos / Buldgy bag Image"
+  },
+  {
+   "fieldname": "column_break_j9nfd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "lbb_qty",
+   "fieldtype": "Int",
+   "label": " Loos / Buldgy bag Qty"
+  },
+  {
+   "fieldname": "section_break_pvuya",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "incorrect_filling",
+   "fieldtype": "Check",
+   "label": "Incorrect filling"
+  },
+  {
+   "fieldname": "column_break_vvgsw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "if_major",
+   "fieldtype": "Int",
+   "label": "Incorrect filling Major"
+  },
+  {
+   "fieldname": "column_break_zpg6g",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "if_minor",
+   "fieldtype": "Int",
+   "label": "Incorrect filling Minor"
+  },
+  {
+   "fieldname": "column_break_xhli0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "if_critical",
+   "fieldtype": "Int",
+   "label": "Incorrect filling Critical"
+  },
+  {
+   "fieldname": "column_break_km9tc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "incorrect_filling_image",
+   "fieldtype": "Attach Image",
+   "label": "Incorrect filling image"
+  },
+  {
+   "fieldname": "column_break_oov2y",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "if_qty",
+   "fieldtype": "Int",
+   "label": "Incorrect filling Qty"
+  },
+  {
+   "fieldname": "section_break_p0xhv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "dust_in_poly_bag",
+   "fieldtype": "Check",
+   "label": "Powder / dust in poly bag"
+  },
+  {
+   "fieldname": "column_break_uek9e",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pdpb_major",
+   "fieldtype": "Int",
+   "label": "Powder / dust in poly bag Major"
+  },
+  {
+   "fieldname": "column_break_x2pgn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pdpb_minor",
+   "fieldtype": "Int",
+   "label": "Powder / dust in poly bag Minor"
+  },
+  {
+   "fieldname": "column_break_uiwlz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pdpb_critical",
+   "fieldtype": "Int",
+   "label": "Powder / dust in poly bag Critical"
+  },
+  {
+   "fieldname": "column_break_9ufxn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dust_in_poly_bag_image",
+   "fieldtype": "Attach Image",
+   "label": "Powder / dust in poly bag Image"
+  },
+  {
+   "fieldname": "column_break_ev9ok",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pdpb_qty",
+   "fieldtype": "Int",
+   "label": "Powder / dust in poly bag Qty"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-08 16:50:51.502667",
+ "modified": "2024-06-08 16:57:22.639248",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Final Inspection Report CT",
