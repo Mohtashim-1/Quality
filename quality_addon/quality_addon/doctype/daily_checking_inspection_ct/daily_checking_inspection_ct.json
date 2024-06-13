@@ -38,7 +38,7 @@
   "critical",
   "status",
   "column_break_ynogm",
-  "total",
+  "total_qty",
   "weaving_processing_section",
   "miss_pick__double_pick",
   "column_break_fskhl",
@@ -548,11 +548,6 @@
   {
    "fieldname": "column_break_ynogm",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "total",
-   "fieldtype": "Int",
-   "label": "Total"
   },
   {
    "fieldname": "weaving_processing_section",
@@ -2296,12 +2291,17 @@
    "label": "Design",
    "options": "Stitching Design",
    "width": "1"
+  },
+  {
+   "fieldname": "total_qty",
+   "fieldtype": "Int",
+   "label": "Total Qty"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-13 13:48:35.937610",
+ "modified": "2024-06-13 15:14:06.926959",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",
