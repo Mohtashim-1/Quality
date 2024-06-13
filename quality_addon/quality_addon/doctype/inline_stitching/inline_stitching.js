@@ -157,10 +157,97 @@ frappe.ui.form.on('Inline Stitching', {
 frappe.ui.form.on('Inline Stitching CT', {
 	no_of_pcs: function (frm, cdt, cdn) {
 		var d = locals[cdt][cdn];
+		// console.log(d)
+		var total_defect_pcs = 0;
+		frm.doc.inline_stitching_ct.forEach(function (d) {
+			total_defect_pcs += d.total_defect_pcs;
+		});
+
+		frm.set_value('total_defects', total_defect_pcs);
+		refresh_field('total_defects');
+
+	}
+});
+
+
+frappe.ui.form.on('Inline Stitching CT', {
+	double_stitch(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+
+	open_seam(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+
+	loose_stitch(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+	oil_stain(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+	overlap_feb(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+	puckering(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+	raw_edge(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+	spi(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+	uneven_stitch(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+	bad_stitch(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+	open_safty(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+	skip_stitch(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+
+	boot_mark(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+
+	damage(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+
+	wrong_direction(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+
+	number_label_missing(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+
+
+	defects_qty(frm, cdt, cdn) {
+		set_tax(frm, cdt, cdn);
+	},
+
+});
+
+
+
+function set_tax(frm, cdt, cdn) {
+	var d = locals[cdt][cdn];
+	frappe.model.set_value(d.doctype, d.name, 'total_defect_pcs', d.double_stitch + d.defects_qty + d.open_seam + d.loose_stitch + d.oil_stain + d.overlap_feb + d.puckering + d.raw_edge + d.spi + d.uneven_stitch + d.bad_stitch + d.open_safty + d.skip_stitch + d.boot_mark + d.damage + d.wrong_direction + d.number_label_missing);
+}
+
+
+
+frappe.ui.form.on('Inline Stitching CT', {
+	total_defect_pcs: function (frm, cdt, cdn) {
+		var d = locals[cdt][cdn];
 		var total_defects = 0;
 		frm.doc.inline_stitching_ct.forEach(function (d) {
 			total_defects += d.total_defect_pcs;
-
 		});
 
 		frm.set_value('total_defects', total_defects);
@@ -168,3 +255,4 @@ frappe.ui.form.on('Inline Stitching CT', {
 
 	}
 });
+
