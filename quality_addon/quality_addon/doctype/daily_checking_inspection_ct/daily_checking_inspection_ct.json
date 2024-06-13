@@ -1020,7 +1020,7 @@
   {
    "depends_on": "eval:doc.salvage==1",
    "fieldname": "salvage_image",
-   "fieldtype": "Data",
+   "fieldtype": "Attach Image",
    "label": "Salvage Image"
   },
   {
@@ -1960,7 +1960,7 @@
   {
    "depends_on": "eval:doc.short_size==1",
    "fieldname": "ss_critical",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Short Size Critical"
   },
   {
@@ -2301,7 +2301,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-09 01:04:55.847081",
+ "modified": "2024-06-13 13:48:35.937610",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",
