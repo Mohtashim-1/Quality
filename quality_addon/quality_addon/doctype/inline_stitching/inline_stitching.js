@@ -240,8 +240,6 @@ function set_tax(frm, cdt, cdn) {
 	frappe.model.set_value(d.doctype, d.name, 'total_defect_pcs', d.double_stitch + d.defects_qty + d.open_seam + d.loose_stitch + d.oil_stain + d.overlap_feb + d.puckering + d.raw_edge + d.spi + d.uneven_stitch + d.bad_stitch + d.open_safty + d.skip_stitch + d.boot_mark + d.damage + d.wrong_direction + d.number_label_missing);
 }
 
-
-
 frappe.ui.form.on('Inline Stitching CT', {
 	total_defect_pcs: function (frm, cdt, cdn) {
 		var d = locals[cdt][cdn];
