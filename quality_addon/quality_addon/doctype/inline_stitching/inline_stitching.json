@@ -70,7 +70,8 @@
   "defect_percentage",
   "naming_series",
   "remarks_section",
-  "remarks"
+  "remarks",
+  "amended_from"
  ],
  "fields": [
   {
@@ -421,11 +422,22 @@
    "fieldname": "remarks",
    "fieldtype": "Text",
    "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Inline Stitching",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2024-06-06 22:21:56.149987",
+ "modified": "2024-06-14 10:24:19.758651",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Inline Stitching",
@@ -447,5 +459,8 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
 }
