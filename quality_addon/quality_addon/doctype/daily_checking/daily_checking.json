@@ -80,7 +80,8 @@
   "wd_qty",
   "ss_qty",
   "naming_series",
-  "amended_from"
+  "amended_from",
+  "total_percent"
  ],
  "fields": [
   {
@@ -436,13 +437,18 @@
    "fieldname": "wm_qty",
    "fieldtype": "Int",
    "label": "Wash Mark Total "
+  },
+  {
+   "fieldname": "total_percent",
+   "fieldtype": "Percent",
+   "label": "Total Percent"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2024-06-15 12:04:29.734825",
+ "modified": "2024-06-15 12:23:44.824006",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking",
