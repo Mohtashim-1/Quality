@@ -900,11 +900,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "incorrect_construct",
-   "fieldtype": "Select",
-   "label": "Incorrect construct"
-  },
-  {
    "fieldname": "column_break_yidb3",
    "fieldtype": "Column Break"
   },
@@ -1675,11 +1670,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "dust_marka",
-   "fieldtype": "Select",
-   "label": "Dust Marka"
-  },
-  {
    "fieldname": "column_break_xrxej",
    "fieldtype": "Column Break"
   },
@@ -2282,7 +2272,7 @@
   },
   {
    "fieldname": "column_break_furyn",
-   "fieldtype": "Column Break"
+   "fieldtype": "Section Break"
   },
   {
    "default": "0",
@@ -3227,12 +3217,24 @@
    "fieldname": "cdo_image",
    "fieldtype": "Attach Image",
    "label": "Image"
+  },
+  {
+   "default": "0",
+   "fieldname": "incorrect_construct",
+   "fieldtype": "Check",
+   "label": "Incorrect Contruct"
+  },
+  {
+   "default": "0",
+   "fieldname": "dust_marka",
+   "fieldtype": "Check",
+   "label": "Dust Marka"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-08 17:29:58.365353",
+ "modified": "2024-06-15 10:17:15.721898",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Final Inspection Report CT",
