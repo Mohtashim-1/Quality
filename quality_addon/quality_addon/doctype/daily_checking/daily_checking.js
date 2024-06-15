@@ -4464,7 +4464,7 @@ frappe.ui.form.on('Daily Checking', {
 
 
     refresh(frm) {
-        frm.set_value('percent', (frm.doc.total_defects * 100) / frm.doc.total_sample_qty)
+        frm.set_value('total_percent', (frm.doc.total_defects * 100) / frm.doc.total_sample_qty)
 
     }
 
