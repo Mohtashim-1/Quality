@@ -124,6 +124,7 @@
   },
   {
    "columns": 1,
+   "default": "0",
    "fieldname": "no_of_pcs",
    "fieldtype": "Int",
    "in_filter": 1,
@@ -140,22 +141,26 @@
   },
   {
    "columns": 1,
+   "default": "0",
    "fieldname": "double_stitch",
    "fieldtype": "Int",
    "label": "Double Stitch",
    "width": "1"
   },
   {
+   "default": "0",
    "fieldname": "open_seam",
    "fieldtype": "Int",
    "label": "Open Seam"
   },
   {
+   "default": "0",
    "fieldname": "loose_stitch",
    "fieldtype": "Int",
    "label": "Loose Stitch"
   },
   {
+   "default": "0",
    "fieldname": "oil_stain",
    "fieldtype": "Int",
    "label": "Oil Stain"
@@ -171,26 +176,31 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "overlap_feb",
    "fieldtype": "Int",
    "label": "Overlap Feb"
   },
   {
+   "default": "0",
    "fieldname": "puckering",
    "fieldtype": "Int",
    "label": "Puckering"
   },
   {
+   "default": "0",
    "fieldname": "raw_edge",
    "fieldtype": "Int",
    "label": "Raw Edge"
   },
   {
+   "default": "0",
    "fieldname": "spi",
    "fieldtype": "Int",
    "label": "Spi"
   },
   {
+   "default": "0",
    "fieldname": "defects_qty",
    "fieldtype": "Int",
    "label": "Defects Quantity"
@@ -200,21 +210,25 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "uneven_stitch",
    "fieldtype": "Int",
    "label": "Uneven Stitch"
   },
   {
+   "default": "0",
    "fieldname": "bad_stitch",
    "fieldtype": "Int",
    "label": "Bad Stitch"
   },
   {
+   "default": "0",
    "fieldname": "open_safty",
    "fieldtype": "Int",
    "label": "Open Safty"
   },
   {
+   "default": "0",
    "fieldname": "skip_stitch",
    "fieldtype": "Int",
    "label": "Skip Stitch"
@@ -224,21 +238,25 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "boot_mark",
    "fieldtype": "Int",
    "label": "Boot Mark"
   },
   {
+   "default": "0",
    "fieldname": "damage",
    "fieldtype": "Int",
    "label": "Damage"
   },
   {
+   "default": "0",
    "fieldname": "wrong_direction",
    "fieldtype": "Int",
    "label": "Wrong Direction"
   },
   {
+   "default": "0",
    "fieldname": "number_label_missing",
    "fieldtype": "Int",
    "label": "Number Label Missing"
@@ -248,6 +266,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "default": "0",
    "fieldname": "total_defect_pcs",
    "fieldtype": "Int",
    "in_filter": 1,
@@ -260,7 +279,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-08 00:49:30.087582",
+ "modified": "2024-06-19 23:40:55.907949",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Inline Stitching CT",
