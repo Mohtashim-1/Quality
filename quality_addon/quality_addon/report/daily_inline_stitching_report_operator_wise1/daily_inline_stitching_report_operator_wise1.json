@@ -1,0 +1,52 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2024-07-13 13:10:39.160004",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "default": "",
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "from_date",
+   "mandatory": 0,
+   "wildcard_filter": 1
+  },
+  {
+   "default": "",
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "to_date",
+   "mandatory": 0,
+   "wildcard_filter": 1
+  },
+  {
+   "fieldname": "operator_name",
+   "fieldtype": "Link",
+   "label": "operator_name",
+   "mandatory": 0,
+   "options": "Machine Operator",
+   "wildcard_filter": 1
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "modified": "2024-07-13 13:20:43.297590",
+ "modified_by": "Administrator",
+ "module": "Quality Addon",
+ "name": "Daily Inline stitching Report Operator Wise1",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT \r\n    isct.operator_name AS \"Operator Name:Data:100\",\r\n    isct.machine AS \"Machine:Link/Machine\",\r\n    SUM(isct.no_of_pcs) AS \"Total Pcs\",\r\n    ((SUM(isct.total_defect_pcs) / SUM(isct.no_of_pcs)) * 100) AS \"Percentage\",\r\n    SUM(isct.total_defect_pcs) AS \"Total Defects\",\r\n    SUM(isct.double_stitch) AS \"Double Stitch\",\r\n    SUM(isct.open_seam) AS \"Open Seam\",\r\n    SUM(isct.loose_stitch) AS \"Loose Stitch\",\r\n    SUM(isct.oil_stain) AS \"Oil Stain\",\r\n    SUM(isct.overlap_feb) AS \"Overlap Feb\",\r\n    SUM(isct.puckering) AS \"Puckering\",\r\n    SUM(isct.raw_edge) AS \"Raw Edge\",\r\n    SUM(isct.defects_qty) AS \"Defects Qty\",\r\n    SUM(isct.uneven_stitch) AS \"Uneven Stitch\",\r\n    SUM(isct.bad_stitch) AS \"Bad Stitch\",\r\n    SUM(isct.open_safty) AS \"Open Safty\",\r\n    SUM(isct.skip_stitch) AS \"Skip Stitch\",\r\n    SUM(isct.boot_mark) AS \"Boot Mark\",\r\n    SUM(isct.damage) AS \"Damage\",\r\n    SUM(isct.wrong_direction) AS \"Wrong Direction\",\r\n    SUM(isct.number_label_missing) AS \"Number Label Missing\"\r\nFROM\r\n    `tabInline Stitching Inspection` AS isi\r\nJOIN \r\n    `tabInline Stitching CT` AS isct \r\nON \r\n    isct.parent = isi.name \r\nWHERE \r\n    (isi.reporting_date BETWEEN %(from_date)s AND %(to_date)s OR %(from_date)s IS NULL OR %(to_date)s IS NULL)\r\n    AND (isct.operator_name = %(operator_name)s OR %(operator_name)s IS NULL)\r\nGROUP BY\r\n    isct.operator_name\r\nORDER BY\r\n    SUM(isct.total_defect_pcs) DESC;\r\n",
+ "ref_doctype": "Inline Stitching",
+ "report_name": "Daily Inline stitching Report Operator Wise1",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ]
+}

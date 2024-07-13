@@ -78,8 +78,8 @@
   "ohs_qty",
   "bs_qty",
   "column_break_quusn",
+  "ss_qty1",
   "wd_qty",
-  "ss_qty",
   "naming_series",
   "amended_from"
  ],
@@ -88,19 +88,30 @@
    "default": "Now",
    "fieldname": "reporting_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Reporting Date"
   },
   {
    "default": "Now",
    "fieldname": "time",
    "fieldtype": "Time",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Time"
   },
   {
+   "default": "General Inspection Level 2",
    "fieldname": "inspection_level",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Inspection Level",
-   "options": "\nGeneral Inspection Level 1\nGeneral Inspection Level 2\nGeneral Inspection Level 3\nSpecial Inspection Level 1\nSpecial Inspection Level 2\nSpecial Inspection Level 3\nSpecial Inspection Level 4"
+   "options": "\nGeneral Inspection Level 1\nGeneral Inspection Level 2\nGeneral Inspection Level 3\nSpecial Inspection Level 1\nSpecial Inspection Level 2\nSpecial Inspection Level 3\nSpecial Inspection Level 4",
+   "read_only": 1
   },
   {
    "fieldname": "items",
@@ -111,6 +122,9 @@
   {
    "fieldname": "total_audit",
    "fieldtype": "Int",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Total Audit"
   },
   {
@@ -131,6 +145,9 @@
   {
    "fieldname": "total_sample_qty",
    "fieldtype": "Int",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Total Sample Qty"
   },
   {
@@ -141,6 +158,9 @@
   {
    "fieldname": "remarks",
    "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Remarks"
   },
   {
@@ -323,11 +343,6 @@
    "label": "Wrong Direction Total"
   },
   {
-   "fieldname": "ss_qty",
-   "fieldtype": "Data",
-   "label": "Short Size Total"
-  },
-  {
    "fieldname": "sewing_qty",
    "fieldtype": "Int",
    "label": "Sewing Other Total"
@@ -336,17 +351,26 @@
    "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Posing Date"
   },
   {
    "fieldname": "aql_major",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "AQL Major Acceptance",
    "options": "\n1.0\n1.5\n2.5\n4.0"
   },
   {
    "fieldname": "aql_minor",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "AQL Minor Acceptance",
    "options": "\n1.0\n1.5\n2.5\n4.0"
   },
@@ -438,15 +462,24 @@
   {
    "fieldname": "total_percent",
    "fieldtype": "Percent",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Total Percent",
    "precision": "2"
+  },
+  {
+   "default": "0",
+   "fieldname": "ss_qty1",
+   "fieldtype": "Int",
+   "label": "Short Size Qty"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2024-07-13 12:03:57.134990",
+ "modified": "2024-07-13 13:34:55.759373",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking",

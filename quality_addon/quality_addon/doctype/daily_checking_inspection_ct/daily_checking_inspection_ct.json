@@ -142,6 +142,7 @@
   "column_break_1lund",
   "salvage_critical",
   "column_break_nfdj9",
+  "salvage_image",
   "column_break_0savr",
   "salvage_qty",
   "section_break_zg3sg",
@@ -362,7 +363,7 @@
   "column_break_ubwun",
   "short_size_image",
   "column_break_vfpj4",
-  "ss_qty",
+  "ss_qty1",
   "section_break_noyxo",
   "sdo_check",
   "sewing_qty",
@@ -1834,12 +1835,6 @@
    "label": "Wrong Direction Total"
   },
   {
-   "depends_on": "eval:doc.short_size==1",
-   "fieldname": "ss_qty",
-   "fieldtype": "Int",
-   "label": "Short Size Total"
-  },
-  {
    "depends_on": "eval:doc.sdo_check==1",
    "fieldname": "sewing_qty",
    "fieldtype": "Int",
@@ -2297,12 +2292,23 @@
    "fieldname": "ss_critical",
    "fieldtype": "Int",
    "label": "Short Size Critical"
+  },
+  {
+   "fieldname": "salvage_image",
+   "fieldtype": "Attach Image",
+   "label": "Salvage Image"
+  },
+  {
+   "depends_on": "eval:doc.short_size==1",
+   "fieldname": "ss_qty1",
+   "fieldtype": "Int",
+   "label": "Short Size Total"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-13 10:52:38.338481",
+ "modified": "2024-07-13 12:35:23.719358",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",
