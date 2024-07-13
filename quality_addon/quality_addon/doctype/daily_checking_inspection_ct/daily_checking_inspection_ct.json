@@ -375,8 +375,7 @@
   "column_break_cz69j",
   "sdo_critical",
   "column_break_cllau",
-  "sdo_image",
-  "salvage_image"
+  "sdo_image"
  ],
  "fields": [
   {
@@ -514,6 +513,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "default": "0",
    "fieldname": "major",
    "fieldtype": "Int",
    "label": "Major",
@@ -524,6 +524,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "minor",
    "fieldtype": "Int",
    "label": "Minor",
@@ -534,6 +535,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "critical",
    "fieldtype": "Int",
    "label": "Critical",
@@ -1031,6 +1033,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "depends_on": "eval:doc.smash==1",
    "fieldname": "smash_major",
    "fieldtype": "Int",
@@ -1041,6 +1044,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "depends_on": "eval:doc.smash==1",
    "fieldname": "smash_minor",
    "fieldtype": "Int",
@@ -1051,6 +1055,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "depends_on": "eval:doc.smash==1",
    "fieldname": "smash_critical",
    "fieldtype": "Int",
@@ -1129,6 +1134,7 @@
    "label": "Selvedge Qty"
   },
   {
+   "default": "0",
    "depends_on": "eval:doc.smash==1",
    "fieldname": "smash_qty",
    "fieldtype": "Int",
@@ -1141,6 +1147,7 @@
    "label": "Other"
   },
   {
+   "default": "0",
    "fieldname": "weaving_total",
    "fieldtype": "Int",
    "label": "Weaving Total"
@@ -1598,7 +1605,7 @@
   {
    "depends_on": "eval:doc.puckering==1",
    "fieldname": "puckering_image",
-   "fieldtype": "Int",
+   "fieldtype": "Attach Image",
    "label": "Puckering Image"
   },
   {
@@ -2021,7 +2028,7 @@
   {
    "depends_on": "eval:doc.missing_label==1",
    "fieldname": "missing_label_image",
-   "fieldtype": "Int",
+   "fieldtype": "Attach Image",
    "label": "Missing / Wrong Label Image"
   },
   {
@@ -2281,6 +2288,7 @@
    "width": "1"
   },
   {
+   "default": "0",
    "fieldname": "total_qty",
    "fieldtype": "Int",
    "label": "Total Qty"
@@ -2289,17 +2297,12 @@
    "fieldname": "ss_critical",
    "fieldtype": "Int",
    "label": "Short Size Critical"
-  },
-  {
-   "fieldname": "salvage_image",
-   "fieldtype": "Attach Image",
-   "label": "Salvage Image"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-15 10:59:10.848442",
+ "modified": "2024-07-13 10:52:38.338481",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",

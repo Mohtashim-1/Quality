@@ -2591,94 +2591,70 @@ frappe.ui.form.on('Daily Checking Inspection CT', {
 
 //ERRORS Calculation ///
 
-
-
-
-
 frappe.ui.form.on('Daily Checking Inspection CT', {
     miss_pick__double_pick_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
     },
     fly_yarn_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     incorrect_construct_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     registration_out_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     miss_print_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     bowing_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     touching_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     streaks_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     salvage_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     smash_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     un_cut_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     os_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     wm_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     cc_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     nh_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     dm_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     mwl_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     us_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     bls_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     ohs_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     wt_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    }
-    ,
+    },
     p_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
     },
@@ -2699,25 +2675,117 @@ frappe.ui.form.on('Daily Checking Inspection CT', {
     },
     sdo_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
-    },
-
+    }
 });
-
 
 function set_major(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
-    // frappe.model.set_value(d.doctype, d.name, 'major',d.sdo_major+d.fdo_major+d.owp_major+ d.miss_pick__double_pick_major+
-    // d.fly_yarn_major+d.incorrect_construct_major+d.registration_out_major+d.miss_print_major+d.bowing_major+d.touching_major+
-    // d.streaks_major+d.salvage_major+d.smash_major+d.un_cut_major+d.os_major+d.wm_major+d.cc_major+d.nh_major+d.dm_major+
-    // d.mwl_major+d.us_major+d.bls_major+d.ohs_major+d.wt_major+d.p_major+d.bs_major+d.wd_major+d.ss_major);
-    frappe.model.set_value(d.doctype, d.name, 'major', d.miss_pick__double_pick_major + d.incorrect_construct_major + d.registration_out_major + d.miss_print_major +
-        d.bowing_major + d.touching_major + d.streaks_major + d.salvage_major + d.smash_major + d.un_cut_major + d.owp_major +
-        d.os_major + d.wm_major + d.cc_major + d.nh_major + d.dm_major + d.fdo_major + d.mwl_major + d.us_major + d.bls_major + d.ohs_major + d.wt_major + d.p_major
-        + d.bs_major + d.wd_major + d.ss_major + d.sdo_major
-    );
+    var totalMajor = ['miss_pick__double_pick_major', 'incorrect_construct_major', 'registration_out_major', 'miss_print_major',
+        'bowing_major', 'touching_major', 'streaks_major', 'salvage_major', 'smash_major', 'un_cut_major', 'owp_major',
+        'os_major', 'wm_major', 'cc_major', 'nh_major', 'dm_major', 'fdo_major', 'mwl_major', 'us_major', 'bls_major', 'ohs_major', 'wt_major', 'p_major',
+        'bs_major', 'wd_major', 'ss_major', 'sdo_major']
+        .reduce((sum, field) => sum + (parseFloat(d[field]) || 0), 0);
 
+    frappe.model.set_value(d.doctype, d.name, 'major', totalMajor);
 }
 
+frappe.ui.form.on('Daily Checking Inspection CT', {
+    // Event handlers for each field
+    miss_pick__double_pick_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    fly_yarn_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    incorrect_construct_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    registration_out_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    miss_print_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    bowing_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    touching_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    streaks_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    salvage_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    smash_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    un_cut_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    os_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    wm_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    cc_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    nh_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    dm_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    mwl_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    us_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    bls_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    ohs_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    wt_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    p_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    bs_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    wd_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    ss_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    owp_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    fdo_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    },
+    sdo_minor(frm, cdt, cdn) {
+        set_minor(frm, cdt, cdn);
+    }
+});
+
+function set_minor(frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    var totalMinor = ["sdo_minor", "fdo_minor", "owp_minor", "miss_pick__double_pick_minor", "fly_yarn_minor",
+        "incorrect_construct_minor", "registration_out_minor", "miss_print_minor", "bowing_minor", "touching_minor", "streaks_minor",
+        "salvage_minor", "smash_minor", "un_cut_minor", "os_minor", "wm_minor", "cc_minor", "nh_minor", "dm_minor", "mwl_minor",
+        "us_minor", "bls_minor", "ohs_minor", "wt_minor", "p_minor", "bs_minor", "wd_minor", "ss_minor"].reduce((sum, field) => 
+        sum + (parseFloat(d[field]) || 0), 0);
+    frappe.model.set_value(d.doctype, d.name, 'minor', totalMinor);
+}
 
 
 
@@ -2831,135 +2899,17 @@ frappe.ui.form.on('Daily Checking Inspection CT', {
 
 function set_critical(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
+    var totalCritical = [
+        "miss_pick__double_pick_critical", "fly_yarn_critical", "incorrect_construct_critical",
+        "registration_out_critical", "miss_print_critical", "bowing_critical", "touching_critical",
+        "streaks_critical", "salvage_critical", "smash_critical", "owp_critical", "un_cut_critical",
+        "os_critical", "wm_critical", "cc_critical", "nh_critical", "dm_critical", "fdo_critical",
+        "missing_label_image", "us_critical", "bls_critical", "ohs_critical", "wt_critical",
+        "p_critical", "mwc_critical","ms_critical", "wd_critical", "ss_critical", "sdo_critical"
+    ].reduce((sum, field) => sum + (parseFloat(d[field]) || 0), 0);
 
-    // frappe.model.set_value(d.doctype, d.name, 'critical',d.sdo_critical+d.fdo_critical+ d.owp_critical+d.miss_pick__double_pick_critical+
-    // d.fly_yarn_critical+d.incorrect_construct_critical+d.registration_out_critical+d.miss_print_critical+d.bowing_critical+d.touching_critical+
-    // d.streaks_critical+d.salvage_critical+d.smash_critical+d.un_cut_critical+d.os_critical+d.wm_critical+d.cc_critical+d.nh_critical+d.dm_critical+
-    // d.mwc_critical+d.us_critical+d.bls_critical+d.ohs_critical+d.wt_critical+d.p_critical+d.ms_critical+d.wd_critical+d.ss_critical
-    // );
-    frappe.model.set_value(d.doctype, d.name, 'critical', d.miss_pick__double_pick_critical + d.fly_yarn_critical + d.incorrect_construct_critical
-        + d.registration_out_critical + d.miss_print_critical + d.bowing_critical + d.touching_critical + d.streaks_critical + d.salvage_critical + d.smash_critical + d.owp_critical
-        //  + d.un_cut_critical + d.os_critical + d.wm_critical + d.cc_critical + d.nh_critical + d.dm_critical + d.fdo_critical + d.missing_label_image 
-        // + d.us_critical + d.bls_critical + d.ohs_critical + d.wt_critical + d.p_critical + d.ms_critical + d.wd_critical + d.ss_critical + d.sdo_critical 
-    );
+    frappe.model.set_value(d.doctype, d.name, 'critical', totalCritical);
 }
-
-
-frappe.ui.form.on('Daily Checking Inspection CT', {
-    miss_pick__double_pick_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    },
-    fly_yarn_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    incorrect_construct_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    registration_out_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    miss_print_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    bowing_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    touching_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    streaks_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    salvage_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    smash_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    un_cut_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    os_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    wm_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    cc_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    nh_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    dm_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    mwl_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    us_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    bls_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    ohs_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    wt_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    }
-    ,
-    p_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    },
-    bs_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    },
-    wd_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    },
-    ss_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    },
-    owp_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    },
-    fdo_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    },
-    sdo_minor(frm, cdt, cdn) {
-        set_minor(frm, cdt, cdn);
-    },
-});
-
-function set_minor(frm, cdt, cdn) {
-    var d = locals[cdt][cdn];
-    frappe.model.set_value(d.doctype, d.name, 'minor', d.sdo_minor + d.fdo_minor + d.owp_minor + d.miss_pick__double_pick_minor + d.fly_yarn_minor +
-        d.incorrect_construct_minor + d.registration_out_minor + d.miss_print_minor + d.bowing_minor + d.touching_minor + d.streaks_minor + d.salvage_minor +
-        d.smash_minor + d.un_cut_minor + d.os_minor + d.wm_minor + d.cc_minor + d.nh_minor + d.dm_minor + d.mwl_minor + d.us_minor + d.bls_minor + d.ohs_minor + d.wt_minor +
-        d.p_minor + d.bs_minor + d.wd_minor + d.ss_minor);
-}
-
 
 
 
@@ -4464,7 +4414,8 @@ frappe.ui.form.on('Daily Checking', {
 
 
     refresh(frm) {
-        frm.set_value('total_percent', (frm.doc.total_defects * 100) / frm.doc.total_sample_qty)
+        // frm.set_value('total_percent', (frm.doc.total_defects * 100) / frm.doc.total_sample_qty)
+         frm.set_value('total_percent', (frm.doc.total_defects / frm.doc.total_audit) * 100)
 
     }
 
@@ -4865,3 +4816,4 @@ frappe.ui.form.on("Daily Checking Inspection CT", {
 
 
 
+    

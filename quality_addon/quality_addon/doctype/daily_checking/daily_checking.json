@@ -230,7 +230,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "collapsible": 1,
    "fieldname": "column_break_ybwrr",
    "fieldtype": "Section Break",
    "label": "Weaving Defects"
@@ -244,7 +243,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "collapsible": 1,
    "fieldname": "section_break_a8542",
    "fieldtype": "Section Break",
    "label": "Finishing Defects"
@@ -254,7 +252,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "collapsible": 1,
    "fieldname": "column_break_gqt5z",
    "fieldtype": "Section Break",
    "label": "Sewing Defect"
@@ -266,7 +263,7 @@
   {
    "fieldname": "weaving_defects",
    "fieldtype": "Tab Break",
-   "label": "Weaving Defects"
+   "label": "Summary"
   },
   {
    "fieldname": "column_break_quusn",
@@ -441,14 +438,15 @@
   {
    "fieldname": "total_percent",
    "fieldtype": "Percent",
-   "label": "Total Percent"
+   "label": "Total Percent",
+   "precision": "2"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2024-06-15 12:36:06.008717",
+ "modified": "2024-07-13 12:03:57.134990",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking",
