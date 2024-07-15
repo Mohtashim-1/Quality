@@ -165,8 +165,10 @@
   "owp_minor",
   "column_break_u3nva",
   "owp_critical",
-  "column_break_hepvr",
   "owp_image",
+  "column_break_s2ryk",
+  "owp_total",
+  "section_break_dehb4",
   "finishing_defects_tab",
   "section_break_5zpcn",
   "un_cut",
@@ -252,6 +254,8 @@
   "fdo_critical",
   "column_break_1kq61",
   "fdo_image",
+  "fdo_total",
+  "section_break_pj4et",
   "sewing_defects_tab",
   "section_break_a5tfh",
   "missing_label",
@@ -372,6 +376,7 @@
   "column_break_dbvr7",
   "sdo_critical",
   "column_break_skxf0",
+  "sdo_other",
   "sdo_image",
   "packing_defects_tab",
   "section_break_andpw",
@@ -506,6 +511,8 @@
   "pdo_critical",
   "column_break_px6jp",
   "pdo_image",
+  "pdo_total",
+  "section_break_oh4tq",
   "column_break_w7air",
   "section_break_qmsch",
   "damaged_cartons",
@@ -566,7 +573,9 @@
   "column_break_8pzbe",
   "cdo_critical",
   "column_break_dg9pu",
-  "cdo_image"
+  "cdo_image",
+  "cdo_totals",
+  "section_break_2hts6"
  ],
  "fields": [
   {
@@ -1375,10 +1384,6 @@
    "fieldname": "owp_critical",
    "fieldtype": "Int",
    "label": "Other Critical"
-  },
-  {
-   "fieldname": "column_break_hepvr",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "owp_image",
@@ -3229,12 +3234,59 @@
    "fieldname": "dust_marka_check",
    "fieldtype": "Check",
    "label": "Dust Marka"
+  },
+  {
+   "fieldname": "column_break_s2ryk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_dehb4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_pj4et",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "sdo_other",
+   "fieldtype": "Int",
+   "label": "Total Other"
+  },
+  {
+   "fieldname": "pdo_total",
+   "fieldtype": "Int",
+   "label": "pdo_total"
+  },
+  {
+   "fieldname": "section_break_oh4tq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "cdo_totals",
+   "fieldtype": "Int",
+   "label": "Other Total"
+  },
+  {
+   "fieldname": "section_break_2hts6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "owp_total",
+   "fieldtype": "Int",
+   "label": "Total Other"
+  },
+  {
+   "default": "0",
+   "fieldname": "fdo_total",
+   "fieldtype": "Int",
+   "label": "Other Total"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-15 13:40:27.209551",
+ "modified": "2024-07-15 11:10:27.626915",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Final Inspection Report CT",
