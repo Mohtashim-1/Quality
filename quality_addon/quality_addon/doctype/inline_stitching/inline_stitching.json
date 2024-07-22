@@ -15,6 +15,8 @@
   "process_type",
   "column_break_6ncpm",
   "time",
+  "start_time",
+  "end_time",
   "department",
   "column_break_pb2sp",
   "select_po",
@@ -78,7 +80,8 @@
    "default": "Now",
    "fieldname": "date",
    "fieldtype": "Date",
-   "label": "Posting Date"
+   "label": "Posting Date",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_grn8u",
@@ -88,7 +91,9 @@
    "default": "Now",
    "fieldname": "reporting_date",
    "fieldtype": "Date",
-   "label": "Reporting Date"
+   "in_list_view": 1,
+   "label": "Reporting Date",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_ltgie",
@@ -97,8 +102,10 @@
   {
    "fieldname": "process_type",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Process TIme",
-   "options": "\n09 to 12\n12 to 03\n03 to 06"
+   "options": "\n09 to 12\n12 to 03\n03 to 06",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_6ncpm",
@@ -108,7 +115,8 @@
    "default": "Now",
    "fieldname": "time",
    "fieldtype": "Time",
-   "label": "Time"
+   "label": "Time",
+   "read_only": 1
   },
   {
    "fieldname": "department",
@@ -147,31 +155,36 @@
    "default": "0",
    "fieldname": "double_stitch_total",
    "fieldtype": "Int",
-   "label": "Double Stitch Total"
+   "label": "Double Stitch Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "overlap_feb_total",
    "fieldtype": "Int",
-   "label": "Overlap Feb Total"
+   "label": "Overlap Feb Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "uneven_stitch_total",
    "fieldtype": "Int",
-   "label": "Uneven Stitch Total"
+   "label": "Uneven Stitch Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "boot_mark_total",
    "fieldtype": "Int",
-   "label": "Boot Mark Total"
+   "label": "Boot Mark Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "other_defect_qty",
    "fieldtype": "Int",
-   "label": "Other Defect Qty"
+   "label": "Other Defect Qty",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_xuixz",
@@ -181,25 +194,29 @@
    "default": "0",
    "fieldname": "open_seam_total",
    "fieldtype": "Int",
-   "label": "Open Seam Total"
+   "label": "Open Seam Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "puckering_total",
    "fieldtype": "Int",
-   "label": "Puckering Total"
+   "label": "Puckering Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "bad_stitch_total",
    "fieldtype": "Int",
-   "label": "Bad Stitch Total"
+   "label": "Bad Stitch Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "damage_total",
    "fieldtype": "Int",
-   "label": "Damage Total"
+   "label": "Damage Total",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_w9vr2",
@@ -209,25 +226,29 @@
    "default": "0",
    "fieldname": "loose_stitch_total",
    "fieldtype": "Int",
-   "label": "Loose Stitch Total"
+   "label": "Loose Stitch Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "raw_edge_total",
    "fieldtype": "Int",
-   "label": "Raw Edge Total"
+   "label": "Raw Edge Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "open_safty_total",
    "fieldtype": "Int",
-   "label": "Open Safty Total"
+   "label": "Open Safty Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "wrong_direction_total",
    "fieldtype": "Int",
-   "label": "Wrong Direction Total"
+   "label": "Wrong Direction Total",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_ghnde",
@@ -237,25 +258,29 @@
    "default": "0",
    "fieldname": "oil_stain_total",
    "fieldtype": "Int",
-   "label": "Oil Stain Total"
+   "label": "Oil Stain Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "spi_total",
    "fieldtype": "Int",
-   "label": "Spi Total"
+   "label": "Spi Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "skip_stitch_total",
    "fieldtype": "Int",
-   "label": "Skip Stitch Total"
+   "label": "Skip Stitch Total",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "number_label_missing_total",
    "fieldtype": "Int",
-   "label": "Number Label Missing Total"
+   "label": "Number Label Missing Total",
+   "read_only": 1
   },
   {
    "fieldname": "total_defects_percentage_section",
@@ -266,31 +291,36 @@
    "default": "0",
    "fieldname": "ds_percent",
    "fieldtype": "Percent",
-   "label": "Double Stitch %"
+   "label": "Double Stitch %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "of_percent",
    "fieldtype": "Percent",
-   "label": "Overlap Feb %"
+   "label": "Overlap Feb %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "us_percent",
    "fieldtype": "Percent",
-   "label": "Uneven Stitch %"
+   "label": "Uneven Stitch %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "bm_percent",
    "fieldtype": "Percent",
-   "label": "Boot Mark %"
+   "label": "Boot Mark %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "od_percent",
    "fieldtype": "Percent",
-   "label": "Other Defect %"
+   "label": "Other Defect %",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_rgmuk",
@@ -300,53 +330,62 @@
    "default": "0",
    "fieldname": "o_seam_percent",
    "fieldtype": "Percent",
-   "label": "Open Seam %"
+   "label": "Open Seam %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "p_percent",
    "fieldtype": "Percent",
-   "label": "Puckering %"
+   "label": "Puckering %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "bs_percent",
    "fieldtype": "Percent",
-   "label": "Bad Stitch %"
+   "label": "Bad Stitch %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "d_percent",
    "fieldtype": "Percent",
-   "label": "Damage %"
+   "label": "Damage %",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_xabnb",
-   "fieldtype": "Column Break"
+   "fieldtype": "Column Break",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "ls_percent",
    "fieldtype": "Percent",
-   "label": "Loose Stitch %"
+   "label": "Loose Stitch %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "re_percent",
    "fieldtype": "Percent",
-   "label": "Raw Edge %"
+   "label": "Raw Edge %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "o_percent",
    "fieldtype": "Percent",
-   "label": "Open Safty %"
+   "label": "Open Safty %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "wd_percent",
    "fieldtype": "Percent",
-   "label": "Wrong Direction %"
+   "label": "Wrong Direction %",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_curky",
@@ -356,25 +395,29 @@
    "default": "0",
    "fieldname": "os_percent",
    "fieldtype": "Percent",
-   "label": "Oil Stain %"
+   "label": "Oil Stain %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "s_percent",
    "fieldtype": "Percent",
-   "label": "Spi %"
+   "label": "Spi %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "ss_percent",
    "fieldtype": "Percent",
-   "label": "Skip Stitch %"
+   "label": "Skip Stitch %",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "nlm_percent",
    "fieldtype": "Percent",
-   "label": "Number Label Missing %"
+   "label": "Number Label Missing %",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_nathd",
@@ -384,7 +427,8 @@
    "default": "0",
    "fieldname": "total_defects",
    "fieldtype": "Int",
-   "label": "Total Defects"
+   "label": "Total Defects",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_pvxym",
@@ -394,7 +438,8 @@
    "default": "0",
    "fieldname": "total_number_pcs",
    "fieldtype": "Int",
-   "label": "Total Number Pcs"
+   "label": "Total Number Pcs",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_nlkny",
@@ -404,7 +449,8 @@
    "default": "0",
    "fieldname": "defect_percentage",
    "fieldtype": "Percent",
-   "label": "Defect %"
+   "label": "Defect %",
+   "read_only": 1
   },
   {
    "fieldname": "naming_series",
@@ -432,12 +478,24 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Datetime",
+   "label": "Start Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Datetime",
+   "label": "End Time",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-14 10:28:29.450240",
+ "modified": "2024-07-22 13:38:05.271052",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Inline Stitching",

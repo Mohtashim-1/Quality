@@ -1,3 +1,56 @@
+frappe.ui.form.on('Inline Stitching', {
+    refresh: function(frm) {
+        frm.set_df_property('start_time', 'read_only', 1);
+        frm.set_df_property('end_time', 'read_only', 1);
+
+        if (!frm.doc.start_time && frm.doc.docstatus != 1) {
+            frm.add_custom_button(__('Set Start Time'), function() {
+                let now = frappe.datetime.now_datetime();
+                frm.set_value('start_time', now);
+                frm.refresh_field('start_time');
+                frm.refresh();
+            });
+        }
+
+        if (frm.doc.start_time && !frm.doc.end_time && frm.doc.docstatus != 1) {
+            frm.add_custom_button(__('Set End Time'), function() {
+                let now = frappe.datetime.now_datetime();
+                frm.set_value('end_time', now);
+                frm.refresh_field('end_time');
+                frm.refresh();
+            });
+        }
+    },
+
+    before_save: function(frm) {
+        if (!frm.doc.start_time) {
+            frappe.throw(__('Start Time is mandatory'));
+        }
+    },
+    // before_save: function(frm) {
+    //     if (frm.doc.docstatus == 0 && !frm.doc.end_time) {
+    //         frappe.throw(__('End Time is mandatory before save'));
+    //     }
+    // },
+
+    before_submit: function(frm) {
+        if (frm.doc.docstatus == 0 && !frm.doc.end_time) {
+            frappe.throw(__('End Time is mandatory before submission'));
+        }
+    },
+
+    before_load: function(frm) {
+        if (frm.is_new()) {
+            frm.set_value('start_time', null);
+            frm.set_value('end_time', null);
+        }
+    },
+
+});
+
+
+
+
 frappe.ui.form.on('Inline Stitching CT', {
 	inline_stitching_ct_add: function (frm, cdt, cdn) {
 		calculate_totals(frm);
