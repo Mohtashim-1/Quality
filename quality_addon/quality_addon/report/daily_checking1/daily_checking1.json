@@ -1,0 +1,26 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2024-07-22 18:12:10.655299",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "modified": "2024-07-22 18:12:10.655299",
+ "modified_by": "Administrator",
+ "module": "Quality Addon",
+ "name": "Daily Checking1",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Daily Checking",
+ "report_name": "Daily Checking1",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ]
+}
