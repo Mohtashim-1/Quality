@@ -52,7 +52,9 @@
   "column_break_qoawc",
   "miss_pick__double_pick_qty",
   "column_break_8s0xr",
-  "fly_yarn_major",
+  "fly_yarn",
+  "column_break_vf5ra",
+  "fly_yarn_major1",
   "column_break_qgy2d",
   "fly_yarn_minor",
   "column_break_l0zgt",
@@ -612,12 +614,6 @@
   {
    "fieldname": "column_break_8s0xr",
    "fieldtype": "Section Break"
-  },
-  {
-   "depends_on": "eval:doc.fly_yarn==1",
-   "fieldname": "fly_yarn_major",
-   "fieldtype": "Data",
-   "label": "Fly Yarn Major"
   },
   {
    "fieldname": "column_break_qgy2d",
@@ -2305,12 +2301,28 @@
    "fieldname": "ss_qty1",
    "fieldtype": "Int",
    "label": "Short Size Total"
+  },
+  {
+   "default": "0",
+   "fieldname": "fly_yarn",
+   "fieldtype": "Check",
+   "label": "Fly Yarn"
+  },
+  {
+   "fieldname": "column_break_vf5ra",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.fly_yarn==1",
+   "fieldname": "fly_yarn_major1",
+   "fieldtype": "Int",
+   "label": "Fly Yarn Major"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-20 14:19:27.701806",
+ "modified": "2024-07-22 13:04:58.124421",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",

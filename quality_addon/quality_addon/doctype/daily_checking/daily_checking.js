@@ -2596,7 +2596,7 @@ frappe.ui.form.on('Daily Checking Inspection CT', {
     miss_pick__double_pick_major(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
     },
-    fly_yarn_major(frm, cdt, cdn) {
+    fly_yarn_major1(frm, cdt, cdn) {
         set_major(frm, cdt, cdn);
     },
     incorrect_construct_major(frm, cdt, cdn) {
@@ -2977,7 +2977,7 @@ frappe.ui.form.on("Daily Checking Inspection CT", {
     fly_yarn_minor(frm, cdt, cdn) {
         set_fly_total(frm, cdt, cdn);
     },
-    fly_yarn_major(frm, cdt, cdn) {
+    fly_yarn_major1(frm, cdt, cdn) {
         set_fly_total(frm, cdt, cdn);
     },
 
@@ -2986,7 +2986,7 @@ function set_fly_total(frm, cdt, cdn) {
     var d = locals[cdt][cdn];
 
 
-    frappe.model.set_value(d.doctype, d.name, "fly_yarn_qty", d.fly_yarn_major + d.fly_yarn_minor + d.fly_yarn_critical);
+    frappe.model.set_value(d.doctype, d.name, "fly_yarn_qty", d.fly_yarn_major1 + d.fly_yarn_minor + d.fly_yarn_critical);
 
 }
 frappe.ui.form.on("Daily Checking Inspection CT", {
@@ -4543,7 +4543,7 @@ frappe.ui.form.on("Daily Checking Inspection CT", {
         var d = locals[cdt][cdn];
 
 
-        frappe.model.set_value(d.doctype, d.name, "fly_yarn_major", 0);
+        frappe.model.set_value(d.doctype, d.name, "fly_yarn_major1", 0);
         frappe.model.set_value(d.doctype, d.name, "fly_yarn_minor", 0);
         frappe.model.set_value(d.doctype, d.name, "fly_yarn_critical", 0);
         frappe.model.set_value(d.doctype, d.name, "fly_yarn_qty", 0);
