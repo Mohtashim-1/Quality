@@ -390,6 +390,7 @@
    "in_standard_filter": 1,
    "label": "Customer",
    "options": "Customer",
+   "reqd": 1,
    "width": "1"
   },
   {
@@ -468,6 +469,7 @@
    "in_standard_filter": 1,
    "label": "Checker Name",
    "options": "Checker",
+   "reqd": 1,
    "width": "1"
   },
   {
@@ -2308,7 +2310,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-13 12:35:23.719358",
+ "modified": "2024-07-20 14:19:27.701806",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",
