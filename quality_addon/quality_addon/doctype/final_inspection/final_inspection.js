@@ -2913,7 +2913,7 @@ frappe.ui.form.on('Final Inspection Report CT', {
 
 function set_major(frm, cdt, cdn) {
 	var d = locals[cdt][cdn];
-	frappe.model.set_value(d.doctype, d.name, 'major', d.cdo_major + d.pdo_major + d.sdo_major + d.fdo_major + d.owp_major + d.miss_pick__double_pick_major + d.fly_yarn_major + d.incorrect_construct_major + d.pdpb_major + d.registration_out_major + d.miss_print_major + d.bowing_major + d.touching_major + d.streaks_major + d.salvage_major + d.smash_major + d.un_cut_major + d.os_major + d.wm_major + d.cc_major + d.nh_major + d.dm_major + d.mwl_major + d.us_major + d.bls_major + d.ohs_major + d.wt_major + d.p_major + d.bs_major + d.wd_major + d.ss_major + d.wmb_major + d.wms_major + d.rwi_major + d.dpb_major + d.lbb_major + d.if_major + d.pdpb_major + d.mm_major + d.bp_major + d.wa_major + d.dc_major + d.wmm_major + d.ws_major + d.wbs_major);
+	frappe.model.set_value(d.doctype, d.name, 'major', d.cdo_major + d.pdo_major + d.sdo_major + d.fdo_major + d.owp_major + d.miss_pick__double_pick_major + d.fly_yarn_major + d.incorrect_construct_major + d.pdpb_major + d.registration_out_major + d.miss_print_major + d.bowing_major + d.touching_major + d.streaks_major + d.salvage_major + d.smash_major + d.un_cut_major + d.os_major + d.wm_major + d.cc_major + d.nh_major + d.dm_major + d.mwl_major + d.us_major + d.bls_major + d.ohs_major + d.wt_major + d.p_major + d.bs_major + d.wd_major + d.ss_major + d.wmb_major + d.wms_major + d.rwi_major + d.dpb_major + d.lbb_major + d.if_major + d.mm_major + d.bp_major + d.wa_major + d.dc_major + d.wmm_major + d.ws_major + d.wbs_major);
 }
 
 

@@ -651,7 +651,7 @@
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Color",
+   "label": "Colour",
    "width": "1"
   },
   {
@@ -667,7 +667,7 @@
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Articale",
+   "label": "Article",
    "options": "Stitching Article",
    "width": "1"
   },
@@ -697,6 +697,7 @@
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Sample Qty",
+   "read_only": 1,
    "width": "1"
   },
   {
@@ -713,6 +714,7 @@
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "AQL Major Accepted",
+   "read_only": 1,
    "width": "1"
   },
   {
@@ -729,6 +731,7 @@
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "AQL Minor Accepted",
+   "read_only": 1,
    "width": "1"
   },
   {
@@ -743,6 +746,7 @@
    "in_global_search": 1,
    "in_preview": 1,
    "label": "Major",
+   "read_only": 1,
    "width": "1"
   },
   {
@@ -757,6 +761,7 @@
    "in_global_search": 1,
    "in_preview": 1,
    "label": "Minor",
+   "read_only": 1,
    "width": "1"
   },
   {
@@ -766,7 +771,8 @@
   {
    "fieldname": "critical",
    "fieldtype": "Int",
-   "label": "Critical"
+   "label": "Critical",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_8fqpe",
@@ -783,6 +789,7 @@
    "in_standard_filter": 1,
    "label": "Status",
    "options": "\nPass\nFail",
+   "read_only": 1,
    "width": "1"
   },
   {
@@ -799,9 +806,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "miss_pick__double_pick",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Miss Pick / Double Pick"
   },
   {
@@ -854,9 +862,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "fly_yarn",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Fly Yarn"
   },
   {
@@ -958,9 +967,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "registreation_out",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Registreation out"
   },
   {
@@ -1013,9 +1023,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "miss_print",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Miss Print"
   },
   {
@@ -1068,9 +1079,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "bowing",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Bowing"
   },
   {
@@ -1123,9 +1135,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "touching",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Touching"
   },
   {
@@ -1178,9 +1191,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "streaks",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Streaks"
   },
   {
@@ -1233,9 +1247,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "salvage",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Salvage"
   },
   {
@@ -1288,9 +1303,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "smash",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Smash"
   },
   {
@@ -1343,9 +1359,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "oop_check",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Other"
   },
   {
@@ -1400,9 +1417,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "un_cut",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Un cut / Loose Thread"
   },
   {
@@ -1455,9 +1473,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "oil_stain",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Oil Stain"
   },
   {
@@ -1510,9 +1529,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "wash_mark",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Wash Mark"
   },
   {
@@ -1565,9 +1585,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "cliper_cut",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Cliper Cut"
   },
   {
@@ -1620,9 +1641,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "niddel_hole",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Niddel Hole"
   },
   {
@@ -1724,9 +1746,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "fdo_check",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Other"
   },
   {
@@ -1785,9 +1808,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "missing_label",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Missing / Wrong Label"
   },
   {
@@ -1840,9 +1864,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "uneven_stitch",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Uneven stitch"
   },
   {
@@ -1895,9 +1920,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "broken_stitch",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Broken / Loose Stitch"
   },
   {
@@ -1950,9 +1976,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "open_hem",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Open Hem / sem"
   },
   {
@@ -2005,9 +2032,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "wrong_thread",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Wrong Thread"
   },
   {
@@ -2060,9 +2088,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "puckering",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Puckering"
   },
   {
@@ -2115,9 +2144,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "bed_stitch",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Bed Stitch"
   },
   {
@@ -2170,9 +2200,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "wrong_direction",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Wrong Direction"
   },
   {
@@ -2225,9 +2256,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "short_size",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Short Size"
   },
   {
@@ -2280,9 +2312,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "sdo_check",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Other"
   },
   {
@@ -2341,9 +2374,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "wrong_barcode",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Wrong / Missing Barcode"
   },
   {
@@ -2396,9 +2430,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "wrong_size",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Wrong / Missing Size"
   },
   {
@@ -2451,9 +2486,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "wrong_inlay",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Rejected / Wrong inlay"
   },
   {
@@ -2506,9 +2542,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "damaged_poly_bags",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Damaged Poly bags"
   },
   {
@@ -2561,9 +2598,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "loos_bag",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Loos / Buldgy bag"
   },
   {
@@ -2616,9 +2654,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "incorrect_filling",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Incorrect filling"
   },
   {
@@ -2671,9 +2710,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "dust_in_poly_bag",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Powder / dust in poly bag"
   },
   {
@@ -2726,9 +2766,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "miss_matching",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Miss Matching"
   },
   {
@@ -2781,9 +2822,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "bed_presentation",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Bed Presentation"
   },
   {
@@ -2836,9 +2878,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "wrong_assortment",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Wrong assortment"
   },
   {
@@ -2891,9 +2934,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "pdo_check",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Other"
   },
   {
@@ -2952,9 +2996,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "damaged_cartons",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Damaged Cartons"
   },
   {
@@ -3007,9 +3052,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "wrong_making",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Wrong / Missprint Macking"
   },
   {
@@ -3062,9 +3108,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "carton_wrong_size",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Wrong Size"
   },
   {
@@ -3117,9 +3164,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "wrong_barcode_carton",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Wrong Barcode Sticker"
   },
   {
@@ -3172,9 +3220,10 @@
    "fieldtype": "Section Break"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "cdo_check",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Other"
   },
   {
@@ -3224,15 +3273,17 @@
    "label": "Image"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "incorrect_construct_total",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Incorrect Contruct"
   },
   {
+   "collapsible": 1,
    "default": "0",
    "fieldname": "dust_marka_check",
-   "fieldtype": "Check",
+   "fieldtype": "Section Break",
    "label": "Dust Marka"
   },
   {
@@ -3286,7 +3337,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-15 11:10:27.626915",
+ "modified": "2024-07-22 14:18:19.071302",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Final Inspection Report CT",

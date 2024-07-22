@@ -69,7 +69,8 @@
    "default": "Now",
    "fieldname": "date",
    "fieldtype": "Date",
-   "label": "Posting Date"
+   "label": "Posting Date",
+   "read_only": 1
   },
   {
    "default": "0",
@@ -85,7 +86,9 @@
    "default": "Now",
    "fieldname": "reporting_date",
    "fieldtype": "Date",
-   "label": "Reporting Date"
+   "in_list_view": 1,
+   "label": "Reporting Date",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_jk0az",
@@ -95,7 +98,8 @@
    "fieldname": "customer",
    "fieldtype": "Link",
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_zoibo",
@@ -135,8 +139,10 @@
   {
    "fieldname": "inspection_level",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Inspection Level",
-   "options": "\nGeneral Inspection Level 1\nGeneral Inspection Level 2\nGeneral Inspection Level 3\nSpecial Inspection Level 1\nSpecial Inspection Level 2\nSpecial Inspection Level 3\nSpecial Inspection Level 4"
+   "options": "\nGeneral Inspection Level 1\nGeneral Inspection Level 2\nGeneral Inspection Level 3\nSpecial Inspection Level 1\nSpecial Inspection Level 2\nSpecial Inspection Level 3\nSpecial Inspection Level 4",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_mdkoe",
@@ -146,7 +152,8 @@
    "fieldname": "aql_major",
    "fieldtype": "Select",
    "label": "AQL Major",
-   "options": "\n1.0\n1.5\n2.5\n4.0"
+   "options": "\n1.0\n1.5\n2.5\n4.0",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_mq1ae",
@@ -156,7 +163,8 @@
    "fieldname": "aql_minor",
    "fieldtype": "Select",
    "label": "AQL Minor",
-   "options": "\n1.0\n1.5\n2.5\n4.0"
+   "options": "\n1.0\n1.5\n2.5\n4.0",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_4wmai",
@@ -199,7 +207,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-09 17:05:19.314454",
+ "modified": "2024-07-22 14:18:55.221458",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Final Inspection",
