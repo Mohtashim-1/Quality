@@ -419,13 +419,14 @@
   {
    "columns": 1,
    "fieldname": "size",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_filter": 1,
    "in_global_search": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Size",
+   "options": "Attribute Size",
    "width": "1"
   },
   {
@@ -2322,7 +2323,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-22 13:04:58.124421",
+ "modified": "2024-07-23 12:44:18.344632",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",
