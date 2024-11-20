@@ -173,7 +173,7 @@ function calculate_totals(frm) {
 	frm.refresh_fields();
 }
 frappe.ui.form.on('Inline Stitching', {
-	refresh(frm) {
+	total_defects(frm) {
 		frm.set_value('ds_percent', (frm.doc.double_stitch_total * 100) / frm.doc.total_number_pcs);
 		frm.set_value('of_percent', (frm.doc.overlap_feb_total * 100) / frm.doc.total_number_pcs)
 		frm.set_value('us_percent', (frm.doc.uneven_stitch_total * 100) / frm.doc.total_number_pcs)
