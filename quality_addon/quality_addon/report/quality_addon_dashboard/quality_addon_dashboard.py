@@ -95,19 +95,18 @@ def get_chart(data):
 
     return chart
 
-
 def get_summary(data, filters=None):
     """
     Generate summary data for the report, including the filtered document count.
     """
     filters = filters or {}  # Ensure filters is a dictionary
 
-    total_major = sum(row["major"] for row in data)
-    total_minor = sum(row["minor"] for row in data)
-    total_critical = sum(row["critical"] for row in data)
-    total_qty = sum(row["total_qty"] for row in data)
+    # Safely sum, treating None as 0
+    total_major = sum(row["major"] or 0 for row in data)
+    total_minor = sum(row["minor"] or 0 for row in data)
+    total_critical = sum(row["critical"] or 0 for row in data)
+    total_qty = sum(row["total_qty"] or 0 for row in data)
     daily_count = sum(1 for row in data if row.get('name'))
-
 
     conditions = build_conditions(filters)
     count_query = f"SELECT COUNT(*) FROM `tabDaily Checking Inspection CT` AS dc WHERE {conditions}"
