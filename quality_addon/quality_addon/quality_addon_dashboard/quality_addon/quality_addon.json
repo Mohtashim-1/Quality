@@ -2,12 +2,19 @@
  "cards": [
   {
    "card": "Daily Checkin"
+  },
+  {
+   "card": "Inline Stitching-1"
   }
  ],
  "charts": [
   {
    "chart": "Daily Checking",
-   "width": "Full"
+   "width": "Half"
+  },
+  {
+   "chart": "Inline Stitching",
+   "width": "Half"
   }
  ],
  "creation": "2024-05-31 19:15:58.631327",
@@ -15,9 +22,9 @@
  "docstatus": 0,
  "doctype": "Dashboard",
  "idx": 0,
- "is_default": 1,
+ "is_default": 0,
  "is_standard": 1,
- "modified": "2024-05-31 19:17:27.179684",
+ "modified": "2024-11-30 20:25:15.153273",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Quality Addon",

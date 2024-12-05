@@ -43,7 +43,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-06-08 17:38:54.601800",
+ "modified": "2024-09-30 16:53:23.259755",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Quality Addon",
@@ -66,7 +66,7 @@
  "public": 1,
  "quick_lists": [],
  "roles": [],
- "sequence_id": 23.0,
+ "sequence_id": 32.0,
  "shortcuts": [],
  "title": "Quality Addon"
 }
