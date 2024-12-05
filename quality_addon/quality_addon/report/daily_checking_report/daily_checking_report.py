@@ -43,11 +43,11 @@ def get_data(filters=None):
     values = {}
 
     if filters.get("from_date"):
-        conditions.append("isi.date <= %(from_date)s")
+        conditions.append("isi.date >= %(from_date)s")
         values["from_date"] = filters.get("from_date")
     
     if filters.get("to_date"):
-        conditions.append("isi.date >= %(to_date)s")
+        conditions.append("isi.date <= %(to_date)s")
         values["to_date"] = filters.get("to_date")
         
     if filters.get('checker'):
@@ -111,7 +111,7 @@ def get_data(filters=None):
             `tabDaily Checking Inspection CT` AS dci
         ON 
             dci.parent = isi.name
-        {where_clause}
+                         {where_clause}
     """, values)
 
     return data

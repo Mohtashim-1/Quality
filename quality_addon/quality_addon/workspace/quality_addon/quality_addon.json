@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"ApdWkxAzaC\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quality Addon</span>\",\"col\":12}},{\"id\":\"OtDieEmkeu\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Daily Checkin\",\"col\":4}},{\"id\":\"gfimWoxBmn\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Inline Stitching\",\"col\":4}},{\"id\":\"cBqJZM8TgB\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Final Inspection\",\"col\":4}}]",
+ "content": "[{\"id\":\"ApdWkxAzaC\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quality Addon</span>\",\"col\":12}},{\"id\":\"OtDieEmkeu\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Daily Checkin\",\"col\":4}},{\"id\":\"gfimWoxBmn\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Inline Stitching\",\"col\":4}},{\"id\":\"cBqJZM8TgB\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Final Inspection\",\"col\":4}},{\"id\":\"RJ0REHuUZw\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"PCSoEAfIH9\",\"type\":\"card\",\"data\":{\"card_name\":\"Report\",\"col\":4}}]",
  "creation": "2024-06-08 17:35:04.028339",
  "custom_blocks": [],
  "docstatus": 0,
@@ -41,9 +41,48 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Report",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Quality Addon Dashboard",
+   "link_count": 0,
+   "link_to": "Quality Addon Dashboard",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Quality Inspection Summary",
+   "link_count": 0,
+   "link_to": "Quality Inspection Summary",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Daily Checking Report",
+   "link_count": 0,
+   "link_to": "daily checking report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2024-09-30 16:53:23.259755",
+ "modified": "2024-12-05 16:44:19.099557",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Quality Addon",

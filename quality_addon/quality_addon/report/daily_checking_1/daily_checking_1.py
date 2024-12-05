@@ -1,6 +1,3 @@
-# Copyright (c) 2024, mohtashim and contributors
-# For license information, please see license.txt
-
 import frappe
 
 def execute(filters=None):
@@ -52,7 +49,103 @@ def get_column(filters=None):
             "fieldtype": "Float",
             "width": 100
         },
-        # Add other columns as needed, similar to above
+        {
+            "label": "Customer",
+            "fieldname": "customer",
+            "fieldtype": "Data",
+            "width": 100
+        },
+        {
+            "label": "Article",
+            "fieldname": "article",
+            "fieldtype": "Data",
+            "width": 100
+        },
+        {
+            "label": "Design",
+            "fieldname": "design",
+            "fieldtype": "Data",
+            "width": 100
+        },
+        {
+            "label": "Audit Qty",
+            "fieldname": "audit_qty",
+            "fieldtype": "Float",
+            "width": 100
+        },
+        {
+            "label": "Sample Qty",
+            "fieldname": "sample_qty",
+            "fieldtype": "Float",
+            "width": 100
+        },
+        {
+            "label": "Major",
+            "fieldname": "major",
+            "fieldtype": "Float",
+            "width": 100
+        },
+        {
+            "label": "Minor",
+            "fieldname": "minor",
+            "fieldtype": "Float",
+            "width": 100
+        },
+        {
+            "label": "Critical",
+            "fieldname": "critical",
+            "fieldtype": "Float",
+            "width": 100
+        },
+        {
+            "label": "Status",
+            "fieldname": "status",
+            "fieldtype": "Data",
+            "width": 100
+        },
+        {
+            "label": "Total Audit",
+            "fieldname": "total_audit",
+            "fieldtype": "Float",
+            "width": 100
+        },
+        {
+            "label": "Total Minor",
+            "fieldname": "total_minor",
+            "fieldtype": "Float",
+            "width": 100
+        },
+        {
+            "label": "Total Major",
+            "fieldname": "total_major",
+            "fieldtype": "Float",
+            "width": 100
+        },
+        {
+            "label": "Total Critical",
+            "fieldname": "total_critical",
+            "fieldtype": "Float",
+            "width": 100
+        },
+        {
+            "label": "Total Sample Qty",
+            "fieldname": "total_sample_qty",
+            "fieldtype": "Float",
+            "width": 100
+        },
+        {
+            "label": "Total Defects",
+            "fieldname": "total_defects",
+            "fieldtype": "Float",
+            "width": 100
+        },
+        {
+            "label": "Defect Percentage",
+            "fieldname": "defect_percentage",
+            "fieldtype": "Float",
+            "width": 100
+        },
+        # Add more columns as required
     ]
 
 def get_data(filters=None):
@@ -62,7 +155,7 @@ def get_data(filters=None):
             conditions += "AND isi.date BETWEEN %(from_date)s AND %(to_date)s "
         if filters.get("checker"):
             conditions += "AND dci.checker_name = %(checker)s "
-    
+
     data = frappe.db.sql(f"""
         SELECT  
             isi.name AS "Document #",
@@ -72,17 +165,14 @@ def get_data(filters=None):
             isi.inspection_level AS "Inspection Level",
             isi.aql_major AS "AQL Major",
             isi.aql_minor AS "AQL Minor",
-            isi.name AS "ID",
             dci.customer AS "Customer",
             dci.at_article AS "Article",
-            # dci.item AS "Size",
             dci.at_design AS "Design",
             dci.audit_qty AS "Audit Qty",
             dci.sample_qty AS "Sample Qty",
             dci.major AS "Major",
             dci.minor AS "Minor",
             dci.critical AS "Critical",
-            # dci.total AS "Total",
             dci.status AS "Status",
             dci.checker_name AS "Checker Name",
             isi.total_audit AS "Total Audit",
@@ -90,8 +180,6 @@ def get_data(filters=None):
             isi.total_major AS "Total Major",
             isi.total_critical AS "Total Critical",
             isi.total_sample_qty AS "Total Sample Qty",
-            (isi.total_major + isi.total_minor + isi.total_critical) AS "Total Defects",
-            ((isi.total_major + isi.total_minor + isi.total_critical) / isi.total_audit * 100) AS "Defect Percentage",
             isi.remarks AS "Remarks",
             isi.miss_pick__double_pick_qty AS "Miss Pick",
             isi.fly_yarn_qty AS "Fly Yarn",
@@ -109,7 +197,6 @@ def get_data(filters=None):
             isi.nh_qty AS "NH Qty",
             isi.finishing_qty AS "Finishing Qty",
             isi.os_qty AS "OS Qty",
-            # isi.wash_mark_total AS "Wash Mark Qty",
             isi.dm_qty AS "DM Qty",
             isi.mwl_qty AS "Missing / Wrong Label Total",
             isi.us_qty AS "Uneven Stitch Total",
@@ -120,15 +207,10 @@ def get_data(filters=None):
             isi.ohs_qty AS "Open Hem / Sem Total",
             isi.bs_qty AS "Bad Stitch Total",
             isi.wd_qty AS "Wrong Direction Total",
-            # isi.ss_qty AS "Short Size Total",
             (isi.miss_pick__double_pick_qty + isi.fly_yarn_qty + isi.incorrect_construct_qty + isi.registration_out_qty + isi.miss_print_qty +
             isi.bowing_qty + isi.touching_qty + isi.streaks_qty + isi.salvage_qty + isi.smash_qty + isi.weaving_qty + isi.cc_qty + isi.un_cut_qty 
-            + isi.nh_qty + isi.finishing_qty + isi.os_qty 
-                        #  + isi.wash_mark_total 
-                         +isi.dm_qty + isi.mwl_qty + isi.us_qty + isi.wt_qty + isi.p_qty +
-            isi.sewing_qty + isi.bls_qty + isi.ohs_qty + isi.bs_qty + isi.wd_qty 
-                        #  + isi.ss_qty
-                         ) AS "Defects Total"
+            + isi.nh_qty + isi.finishing_qty + isi.os_qty + isi.dm_qty + isi.mwl_qty + isi.us_qty + isi.wt_qty + isi.p_qty +
+            isi.sewing_qty + isi.bls_qty + isi.ohs_qty + isi.bs_qty + isi.wd_qty ) AS "Defects Total"
         FROM 
             `tabDaily Checking` AS isi
         JOIN
@@ -136,7 +218,7 @@ def get_data(filters=None):
         ON 
             dci.parent = isi.name
         WHERE
-            1=1 {conditions}
+         1=1 {conditions}
     """, filters, as_dict=True)
-	
+
     return data
