@@ -9,11 +9,12 @@ def execute(filters=None):
 
     # Define columns for the report
     columns = [
-        {"fieldname": "checker_name", "label": "Checker Name", "fieldtype": "Data", "width": 100},
-        {"fieldname": "major", "label": "Major", "fieldtype": "Int", "width": 100},
-        {"fieldname": "minor", "label": "Minor", "fieldtype": "Int", "width": 100},
-        {"fieldname": "critical", "label": "Critical", "fieldtype": "Int", "width": 100},
+        {"fieldname": "checker_name", "label": "Checker Name", "fieldtype": "Data", "width": 120},
+        {"fieldname": "total_major", "label": "Total Major", "fieldtype": "Int", "width": 100},
+        {"fieldname": "total_minor", "label": "Total Minor", "fieldtype": "Int", "width": 100},
+        {"fieldname": "total_critical", "label": "Total Critical", "fieldtype": "Int", "width": 100},
         {"fieldname": "total_qty", "label": "Total Qty", "fieldtype": "Int", "width": 100},
+        {"fieldname": "rank", "label": "Rank", "fieldtype": "Int", "width": 100},
     ]
 
     # Generate chart and summary
@@ -26,21 +27,27 @@ def execute(filters=None):
 
 def get_checker_data(filters=None):
     """
-    Fetch detailed checker data.
+    Fetch aggregated checker data with rankings.
     """
     conditions = build_conditions(filters)
+    checker_limit = filters.get("checker_limit") or 0
 
+    # SQL query for grouped totals and ranking
     checker_query = f"""
         SELECT 
             dcict.checker_name,
-            dcict.major,
-            dcict.minor,
-            dcict.critical,
-            dcict.total_qty
+            SUM(dcict.major) AS total_major,
+            SUM(dcict.minor) AS total_minor,
+            SUM(dcict.critical) AS total_critical,
+            SUM(dcict.total_qty) AS total_qty,
+            RANK() OVER (ORDER BY SUM(dcict.total_qty) DESC) AS rank
         FROM `tabDaily Checking` AS dc
         LEFT JOIN `tabDaily Checking Inspection CT` AS dcict
         ON dcict.parent = dc.name
         WHERE {conditions}
+        GROUP BY dcict.checker_name
+        ORDER BY total_qty DESC
+        {f"LIMIT {checker_limit}" if checker_limit else ""}
     """
 
     try:
@@ -66,10 +73,7 @@ def build_conditions(filters):
     if filters.get("design"):
         conditions.append("dcict.at_design = %(design)s")
 
-    # If no filters are passed, default to 1=1
-    final_conditions = " AND ".join(conditions) if conditions else "1=1"
-
-    return final_conditions
+    return " AND ".join(conditions) if conditions else "1=1"
 
 
 def get_chart(data):
@@ -77,51 +81,39 @@ def get_chart(data):
     Generate chart data for the report.
     """
     labels = [row["checker_name"] for row in data]
-    major_data = [row["major"] for row in data]
-    minor_data = [row["minor"] for row in data]
-    critical_data = [row["critical"] for row in data]
+    major_data = [row["total_major"] for row in data]
+    minor_data = [row["total_minor"] for row in data]
+    critical_data = [row["total_critical"] for row in data]
 
     chart = {
         "data": {
             "labels": labels,
             "datasets": [
-                {"name": "Major", "values": major_data},
-                {"name": "Minor", "values": minor_data},
-                {"name": "Critical", "values": critical_data},
+                {"name": "Total Major", "values": major_data},
+                {"name": "Total Minor", "values": minor_data},
+                {"name": "Total Critical", "values": critical_data},
             ],
         },
-        "type": "bar",  # Can be "line", "bar", "pie", etc.
+        "type": "bar",
     }
 
     return chart
 
-def get_summary(data, filters=None):
-    """
-    Generate summary data for the report, including the filtered document count.
-    """
-    filters = filters or {}  # Ensure filters is a dictionary
 
-    # Safely sum, treating None as 0
-    total_major = sum(row["major"] or 0 for row in data)
-    total_minor = sum(row["minor"] or 0 for row in data)
-    total_critical = sum(row["critical"] or 0 for row in data)
+def get_summary(data):
+    """
+    Generate summary data for the report.
+    """
+    total_major = sum(row["total_major"] or 0 for row in data)
+    total_minor = sum(row["total_minor"] or 0 for row in data)
+    total_critical = sum(row["total_critical"] or 0 for row in data)
     total_qty = sum(row["total_qty"] or 0 for row in data)
-    daily_count = sum(1 for row in data if row.get('name'))
-
-    conditions = build_conditions(filters)
-    count_query = f"SELECT COUNT(*) FROM `tabDaily Checking Inspection CT` AS dc WHERE {conditions}"
-
-    try:
-        document_count = frappe.db.sql(count_query, filters)[0][0]
-    except frappe.db.InternalError as e:
-        frappe.throw(f"Database error in get_summary (count): {str(e)}")
 
     summary = [
-        {"label": "Total Count", "value": daily_count, "indicator": "Green"},
-        {"label": "Total Major", "value": total_major, "indicator": "Green"},
-        {"label": "Total Minor", "value": total_minor, "indicator": "Orange"},
-        {"label": "Total Critical", "value": total_critical, "indicator": "Red"},
-        {"label": "Total Quantity", "value": total_qty, "indicator": "Blue"},
+        {"label": "Grand Total Major", "value": total_major, "indicator": "Green"},
+        {"label": "Grand Total Minor", "value": total_minor, "indicator": "Orange"},
+        {"label": "Grand Total Critical", "value": total_critical, "indicator": "Red"},
+        {"label": "Grand Total Quantity", "value": total_qty, "indicator": "Blue"},
     ]
 
     return summary
