@@ -1,0 +1,23 @@
+{
+ "content": null,
+ "creation": "2025-10-14 15:03:41.303828",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2025-10-14 15:03:47.567573",
+ "modified_by": "Administrator",
+ "module": "Quality Addon",
+ "name": "inline-stitching-das",
+ "owner": "Administrator",
+ "page_name": "inline-stitching-das",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Inline Stitching Dashboard"
+}
