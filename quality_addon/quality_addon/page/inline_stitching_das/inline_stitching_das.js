@@ -9,11 +9,7 @@ frappe.pages['inline-stitching-das'].on_page_load = function(wrapper) {
 	frappe.require('/assets/quality_addon/css/inline_stitching_das.css');
 	
 	// Load Chart.js
-	frappe.require([
-		'https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js'
-	]).then(() => {
-		console.log('Chart.js loaded successfully');
-	});
+	loadChartJS();
 
 	// Create dashboard container
 	let dashboard_container = $(`<div class="inline-stitching-dashboard">
@@ -46,6 +42,51 @@ function init_dashboard(container) {
 	
 	// Load initial data
 	load_dashboard_data();
+}
+
+function loadChartJS() {
+	// Try multiple methods to load Chart.js
+	if (typeof Chart !== 'undefined') {
+		console.log('Chart.js already loaded');
+		return;
+	}
+	
+	// Method 1: Try frappe.require
+	frappe.require([
+		'https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js'
+	]).then(() => {
+		console.log('Chart.js loaded via frappe.require');
+		checkChartJS();
+	}).catch(() => {
+		console.log('frappe.require failed, trying direct script loading');
+		loadChartJSDirect();
+	});
+}
+
+function loadChartJSDirect() {
+	// Method 2: Direct script loading
+	const script = document.createElement('script');
+	script.src = 'https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js';
+	script.onload = () => {
+		console.log('Chart.js loaded via direct script');
+		checkChartJS();
+	};
+	script.onerror = () => {
+		console.log('Direct script loading failed, using table format');
+	};
+	document.head.appendChild(script);
+}
+
+function checkChartJS() {
+	setTimeout(() => {
+		if (typeof Chart !== 'undefined' && Chart) {
+			console.log('Chart.js is now available!');
+			// Force refresh of charts
+			load_dashboard_data();
+		} else {
+			console.log('Chart.js still not available after loading');
+		}
+	}, 500);
 }
 
 function create_filters(container) {
@@ -107,6 +148,8 @@ function create_filters(container) {
 						<button class="btn btn-primary" onclick="apply_filters()">Apply Filters</button>
 						<button class="btn btn-secondary" onclick="clear_filters()">Clear</button>
 						<button class="btn btn-info" onclick="refresh_data()">Refresh</button>
+						<button class="btn btn-success" onclick="force_chart_recreation()">Load Charts</button>
+						<button class="btn btn-warning" onclick="refresh_chart_data()">Refresh Forms</button>
 					</div>
 				</div>
 			</div>
@@ -544,6 +587,9 @@ function load_dashboard_data() {
 			console.log('Dashboard data response:', r);
 			if (r.message) {
 				try {
+					// Store data globally for chart functions
+					window.current_dashboard_data = r.message;
+					
 					update_summary_cards(r.message.summary || {});
 					update_charts(r.message.chart_data || {});
 					update_breakdown_section(r.message);
@@ -651,15 +697,16 @@ function update_charts(chart_data) {
 	create_charts($('.dashboard-charts'));
 	
 	// Try to create real charts if Chart.js is available
-	if (typeof Chart !== 'undefined') {
+	if (typeof Chart !== 'undefined' && Chart) {
 		try {
+			console.log('Creating charts with Chart.js...');
 			create_simple_charts(chart_data);
 		} catch (error) {
 			console.error('Error creating charts:', error);
 			show_chart_data_as_table(chart_data);
 		}
 	} else {
-		console.log('Chart.js not available, using table format');
+		console.log('Chart.js not available, using table format. Chart type:', typeof Chart);
 		// Fallback to table format
 		show_chart_data_as_table(chart_data);
 	}
@@ -762,20 +809,20 @@ function show_additional_charts_as_tables(chart_data) {
 	pieces_defects_table += '</tbody></table></div>';
 	$('#pieces_defects_chart').parent().html(pieces_defects_table);
 	
-	// Process chart - show as info message for now
-	$('#process_chart').parent().html('<div class="alert alert-info"><i class="fa fa-clock"></i> Process Type Analysis - Data will be available in detailed breakdown below</div>');
+	// Process chart - show actual data
+	show_process_chart_data();
 	
-	// Operator chart - show as info message for now
-	$('#operator_chart').parent().html('<div class="alert alert-info"><i class="fa fa-user"></i> Operator Performance - Data will be available in detailed breakdown below</div>');
+	// Operator chart - show actual data
+	show_operator_chart_data();
 	
-	// Machine chart - show as info message for now
-	$('#machine_chart').parent().html('<div class="alert alert-info"><i class="fa fa-cogs"></i> Machine Performance - Data will be available in detailed breakdown below</div>');
+	// Machine chart - show actual data
+	show_machine_chart_data();
 	
-	// Hourly chart - show as info message for now
-	$('#hourly_chart').parent().html('<div class="alert alert-info"><i class="fa fa-clock-o"></i> Hourly Analysis - Data will be available in detailed breakdown below</div>');
+	// Hourly chart - show actual data
+	show_hourly_chart_data();
 	
-	// Article chart - show as info message for now
-	$('#article_chart').parent().html('<div class="alert alert-info"><i class="fa fa-tags"></i> Article Analysis - Data will be available in detailed breakdown below</div>');
+	// Article chart - show actual data
+	show_article_chart_data();
 }
 
 function create_defect_chart(chart_data) {
@@ -1141,7 +1188,44 @@ function clear_filters() {
 }
 
 function refresh_data() {
+	console.log('Refreshing dashboard data...');
 	load_dashboard_data();
+}
+
+function force_chart_recreation() {
+	console.log('Forcing chart recreation...');
+	if (typeof Chart !== 'undefined' && Chart) {
+		console.log('Chart.js available, recreating charts...');
+		// Get current data and recreate charts
+		let filters = get_filters();
+		frappe.call({
+			method: 'quality_addon.quality_addon.page.inline_stitching_das.inline_stitching_das.get_dashboard_data',
+			args: { filters: filters },
+			callback: function(r) {
+				if (r.message && r.message.chart_data) {
+					update_charts(r.message.chart_data);
+				}
+			}
+		});
+	} else {
+		console.log('Chart.js not available, cannot recreate charts');
+	}
+}
+
+function refresh_chart_data() {
+	console.log('Refreshing chart data...');
+	if (window.current_dashboard_data) {
+		// Refresh all chart sections with current data
+		show_process_chart_data();
+		show_operator_chart_data();
+		show_machine_chart_data();
+		show_hourly_chart_data();
+		show_article_chart_data();
+		console.log('Chart data refreshed successfully');
+	} else {
+		console.log('No dashboard data available, refreshing all data...');
+		refresh_data();
+	}
 }
 
 function export_data() {
@@ -1478,9 +1562,186 @@ function update_article_chart(article_data) {
 	}
 }
 
+function show_process_chart_data() {
+	// Get process data from breakdown section
+	let process_data = [];
+	if (window.current_dashboard_data && window.current_dashboard_data.time_analysis && window.current_dashboard_data.time_analysis.process_analysis) {
+		process_data = window.current_dashboard_data.time_analysis.process_analysis;
+	}
+	
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm">
+				<thead>
+					<tr><th>Process Type</th><th>Records</th><th>Pieces</th><th>Defect %</th></tr>
+				</thead>
+				<tbody>
+	`;
+	
+	if (process_data && process_data.length > 0) {
+		process_data.forEach(process => {
+			table_html += `
+				<tr>
+					<td>${process.process_type || 'Unknown'}</td>
+					<td>${process.records || 0}</td>
+					<td>${process.pieces || 0}</td>
+					<td>${(process.defect_percentage || 0).toFixed(2)}%</td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="4" class="text-center">No process data available</td></tr>';
+	}
+	
+	table_html += '</tbody></table></div>';
+	$('#process_chart').parent().html(table_html);
+}
+
+function show_operator_chart_data() {
+	// Get operator data from breakdown section
+	let operator_data = [];
+	if (window.current_dashboard_data && window.current_dashboard_data.operator_analysis) {
+		operator_data = window.current_dashboard_data.operator_analysis;
+	}
+	
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm">
+				<thead>
+					<tr><th>Operator</th><th>Records</th><th>Pieces</th><th>Defect %</th></tr>
+				</thead>
+				<tbody>
+	`;
+	
+	if (operator_data && operator_data.length > 0) {
+		operator_data.slice(0, 10).forEach(operator => {
+			table_html += `
+				<tr>
+					<td>${operator.operator_name || 'Unknown'}</td>
+					<td>${operator.records || 0}</td>
+					<td>${operator.pieces || 0}</td>
+					<td>${(operator.defect_percentage || 0).toFixed(2)}%</td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="4" class="text-center">No operator data available</td></tr>';
+	}
+	
+	table_html += '</tbody></table></div>';
+	$('#operator_chart').parent().html(table_html);
+}
+
+function show_machine_chart_data() {
+	// Get machine data from breakdown section
+	let machine_data = [];
+	if (window.current_dashboard_data && window.current_dashboard_data.machine_analysis) {
+		machine_data = window.current_dashboard_data.machine_analysis;
+	}
+	
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm">
+				<thead>
+					<tr><th>Machine</th><th>Records</th><th>Pieces</th><th>Defect %</th></tr>
+				</thead>
+				<tbody>
+	`;
+	
+	if (machine_data && machine_data.length > 0) {
+		machine_data.slice(0, 10).forEach(machine => {
+			table_html += `
+				<tr>
+					<td>${machine.machine || 'Unknown'}</td>
+					<td>${machine.records || 0}</td>
+					<td>${machine.pieces || 0}</td>
+					<td>${(machine.defect_percentage || 0).toFixed(2)}%</td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="4" class="text-center">No machine data available</td></tr>';
+	}
+	
+	table_html += '</tbody></table></div>';
+	$('#machine_chart').parent().html(table_html);
+}
+
+function show_hourly_chart_data() {
+	// Get hourly data from breakdown section
+	let hourly_data = [];
+	if (window.current_dashboard_data && window.current_dashboard_data.time_analysis && window.current_dashboard_data.time_analysis.hourly_analysis) {
+		hourly_data = window.current_dashboard_data.time_analysis.hourly_analysis;
+	}
+	
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm">
+				<thead>
+					<tr><th>Hour</th><th>Records</th><th>Pieces</th><th>Defect %</th></tr>
+				</thead>
+				<tbody>
+	`;
+	
+	if (hourly_data && hourly_data.length > 0) {
+		hourly_data.forEach(hour => {
+			table_html += `
+				<tr>
+					<td>${hour.hour || 'Unknown'}</td>
+					<td>${hour.records || 0}</td>
+					<td>${hour.pieces || 0}</td>
+					<td>${(hour.defect_percentage || 0).toFixed(2)}%</td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="4" class="text-center">No hourly data available</td></tr>';
+	}
+	
+	table_html += '</tbody></table></div>';
+	$('#hourly_chart').parent().html(table_html);
+}
+
+function show_article_chart_data() {
+	// Get article data from breakdown section
+	let article_data = [];
+	if (window.current_dashboard_data && window.current_dashboard_data.article_analysis) {
+		article_data = window.current_dashboard_data.article_analysis;
+	}
+	
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm">
+				<thead>
+					<tr><th>Article</th><th>Size</th><th>Records</th><th>Defect %</th></tr>
+				</thead>
+				<tbody>
+	`;
+	
+	if (article_data && article_data.length > 0) {
+		article_data.slice(0, 10).forEach(article => {
+			table_html += `
+				<tr>
+					<td>${article.article || 'Unknown'}</td>
+					<td>${article.size || 'N/A'}</td>
+					<td>${article.records || 0}</td>
+					<td>${(article.defect_percentage || 0).toFixed(2)}%</td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="4" class="text-center">No article data available</td></tr>';
+	}
+	
+	table_html += '</tbody></table></div>';
+	$('#article_chart').parent().html(table_html);
+}
+
 // Global functions for onclick events
 window.apply_filters = apply_filters;
 window.clear_filters = clear_filters;
 window.refresh_data = refresh_data;
+window.force_chart_recreation = force_chart_recreation;
+window.refresh_chart_data = refresh_chart_data;
 window.export_data = export_data;
 window.view_record = view_record;
