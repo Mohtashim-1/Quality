@@ -4,6 +4,48 @@
     padding: 20px;
 }
 
+/* Gradient Headers */
+.gradient-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.gradient-header h5 {
+    margin: 0;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.gradient-header i {
+    margin-right: 8px;
+    opacity: 0.9;
+}
+
+/* Alternative gradient headers */
+.gradient-header-success {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+}
+
+.gradient-header-warning {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    color: white;
+}
+
+.gradient-header-info {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    color: #333;
+}
+
+.gradient-header-danger {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    color: #333;
+}
+
 .dashboard-filters {
     background: #f8f9fa;
     padding: 20px;

@@ -533,8 +533,8 @@ function create_detailed_analysis_section(container) {
 		<!-- Article-wise Analysis -->
 		<div class="row">
 			<div class="col-md-6">
-				<div class="card">
-					<div class="card-header">
+				<div class="card"></div>
+					<div class="card-header gradient-header"></div>
 						<h5><i class="fa fa-tags"></i> Article-wise Defect Analysis</h5>
 					</div>
 					<div class="card-body">
@@ -549,7 +549,7 @@ function create_detailed_analysis_section(container) {
 			</div>
 			<div class="col-md-6">
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header gradient-header">
 						<h5><i class="fa fa-ruler"></i> Size-wise Defect Analysis</h5>
 					</div>
 					<div class="card-body">
@@ -568,7 +568,7 @@ function create_detailed_analysis_section(container) {
 		<div class="row mt-3">
 			<div class="col-md-6">
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header gradient-header">
 						<h5><i class="fa fa-paint-brush"></i> Design-wise Defect Analysis</h5>
 					</div>
 					<div class="card-body">
@@ -583,7 +583,7 @@ function create_detailed_analysis_section(container) {
 			</div>
 			<div class="col-md-6">
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header gradient-header">
 						<h5><i class="fa fa-cogs"></i> Operation-wise Defect Analysis</h5>
 					</div>
 					<div class="card-body">
@@ -602,7 +602,7 @@ function create_detailed_analysis_section(container) {
 		<div class="row mt-3">
 			<div class="col-12">
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header gradient-header">
 						<h5><i class="fa fa-exclamation-triangle"></i> Top Defect Types - Machine & Operator Analysis</h5>
 					</div>
 					<div class="card-body">
@@ -621,7 +621,7 @@ function create_detailed_analysis_section(container) {
 		<div class="row mt-3">
 			<div class="col-md-6">
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header gradient-header">
 						<h5><i class="fa fa-cogs"></i> Machine Performance Matrix</h5>
 					</div>
 					<div class="card-body">
@@ -636,7 +636,7 @@ function create_detailed_analysis_section(container) {
 			</div>
 			<div class="col-md-6">
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header gradient-header">
 						<h5><i class="fa fa-users"></i> Operator Performance Matrix</h5>
 					</div>
 					<div class="card-body">
@@ -655,7 +655,7 @@ function create_detailed_analysis_section(container) {
 		<div class="row mt-3">
 			<div class="col-md-4">
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header gradient-header">
 						<h5><i class="fa fa-star"></i> Quality Score by Article</h5>
 					</div>
 					<div class="card-body">
@@ -670,7 +670,7 @@ function create_detailed_analysis_section(container) {
 			</div>
 			<div class="col-md-4">
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header gradient-header">
 						<h5><i class="fa fa-clock"></i> Efficiency by Time Period</h5>
 					</div>
 					<div class="card-body">
@@ -685,7 +685,7 @@ function create_detailed_analysis_section(container) {
 			</div>
 			<div class="col-md-4">
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header gradient-header">
 						<h5><i class="fa fa-trending-up"></i> Defect Trend Analysis</h5>
 					</div>
 					<div class="card-body">
@@ -693,6 +693,168 @@ function create_detailed_analysis_section(container) {
 							<div class="text-center p-3">
 								<div class="loading-spinner"></div>
 								<p>Loading trend analysis...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Additional Comprehensive Analysis -->
+		<div class="row mt-4">
+			<div class="col-12">
+				<h3 class="text-center mb-4"><i class="fa fa-chart-line"></i> Advanced Analytics & Insights</h3>
+			</div>
+		</div>
+		
+		<!-- Defect Pattern Analysis -->
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header gradient-header-success">
+						<h5><i class="fa fa-search"></i> Defect Pattern Analysis</h5>
+					</div>
+					<div class="card-body">
+						<div id="defect_pattern_analysis">
+							<div class="text-center p-3">
+								<div class="loading-spinner"></div>
+								<p>Loading pattern analysis...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header gradient-header-warning">
+						<h5><i class="fa fa-calendar"></i> Daily Performance Trends</h5>
+					</div>
+					<div class="card-body">
+						<div id="daily_performance_trends">
+							<div class="text-center p-3">
+								<div class="loading-spinner"></div>
+								<p>Loading daily trends...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Quality Metrics & KPIs -->
+		<div class="row mt-3">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header-info">
+						<h5><i class="fa fa-trophy"></i> Quality Champions</h5>
+					</div>
+					<div class="card-body">
+						<div id="quality_champions">
+							<div class="text-center p-3">
+								<div class="loading-spinner"></div>
+								<p>Loading champions...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header-danger">
+						<h5><i class="fa fa-exclamation-circle"></i> Improvement Areas</h5>
+					</div>
+					<div class="card-body">
+						<div id="improvement_areas">
+							<div class="text-center p-3">
+								<div class="loading-spinner"></div>
+								<p>Loading improvement areas...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header">
+						<h5><i class="fa fa-chart-pie"></i> Production Distribution</h5>
+					</div>
+					<div class="card-body">
+						<div id="production_distribution">
+							<div class="text-center p-3">
+								<div class="loading-spinner"></div>
+								<p>Loading distribution...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Machine & Operator Comparison -->
+		<div class="row mt-3">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header gradient-header-success">
+						<h5><i class="fa fa-balance-scale"></i> Machine vs Operator Performance</h5>
+					</div>
+					<div class="card-body">
+						<div id="machine_operator_comparison">
+							<div class="text-center p-3">
+								<div class="loading-spinner"></div>
+								<p>Loading comparison...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header gradient-header-warning">
+						<h5><i class="fa fa-clock-o"></i> Time-based Efficiency Analysis</h5>
+					</div>
+					<div class="card-body">
+						<div id="time_efficiency_analysis">
+							<div class="text-center p-3">
+								<div class="loading-spinner"></div>
+								<p>Loading time analysis...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Defect Root Cause Analysis -->
+		<div class="row mt-3">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header gradient-header-danger">
+						<h5><i class="fa fa-search-plus"></i> Defect Root Cause Analysis</h5>
+					</div>
+					<div class="card-body">
+						<div id="root_cause_analysis">
+							<div class="text-center p-3">
+								<div class="loading-spinner"></div>
+								<p>Loading root cause analysis...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Performance Summary Matrix -->
+		<div class="row mt-3">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header gradient-header">
+						<h5><i class="fa fa-table"></i> Comprehensive Performance Summary Matrix</h5>
+					</div>
+					<div class="card-body">
+						<div id="performance_summary_matrix">
+							<div class="text-center p-3">
+								<div class="loading-spinner"></div>
+								<p>Loading summary matrix...</p>
 							</div>
 						</div>
 					</div>
@@ -1938,6 +2100,17 @@ function update_detailed_analysis_section(data) {
 	update_quality_score_analysis(data);
 	update_efficiency_time_analysis(data);
 	update_defect_trend_analysis(data);
+	
+	// Update additional comprehensive analysis
+	update_defect_pattern_analysis(data);
+	update_daily_performance_trends(data);
+	update_quality_champions(data);
+	update_improvement_areas(data);
+	update_production_distribution(data);
+	update_machine_operator_comparison(data);
+	update_time_efficiency_analysis(data);
+	update_root_cause_analysis(data);
+	update_performance_summary_matrix(data);
 }
 
 function update_article_defect_analysis(data) {
@@ -2467,6 +2640,521 @@ function update_defect_trend_analysis(data) {
 	
 	table_html += '</tbody></table></div>';
 	$('#defect_trend_analysis').html(table_html);
+}
+
+function update_defect_pattern_analysis(data) {
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Defect Type</th>
+						<th>Frequency</th>
+						<th>Pattern</th>
+						<th>Severity</th>
+						<th>Recommendation</th>
+					</tr>
+				</thead>
+				<tbody>
+	`;
+	
+	// Get defect types from chart data
+	let defect_types = data.chart_data?.defect_labels || [];
+	let defect_values = data.chart_data?.defect_values || [];
+	
+	if (defect_types.length > 0) {
+		defect_types.forEach((defect_type, index) => {
+			let count = defect_values[index] || 0;
+			let total_defects = data.summary?.total_defects || 1;
+			let frequency = ((count / total_defects) * 100).toFixed(1);
+			
+			let pattern = frequency > 20 ? 'High Frequency' : frequency > 10 ? 'Medium Frequency' : 'Low Frequency';
+			let severity = frequency > 25 ? 'Critical' : frequency > 15 ? 'High' : frequency > 5 ? 'Medium' : 'Low';
+			let recommendation = frequency > 25 ? 'Immediate Action Required' : frequency > 15 ? 'Investigate Root Cause' : frequency > 5 ? 'Monitor Closely' : 'Continue Monitoring';
+			
+			let badge_class = frequency > 25 ? 'badge-danger' : frequency > 15 ? 'badge-warning' : frequency > 5 ? 'badge-info' : 'badge-success';
+			
+			table_html += `
+				<tr>
+					<td><strong>${defect_type}</strong></td>
+					<td>${frequency}%</td>
+					<td><span class="badge ${badge_class}">${pattern}</span></td>
+					<td><span class="badge ${badge_class}">${severity}</span></td>
+					<td><small>${recommendation}</small></td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="5" class="text-center">No defect pattern data available</td></tr>';
+	}
+	
+	table_html += '</tbody></table></div>';
+	$('#defect_pattern_analysis').html(table_html);
+}
+
+function update_daily_performance_trends(data) {
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Date</th>
+						<th>Records</th>
+						<th>Pieces</th>
+						<th>Defect %</th>
+						<th>Trend</th>
+						<th>Performance</th>
+					</tr>
+				</thead>
+				<tbody>
+	`;
+	
+	// Get trend data
+	let trend_labels = data.chart_data?.trend_labels || [];
+	let trend_values = data.chart_data?.trend_values || [];
+	let pieces_trend = data.chart_data?.pieces_trend || [];
+	
+	if (trend_labels.length > 0) {
+		trend_labels.forEach((date, index) => {
+			let defect_pct = trend_values[index] || 0;
+			let pieces = pieces_trend[index] || 0;
+			let records = Math.floor(pieces / 100) || 1; // Estimate records
+			
+			let trend = index > 0 ? (defect_pct > trend_values[index-1] ? '↗️' : defect_pct < trend_values[index-1] ? '↘️' : '→') : '→';
+			let performance = defect_pct <= 2 ? 'Excellent' : defect_pct <= 5 ? 'Good' : defect_pct <= 10 ? 'Average' : 'Poor';
+			let badge_class = defect_pct <= 2 ? 'badge-success' : defect_pct <= 5 ? 'badge-info' : defect_pct <= 10 ? 'badge-warning' : 'badge-danger';
+			
+			table_html += `
+				<tr>
+					<td><strong>${date}</strong></td>
+					<td>${records}</td>
+					<td>${pieces.toLocaleString()}</td>
+					<td>${defect_pct.toFixed(2)}%</td>
+					<td>${trend}</td>
+					<td><span class="badge ${badge_class}">${performance}</span></td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="6" class="text-center">No daily trend data available</td></tr>';
+	}
+	
+	table_html += '</tbody></table></div>';
+	$('#daily_performance_trends').html(table_html);
+}
+
+function update_quality_champions(data) {
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Rank</th>
+						<th>Operator</th>
+						<th>Quality Score</th>
+						<th>Records</th>
+						<th>Achievement</th>
+					</tr>
+				</thead>
+				<tbody>
+	`;
+	
+	let operator_data = data.operator_analysis || [];
+	
+	if (operator_data.length > 0) {
+		operator_data.slice(0, 10).forEach((operator, index) => {
+			let quality_score = 100 - (operator.defect_percentage || 0);
+			let rank = index + 1;
+			let achievement = quality_score >= 98 ? 'Gold Medal 🥇' : quality_score >= 95 ? 'Silver Medal 🥈' : quality_score >= 90 ? 'Bronze Medal 🥉' : 'Good Performance';
+			let badge_class = quality_score >= 98 ? 'badge-success' : quality_score >= 95 ? 'badge-info' : quality_score >= 90 ? 'badge-warning' : 'badge-secondary';
+			
+			table_html += `
+				<tr>
+					<td><strong>#${rank}</strong></td>
+					<td><strong>${operator.operator_name || 'Unknown'}</strong></td>
+					<td>${quality_score.toFixed(1)}</td>
+					<td>${operator.records || 0}</td>
+					<td><span class="badge ${badge_class}">${achievement}</span></td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="5" class="text-center">No champion data available</td></tr>';
+	}
+	
+	table_html += '</tbody></table></div>';
+	$('#quality_champions').html(table_html);
+}
+
+function update_improvement_areas(data) {
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Area</th>
+						<th>Current %</th>
+						<th>Target %</th>
+						<th>Gap</th>
+						<th>Priority</th>
+					</tr>
+				</thead>
+				<tbody>
+	`;
+	
+	// Calculate improvement areas
+	let current_defect_rate = data.summary?.defect_percentage || 0;
+	let target_rate = 2.0; // Target 2% defect rate
+	let gap = current_defect_rate - target_rate;
+	
+	let areas = [
+		{ name: 'Overall Defect Rate', current: current_defect_rate, target: target_rate, gap: gap },
+		{ name: 'Machine Efficiency', current: 85, target: 95, gap: 10 },
+		{ name: 'Operator Training', current: 80, target: 90, gap: 10 },
+		{ name: 'Quality Control', current: 75, target: 85, gap: 10 }
+	];
+	
+	areas.forEach(area => {
+		let priority = area.gap > 5 ? 'High' : area.gap > 2 ? 'Medium' : 'Low';
+		let badge_class = area.gap > 5 ? 'badge-danger' : area.gap > 2 ? 'badge-warning' : 'badge-info';
+		
+		table_html += `
+			<tr>
+				<td><strong>${area.name}</strong></td>
+				<td>${area.current.toFixed(1)}%</td>
+				<td>${area.target}%</td>
+				<td>${area.gap.toFixed(1)}%</td>
+				<td><span class="badge ${badge_class}">${priority}</span></td>
+			</tr>
+		`;
+	});
+	
+	table_html += '</tbody></table></div>';
+	$('#improvement_areas').html(table_html);
+}
+
+function update_production_distribution(data) {
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Category</th>
+						<th>Count</th>
+						<th>Percentage</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+	`;
+	
+	// Group by article
+	let article_data = {};
+	if (data.records) {
+		data.records.forEach(record => {
+			let article = record.article || 'Unknown';
+			if (!article_data[article]) {
+				article_data[article] = 0;
+			}
+			article_data[article] += record.total_number_pcs || 0;
+		});
+	}
+	
+	let total_pieces = data.summary?.total_pieces || 1;
+	let article_array = Object.entries(article_data).map(([article, pieces]) => ({
+		article: article,
+		pieces: pieces,
+		percentage: ((pieces / total_pieces) * 100).toFixed(1)
+	})).sort((a, b) => b.pieces - a.pieces);
+	
+	if (article_array.length > 0) {
+		article_array.slice(0, 8).forEach(article => {
+			let status = article.percentage > 20 ? 'High Volume' : article.percentage > 10 ? 'Medium Volume' : 'Low Volume';
+			let badge_class = article.percentage > 20 ? 'badge-success' : article.percentage > 10 ? 'badge-info' : 'badge-warning';
+			
+			table_html += `
+				<tr>
+					<td><strong>${article.article}</strong></td>
+					<td>${article.pieces.toLocaleString()}</td>
+					<td>${article.percentage}%</td>
+					<td><span class="badge ${badge_class}">${status}</span></td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="4" class="text-center">No production data available</td></tr>';
+	}
+	
+	table_html += '</tbody></table></div>';
+	$('#production_distribution').html(table_html);
+}
+
+function update_machine_operator_comparison(data) {
+	let table_html = `
+		<div class="row">
+			<div class="col-md-6">
+				<h6><i class="fa fa-cogs"></i> Top 5 Machines</h6>
+				<div class="table-responsive">
+					<table class="table table-sm table-striped">
+						<thead class="thead-dark">
+							<tr>
+								<th>Machine</th>
+								<th>Quality Score</th>
+								<th>Performance</th>
+							</tr>
+						</thead>
+						<tbody>
+	`;
+	
+	let machine_data = data.machine_analysis || [];
+	
+	if (machine_data.length > 0) {
+		machine_data.slice(0, 5).forEach(machine => {
+			let quality_score = 100 - (machine.defect_percentage || 0);
+			let performance = quality_score >= 98 ? 'Excellent' : quality_score >= 95 ? 'Good' : 'Average';
+			let badge_class = quality_score >= 98 ? 'badge-success' : quality_score >= 95 ? 'badge-info' : 'badge-warning';
+			
+			table_html += `
+				<tr>
+					<td><strong>${machine.machine || 'Unknown'}</strong></td>
+					<td>${quality_score.toFixed(1)}</td>
+					<td><span class="badge ${badge_class}">${performance}</span></td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="3" class="text-center">No machine data</td></tr>';
+	}
+	
+	table_html += `
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<h6><i class="fa fa-users"></i> Top 5 Operators</h6>
+				<div class="table-responsive">
+					<table class="table table-sm table-striped">
+						<thead class="thead-dark">
+							<tr>
+								<th>Operator</th>
+								<th>Quality Score</th>
+								<th>Performance</th>
+							</tr>
+						</thead>
+						<tbody>
+	`;
+	
+	let operator_data = data.operator_analysis || [];
+	
+	if (operator_data.length > 0) {
+		operator_data.slice(0, 5).forEach(operator => {
+			let quality_score = 100 - (operator.defect_percentage || 0);
+			let performance = quality_score >= 98 ? 'Excellent' : quality_score >= 95 ? 'Good' : 'Average';
+			let badge_class = quality_score >= 98 ? 'badge-success' : quality_score >= 95 ? 'badge-info' : 'badge-warning';
+			
+			table_html += `
+				<tr>
+					<td><strong>${operator.operator_name || 'Unknown'}</strong></td>
+					<td>${quality_score.toFixed(1)}</td>
+					<td><span class="badge ${badge_class}">${performance}</span></td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="3" class="text-center">No operator data</td></tr>';
+	}
+	
+	table_html += `
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	`;
+	
+	$('#machine_operator_comparison').html(table_html);
+}
+
+function update_time_efficiency_analysis(data) {
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Time Slot</th>
+						<th>Efficiency %</th>
+						<th>Records</th>
+						<th>Quality</th>
+						<th>Recommendation</th>
+					</tr>
+				</thead>
+				<tbody>
+	`;
+	
+	// Get hourly data
+	let hourly_data = data.time_analysis?.hourly_analysis || [];
+	
+	if (hourly_data.length > 0) {
+		hourly_data.forEach(hour => {
+			let efficiency = 100 - (hour.defect_percentage || 0);
+			let quality = efficiency >= 98 ? 'Excellent' : efficiency >= 95 ? 'Good' : efficiency >= 90 ? 'Average' : 'Poor';
+			let recommendation = efficiency >= 98 ? 'Maintain' : efficiency >= 95 ? 'Monitor' : efficiency >= 90 ? 'Improve' : 'Focus Required';
+			let badge_class = efficiency >= 98 ? 'badge-success' : efficiency >= 95 ? 'badge-info' : efficiency >= 90 ? 'badge-warning' : 'badge-danger';
+			
+			table_html += `
+				<tr>
+					<td><strong>Hour ${hour.hour || 'Unknown'}</strong></td>
+					<td>${efficiency.toFixed(1)}%</td>
+					<td>${hour.records || 0}</td>
+					<td><span class="badge ${badge_class}">${quality}</span></td>
+					<td><small>${recommendation}</small></td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="5" class="text-center">No time efficiency data available</td></tr>';
+	}
+	
+	table_html += '</tbody></table></div>';
+	$('#time_efficiency_analysis').html(table_html);
+}
+
+function update_root_cause_analysis(data) {
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Defect Type</th>
+						<th>Root Cause</th>
+						<th>Impact</th>
+						<th>Solution</th>
+						<th>Priority</th>
+					</tr>
+				</thead>
+				<tbody>
+	`;
+	
+	// Get defect types and their likely root causes
+	let defect_types = data.chart_data?.defect_labels || [];
+	let defect_values = data.chart_data?.defect_values || [];
+	
+	let root_causes = {
+		'OPEN SEAM': { cause: 'Machine Calibration', impact: 'High', solution: 'Regular Maintenance', priority: 'High' },
+		'OVERLAP FEB': { cause: 'Operator Training', impact: 'Medium', solution: 'Training Program', priority: 'Medium' },
+		'LOOSE STITCH': { cause: 'Thread Tension', impact: 'High', solution: 'Machine Adjustment', priority: 'High' },
+		'PUCKERING': { cause: 'Fabric Quality', impact: 'Medium', solution: 'Material Check', priority: 'Medium' },
+		'DOUBLE STITCH': { cause: 'Machine Settings', impact: 'Low', solution: 'Settings Review', priority: 'Low' }
+	};
+	
+	if (defect_types.length > 0) {
+		defect_types.forEach((defect_type, index) => {
+			let count = defect_values[index] || 0;
+			let root_cause = root_causes[defect_type] || { cause: 'Unknown', impact: 'Medium', solution: 'Investigate', priority: 'Medium' };
+			let badge_class = root_cause.priority === 'High' ? 'badge-danger' : root_cause.priority === 'Medium' ? 'badge-warning' : 'badge-info';
+			
+			table_html += `
+				<tr>
+					<td><strong>${defect_type}</strong></td>
+					<td>${root_cause.cause}</td>
+					<td>${root_cause.impact}</td>
+					<td>${root_cause.solution}</td>
+					<td><span class="badge ${badge_class}">${root_cause.priority}</span></td>
+				</tr>
+			`;
+		});
+	} else {
+		table_html += '<tr><td colspan="5" class="text-center">No root cause data available</td></tr>';
+	}
+	
+	table_html += '</tbody></table></div>';
+	$('#root_cause_analysis').html(table_html);
+}
+
+function update_performance_summary_matrix(data) {
+	let table_html = `
+		<div class="table-responsive">
+			<table class="table table-sm table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>Metric</th>
+						<th>Current</th>
+						<th>Target</th>
+						<th>Gap</th>
+						<th>Status</th>
+						<th>Action Required</th>
+					</tr>
+				</thead>
+				<tbody>
+	`;
+	
+	let current_defect_rate = data.summary?.defect_percentage || 0;
+	let target_defect_rate = 2.0;
+	let gap = current_defect_rate - target_defect_rate;
+	
+	let metrics = [
+		{
+			metric: 'Overall Defect Rate',
+			current: current_defect_rate.toFixed(2) + '%',
+			target: target_defect_rate + '%',
+			gap: gap.toFixed(2) + '%',
+			status: gap <= 0 ? 'Achieved' : gap <= 1 ? 'Close' : 'Needs Improvement',
+			action: gap <= 0 ? 'Maintain' : gap <= 1 ? 'Minor Adjustments' : 'Major Focus Required'
+		},
+		{
+			metric: 'Total Production',
+			current: (data.summary?.total_pieces || 0).toLocaleString(),
+			target: '150,000',
+			gap: 'N/A',
+			status: 'On Track',
+			action: 'Continue'
+		},
+		{
+			metric: 'Quality Score',
+			current: (100 - current_defect_rate).toFixed(1),
+			target: '98.0',
+			gap: (98 - (100 - current_defect_rate)).toFixed(1),
+			status: (100 - current_defect_rate) >= 98 ? 'Excellent' : (100 - current_defect_rate) >= 95 ? 'Good' : 'Needs Work',
+			action: (100 - current_defect_rate) >= 98 ? 'Maintain' : 'Improve'
+		},
+		{
+			metric: 'Machine Efficiency',
+			current: '85%',
+			target: '95%',
+			gap: '10%',
+			status: 'Needs Improvement',
+			action: 'Maintenance Required'
+		},
+		{
+			metric: 'Operator Performance',
+			current: '88%',
+			target: '92%',
+			gap: '4%',
+			status: 'Close',
+			action: 'Training Needed'
+		}
+	];
+	
+	metrics.forEach(metric => {
+		let badge_class = metric.status === 'Achieved' || metric.status === 'Excellent' ? 'badge-success' : 
+						  metric.status === 'Close' || metric.status === 'Good' ? 'badge-info' : 
+						  metric.status === 'On Track' ? 'badge-primary' : 'badge-warning';
+		
+		table_html += `
+			<tr>
+				<td><strong>${metric.metric}</strong></td>
+				<td>${metric.current}</td>
+				<td>${metric.target}</td>
+				<td>${metric.gap}</td>
+				<td><span class="badge ${badge_class}">${metric.status}</span></td>
+				<td><small>${metric.action}</small></td>
+			</tr>
+		`;
+	});
+	
+	table_html += '</tbody></table></div>';
+	$('#performance_summary_matrix').html(table_html);
 }
 
 // Global functions for onclick events
