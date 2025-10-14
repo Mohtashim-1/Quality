@@ -154,6 +154,9 @@ function create_filters(container) {
 						<button class="btn btn-info" onclick="refresh_data()">Refresh</button>
 						<button class="btn btn-success" onclick="force_chart_recreation()">Load Charts</button>
 						<button class="btn btn-warning" onclick="refresh_chart_data()">Refresh Forms</button>
+						<button class="btn btn-info" onclick="load_all_charts()">
+							<i class="fa fa-bar-chart"></i> Load All Charts
+						</button>
 					</div>
 				</div>
 			</div>
@@ -704,6 +707,245 @@ function create_detailed_analysis_section(container) {
 		<div class="row mt-4">
 			<div class="col-12">
 				<h3 class="text-center mb-4"><i class="fa fa-chart-line"></i> Advanced Analytics & Insights</h3>
+			</div>
+		</div>
+		
+		<!-- Charts Section -->
+		<div class="row mt-4">
+			<div class="col-12">
+				<h3 class="text-center mb-4"><i class="fa fa-bar-chart"></i> Comprehensive Charts & Visualizations</h3>
+			</div>
+		</div>
+		
+		<!-- Row 1: Defect Analysis Charts -->
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header">
+						<h5><i class="fa fa-pie-chart"></i> Defect Distribution Pie Chart</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="defect_distribution_pie"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header-success">
+						<h5><i class="fa fa-bar-chart"></i> Defect Types Bar Chart</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="defect_types_bar"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header-warning">
+						<h5><i class="fa fa-line-chart"></i> Defect Trend Line Chart</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="defect_trend_line"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Row 2: Performance Charts -->
+		<div class="row mt-3">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header gradient-header-info">
+						<h5><i class="fa fa-users"></i> Operator Performance Chart</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="operator_performance_chart"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header gradient-header-danger">
+						<h5><i class="fa fa-cogs"></i> Machine Performance Chart</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="machine_performance_chart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Row 3: Article & Size Analysis Charts -->
+		<div class="row mt-3">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header">
+						<h5><i class="fa fa-tags"></i> Article Performance</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="article_performance_chart"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header-success">
+						<h5><i class="fa fa-ruler"></i> Size Analysis</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="size_analysis_chart"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header-warning">
+						<h5><i class="fa fa-paint-brush"></i> Design Quality</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="design_quality_chart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Row 4: Time-based Charts -->
+		<div class="row mt-3">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header gradient-header-info">
+						<h5><i class="fa fa-clock"></i> Hourly Performance</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="hourly_performance_chart"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header gradient-header-danger">
+						<h5><i class="fa fa-calendar"></i> Daily Production</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="daily_production_chart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Row 5: Quality & Efficiency Charts -->
+		<div class="row mt-3">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header">
+						<h5><i class="fa fa-star"></i> Quality Score Distribution</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="quality_score_distribution"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header-success">
+						<h5><i class="fa fa-trophy"></i> Performance Ranking</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="performance_ranking_chart"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header-warning">
+						<h5><i class="fa fa-exclamation-triangle"></i> Defect Severity</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="defect_severity_chart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Row 6: Comparative Charts -->
+		<div class="row mt-3">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header gradient-header-info">
+						<h5><i class="fa fa-balance-scale"></i> Machine vs Operator Comparison</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="machine_operator_comparison_chart"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header gradient-header-danger">
+						<h5><i class="fa fa-chart-area"></i> Production Efficiency</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="production_efficiency_chart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Row 7: Advanced Analytics Charts -->
+		<div class="row mt-3">
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header">
+						<h5><i class="fa fa-search"></i> Defect Pattern Analysis</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="defect_pattern_chart"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header-success">
+						<h5><i class="fa fa-trending-up"></i> Improvement Trends</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="improvement_trends_chart"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header gradient-header-warning">
+						<h5><i class="fa fa-chart-pie"></i> Production Distribution</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="production_distribution_chart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Row 8: KPI Dashboard Charts -->
+		<div class="row mt-3">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header gradient-header-info">
+						<h5><i class="fa fa-dashboard"></i> KPI Overview</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="kpi_overview_chart"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header gradient-header-danger">
+						<h5><i class="fa fa-target"></i> Target vs Actual</h5>
+					</div>
+					<div class="card-body">
+						<canvas id="target_vs_actual_chart"></canvas>
+					</div>
+				</div>
 			</div>
 		</div>
 		
@@ -2111,6 +2353,976 @@ function update_detailed_analysis_section(data) {
 	update_time_efficiency_analysis(data);
 	update_root_cause_analysis(data);
 	update_performance_summary_matrix(data);
+	
+	// Update all charts
+	update_all_charts(data);
+}
+
+// Global chart instances storage
+window.chartInstances = window.chartInstances || {};
+
+function destroy_chart(canvasId) {
+	if (window.chartInstances[canvasId]) {
+		window.chartInstances[canvasId].destroy();
+		delete window.chartInstances[canvasId];
+	}
+}
+
+function destroy_all_charts() {
+	Object.keys(window.chartInstances).forEach(canvasId => {
+		destroy_chart(canvasId);
+	});
+}
+
+function create_chart_with_management(canvasId, chartConfig) {
+	const ctx = document.getElementById(canvasId);
+	if (!ctx) return null;
+	
+	// Destroy existing chart if it exists
+	destroy_chart(canvasId);
+	
+	// Create new chart
+	const chart = new Chart(ctx, chartConfig);
+	
+	// Store chart instance
+	window.chartInstances[canvasId] = chart;
+	
+	return chart;
+}
+
+// Cleanup function for page unload
+function cleanup_charts() {
+	destroy_all_charts();
+}
+
+// Add cleanup on page unload
+if (typeof window !== 'undefined') {
+	window.addEventListener('beforeunload', cleanup_charts);
+	window.addEventListener('unload', cleanup_charts);
+}
+
+function update_all_charts(data) {
+	console.log('Creating all charts with data:', data);
+	
+	// Wait for Chart.js to be available
+	if (typeof Chart !== 'undefined') {
+		// Destroy existing charts first
+		destroy_all_charts();
+		
+		create_defect_distribution_pie(data);
+		create_defect_types_bar(data);
+		create_defect_trend_line(data);
+		create_operator_performance_chart(data);
+		create_machine_performance_chart(data);
+		create_article_performance_chart(data);
+		create_size_analysis_chart(data);
+		create_design_quality_chart(data);
+		create_hourly_performance_chart(data);
+		create_daily_production_chart(data);
+		create_quality_score_distribution(data);
+		create_performance_ranking_chart(data);
+		create_defect_severity_chart(data);
+		create_machine_operator_comparison_chart(data);
+		create_production_efficiency_chart(data);
+		create_defect_pattern_chart(data);
+		create_improvement_trends_chart(data);
+		create_production_distribution_chart(data);
+		create_kpi_overview_chart(data);
+		create_target_vs_actual_chart(data);
+	} else {
+		console.log('Chart.js not available, retrying in 1 second...');
+		setTimeout(() => update_all_charts(data), 1000);
+	}
+}
+
+function create_defect_distribution_pie(data) {
+	const defect_labels = data.chart_data?.defect_labels || [];
+	const defect_values = data.chart_data?.defect_values || [];
+	
+	const chartConfig = {
+		type: 'doughnut',
+		data: {
+			labels: defect_labels,
+			datasets: [{
+				data: defect_values,
+				backgroundColor: [
+					'#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+					'#FF9F40', '#FF6384', '#C9CBCF', '#4BC0C0', '#FF6384'
+				],
+				borderWidth: 2,
+				borderColor: '#fff'
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: {
+				legend: {
+					position: 'bottom'
+				},
+				title: {
+					display: true,
+					text: 'Defect Distribution'
+				}
+			}
+		}
+	};
+	
+	create_chart_with_management('defect_distribution_pie', chartConfig);
+}
+
+function create_defect_types_bar(data) {
+	const defect_labels = data.chart_data?.defect_labels || [];
+	const defect_values = data.chart_data?.defect_values || [];
+	
+	const chartConfig = {
+		type: 'bar',
+		data: {
+			labels: defect_labels,
+			datasets: [{
+				label: 'Defect Count',
+				data: defect_values,
+				backgroundColor: 'rgba(54, 162, 235, 0.8)',
+				borderColor: 'rgba(54, 162, 235, 1)',
+				borderWidth: 1
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Defect Types by Count'
+				}
+			}
+		}
+	};
+	
+	create_chart_with_management('defect_types_bar', chartConfig);
+}
+
+function create_defect_trend_line(data) {
+	const trend_labels = data.chart_data?.trend_labels || [];
+	const trend_values = data.chart_data?.trend_values || [];
+	
+	const chartConfig = {
+		type: 'line',
+		data: {
+			labels: trend_labels,
+			datasets: [{
+				label: 'Defect Percentage',
+				data: trend_values,
+				borderColor: 'rgba(255, 99, 132, 1)',
+				backgroundColor: 'rgba(255, 99, 132, 0.2)',
+				tension: 0.4,
+				fill: true
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Defect Trend Over Time'
+				}
+			}
+		}
+	};
+	
+	create_chart_with_management('defect_trend_line', chartConfig);
+}
+
+function create_operator_performance_chart(data) {
+	const operator_data = data.operator_analysis || [];
+	const labels = operator_data.slice(0, 10).map(op => op.operator_name || 'Unknown');
+	const quality_scores = operator_data.slice(0, 10).map(op => 100 - (op.defect_percentage || 0));
+	
+	const chartConfig = {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Quality Score',
+				data: quality_scores,
+				backgroundColor: 'rgba(75, 192, 192, 0.8)',
+				borderColor: 'rgba(75, 192, 192, 1)',
+				borderWidth: 1
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true,
+					max: 100
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Top 10 Operators by Quality Score'
+				}
+			}
+		}
+	};
+	
+	create_chart_with_management('operator_performance_chart', chartConfig);
+}
+
+function create_machine_performance_chart(data) {
+	const machine_data = data.machine_analysis || [];
+	const labels = machine_data.slice(0, 10).map(machine => machine.machine || 'Unknown');
+	const quality_scores = machine_data.slice(0, 10).map(machine => 100 - (machine.defect_percentage || 0));
+	
+	const chartConfig = {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Quality Score',
+				data: quality_scores,
+				backgroundColor: 'rgba(255, 159, 64, 0.8)',
+				borderColor: 'rgba(255, 159, 64, 1)',
+				borderWidth: 1
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true,
+					max: 100
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Top 10 Machines by Quality Score'
+				}
+			}
+		}
+	};
+	
+	create_chart_with_management('machine_performance_chart', chartConfig);
+}
+
+function create_article_performance_chart(data) {
+	const ctx = document.getElementById('article_performance_chart');
+	if (!ctx) return;
+	
+	// Group by article
+	let article_data = {};
+	if (data.records) {
+		data.records.forEach(record => {
+			let article = record.article || 'Unknown';
+			if (!article_data[article]) {
+				article_data[article] = { total_defects: 0, total_pieces: 0 };
+			}
+			article_data[article].total_defects += record.total_defects || 0;
+			article_data[article].total_pieces += record.total_number_pcs || 0;
+		});
+	}
+	
+	const articles = Object.keys(article_data).slice(0, 8);
+	const defect_rates = articles.map(article => {
+		const data = article_data[article];
+		return data.total_pieces > 0 ? (data.total_defects / data.total_pieces) * 100 : 0;
+	});
+	
+	new Chart(ctx, {
+		type: 'doughnut',
+		data: {
+			labels: articles,
+			datasets: [{
+				data: defect_rates,
+				backgroundColor: [
+					'#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+					'#FF9F40', '#FF6384', '#C9CBCF'
+				]
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: {
+				title: {
+					display: true,
+					text: 'Article Defect Rates'
+				}
+			}
+		}
+	});
+}
+
+function create_size_analysis_chart(data) {
+	const ctx = document.getElementById('size_analysis_chart');
+	if (!ctx) return;
+	
+	// Group by size
+	let size_data = {};
+	if (data.records) {
+		data.records.forEach(record => {
+			let size = record.size || 'Unknown';
+			if (!size_data[size]) {
+				size_data[size] = { total_defects: 0, total_pieces: 0 };
+			}
+			size_data[size].total_defects += record.total_defects || 0;
+			size_data[size].total_pieces += record.total_number_pcs || 0;
+		});
+	}
+	
+	const sizes = Object.keys(size_data).slice(0, 6);
+	const pieces = sizes.map(size => size_data[size].total_pieces);
+	
+	new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: sizes,
+			datasets: [{
+				label: 'Pieces Produced',
+				data: pieces,
+				backgroundColor: 'rgba(153, 102, 255, 0.8)',
+				borderColor: 'rgba(153, 102, 255, 1)',
+				borderWidth: 1
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Production by Size'
+				}
+			}
+		}
+	});
+}
+
+function create_design_quality_chart(data) {
+	const ctx = document.getElementById('design_quality_chart');
+	if (!ctx) return;
+	
+	// Group by design
+	let design_data = {};
+	if (data.records) {
+		data.records.forEach(record => {
+			let design = record.design || 'Unknown';
+			if (!design_data[design]) {
+				design_data[design] = { total_defects: 0, total_pieces: 0 };
+			}
+			design_data[design].total_defects += record.total_defects || 0;
+			design_data[design].total_pieces += record.total_number_pcs || 0;
+		});
+	}
+	
+	const designs = Object.keys(design_data).slice(0, 6);
+	const quality_scores = designs.map(design => {
+		const data = design_data[design];
+		const defect_rate = data.total_pieces > 0 ? (data.total_defects / data.total_pieces) * 100 : 0;
+		return 100 - defect_rate;
+	});
+	
+	new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: designs,
+			datasets: [{
+				label: 'Quality Score',
+				data: quality_scores,
+				borderColor: 'rgba(255, 99, 132, 1)',
+				backgroundColor: 'rgba(255, 99, 132, 0.2)',
+				tension: 0.4,
+				fill: true
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true,
+					max: 100
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Design Quality Scores'
+				}
+			}
+		}
+	});
+}
+
+function create_hourly_performance_chart(data) {
+	const ctx = document.getElementById('hourly_performance_chart');
+	if (!ctx) return;
+	
+	const hourly_data = data.time_analysis?.hourly_analysis || [];
+	const hours = hourly_data.map(h => `Hour ${h.hour || 'Unknown'}`);
+	const efficiency = hourly_data.map(h => 100 - (h.defect_percentage || 0));
+	
+	new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: hours,
+			datasets: [{
+				label: 'Efficiency %',
+				data: efficiency,
+				backgroundColor: 'rgba(54, 162, 235, 0.8)',
+				borderColor: 'rgba(54, 162, 235, 1)',
+				borderWidth: 1
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true,
+					max: 100
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Hourly Efficiency Performance'
+				}
+			}
+		}
+	});
+}
+
+function create_daily_production_chart(data) {
+	const ctx = document.getElementById('daily_production_chart');
+	if (!ctx) return;
+	
+	const trend_labels = data.chart_data?.trend_labels || [];
+	const pieces_trend = data.chart_data?.pieces_trend || [];
+	
+	new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: trend_labels,
+			datasets: [{
+				label: 'Pieces Produced',
+				data: pieces_trend,
+				borderColor: 'rgba(75, 192, 192, 1)',
+				backgroundColor: 'rgba(75, 192, 192, 0.2)',
+				tension: 0.4,
+				fill: true
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Daily Production Volume'
+				}
+			}
+		}
+	});
+}
+
+function create_quality_score_distribution(data) {
+	const ctx = document.getElementById('quality_score_distribution');
+	if (!ctx) return;
+	
+	const operator_data = data.operator_analysis || [];
+	const quality_scores = operator_data.map(op => 100 - (op.defect_percentage || 0));
+	
+	// Create ranges
+	const ranges = ['90-100', '80-89', '70-79', '60-69', '0-59'];
+	const counts = [0, 0, 0, 0, 0];
+	
+	quality_scores.forEach(score => {
+		if (score >= 90) counts[0]++;
+		else if (score >= 80) counts[1]++;
+		else if (score >= 70) counts[2]++;
+		else if (score >= 60) counts[3]++;
+		else counts[4]++;
+	});
+	
+	new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: ranges,
+			datasets: [{
+				label: 'Number of Operators',
+				data: counts,
+				backgroundColor: [
+					'rgba(75, 192, 192, 0.8)',
+					'rgba(54, 162, 235, 0.8)',
+					'rgba(255, 206, 86, 0.8)',
+					'rgba(255, 159, 64, 0.8)',
+					'rgba(255, 99, 132, 0.8)'
+				]
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Quality Score Distribution'
+				}
+			}
+		}
+	});
+}
+
+function create_performance_ranking_chart(data) {
+	const operator_data = data.operator_analysis || [];
+	const top_operators = operator_data.slice(0, 8);
+	const labels = top_operators.map((op, index) => `#${index + 1} ${op.operator_name || 'Unknown'}`);
+	const scores = top_operators.map(op => 100 - (op.defect_percentage || 0));
+	
+	const chartConfig = {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Quality Score',
+				data: scores,
+				backgroundColor: 'rgba(255, 99, 132, 0.8)',
+				borderColor: 'rgba(255, 99, 132, 1)',
+				borderWidth: 1
+			}]
+		},
+		options: {
+			indexAxis: 'y', // This makes it horizontal
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				x: {
+					beginAtZero: true,
+					max: 100
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Top 8 Operators Ranking'
+				}
+			}
+		}
+	};
+	
+	create_chart_with_management('performance_ranking_chart', chartConfig);
+}
+
+function create_defect_severity_chart(data) {
+	const ctx = document.getElementById('defect_severity_chart');
+	if (!ctx) return;
+	
+	const defect_types = data.chart_data?.defect_labels || [];
+	const defect_values = data.chart_data?.defect_values || [];
+	
+	// Categorize by severity
+	const severity_data = {
+		'Critical': 0,
+		'High': 0,
+		'Medium': 0,
+		'Low': 0
+	};
+	
+	defect_values.forEach((value, index) => {
+		if (value > 20) severity_data['Critical'] += value;
+		else if (value > 10) severity_data['High'] += value;
+		else if (value > 5) severity_data['Medium'] += value;
+		else severity_data['Low'] += value;
+	});
+	
+	new Chart(ctx, {
+		type: 'pie',
+		data: {
+			labels: Object.keys(severity_data),
+			datasets: [{
+				data: Object.values(severity_data),
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.8)',
+					'rgba(255, 159, 64, 0.8)',
+					'rgba(255, 206, 86, 0.8)',
+					'rgba(75, 192, 192, 0.8)'
+				]
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: {
+				title: {
+					display: true,
+					text: 'Defect Severity Distribution'
+				}
+			}
+		}
+	});
+}
+
+function create_machine_operator_comparison_chart(data) {
+	const ctx = document.getElementById('machine_operator_comparison_chart');
+	if (!ctx) return;
+	
+	const machine_data = data.machine_analysis || [];
+	const operator_data = data.operator_analysis || [];
+	
+	const top_machines = machine_data.slice(0, 5);
+	const top_operators = operator_data.slice(0, 5);
+	
+	const labels = ['Machine Avg', 'Operator Avg'];
+	const machine_avg = top_machines.reduce((sum, m) => sum + (100 - (m.defect_percentage || 0)), 0) / top_machines.length;
+	const operator_avg = top_operators.reduce((sum, o) => sum + (100 - (o.defect_percentage || 0)), 0) / top_operators.length;
+	
+	new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Average Quality Score',
+				data: [machine_avg, operator_avg],
+				backgroundColor: [
+					'rgba(54, 162, 235, 0.8)',
+					'rgba(255, 159, 64, 0.8)'
+				]
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true,
+					max: 100
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Machine vs Operator Performance'
+				}
+			}
+		}
+	});
+}
+
+function create_production_efficiency_chart(data) {
+	const ctx = document.getElementById('production_efficiency_chart');
+	if (!ctx) return;
+	
+	const trend_labels = data.chart_data?.trend_labels || [];
+	const trend_values = data.chart_data?.trend_values || [];
+	const pieces_trend = data.chart_data?.pieces_trend || [];
+	
+	// Calculate efficiency (100 - defect rate)
+	const efficiency = trend_values.map(defect_rate => 100 - defect_rate);
+	
+	new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: trend_labels,
+			datasets: [{
+				label: 'Efficiency %',
+				data: efficiency,
+				borderColor: 'rgba(75, 192, 192, 1)',
+				backgroundColor: 'rgba(75, 192, 192, 0.2)',
+				tension: 0.4,
+				fill: true
+			}, {
+				label: 'Production Volume',
+				data: pieces_trend,
+				borderColor: 'rgba(255, 99, 132, 1)',
+				backgroundColor: 'rgba(255, 99, 132, 0.2)',
+				tension: 0.4,
+				yAxisID: 'y1'
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					type: 'linear',
+					display: true,
+					position: 'left',
+					beginAtZero: true,
+					max: 100
+				},
+				y1: {
+					type: 'linear',
+					display: true,
+					position: 'right',
+					beginAtZero: true
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Production Efficiency vs Volume'
+				}
+			}
+		}
+	});
+}
+
+function create_defect_pattern_chart(data) {
+	const ctx = document.getElementById('defect_pattern_chart');
+	if (!ctx) return;
+	
+	const defect_types = data.chart_data?.defect_labels || [];
+	const defect_values = data.chart_data?.defect_values || [];
+	
+	// Create pattern analysis
+	const patterns = defect_values.map((value, index) => {
+		if (value > 20) return 'High Frequency';
+		else if (value > 10) return 'Medium Frequency';
+		else return 'Low Frequency';
+	});
+	
+	const pattern_counts = {
+		'High Frequency': patterns.filter(p => p === 'High Frequency').length,
+		'Medium Frequency': patterns.filter(p => p === 'Medium Frequency').length,
+		'Low Frequency': patterns.filter(p => p === 'Low Frequency').length
+	};
+	
+	new Chart(ctx, {
+		type: 'doughnut',
+		data: {
+			labels: Object.keys(pattern_counts),
+			datasets: [{
+				data: Object.values(pattern_counts),
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.8)',
+					'rgba(255, 206, 86, 0.8)',
+					'rgba(75, 192, 192, 0.8)'
+				]
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: {
+				title: {
+					display: true,
+					text: 'Defect Pattern Analysis'
+				}
+			}
+		}
+	});
+}
+
+function create_improvement_trends_chart(data) {
+	const ctx = document.getElementById('improvement_trends_chart');
+	if (!ctx) return;
+	
+	const trend_labels = data.chart_data?.trend_labels || [];
+	const trend_values = data.chart_data?.trend_values || [];
+	
+	// Calculate improvement (inverse of defect rate)
+	const improvement = trend_values.map(defect_rate => 100 - defect_rate);
+	
+	new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: trend_labels,
+			datasets: [{
+				label: 'Quality Improvement %',
+				data: improvement,
+				borderColor: 'rgba(75, 192, 192, 1)',
+				backgroundColor: 'rgba(75, 192, 192, 0.2)',
+				tension: 0.4,
+				fill: true
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true,
+					max: 100
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Quality Improvement Trends'
+				}
+			}
+		}
+	});
+}
+
+function create_production_distribution_chart(data) {
+	const ctx = document.getElementById('production_distribution_chart');
+	if (!ctx) return;
+	
+	// Group by article
+	let article_data = {};
+	if (data.records) {
+		data.records.forEach(record => {
+			let article = record.article || 'Unknown';
+			if (!article_data[article]) {
+				article_data[article] = 0;
+			}
+			article_data[article] += record.total_number_pcs || 0;
+		});
+	}
+	
+	const articles = Object.keys(article_data).slice(0, 6);
+	const pieces = articles.map(article => article_data[article]);
+	
+	new Chart(ctx, {
+		type: 'pie',
+		data: {
+			labels: articles,
+			datasets: [{
+				data: pieces,
+				backgroundColor: [
+					'#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+				]
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: {
+				title: {
+					display: true,
+					text: 'Production Distribution by Article'
+				}
+			}
+		}
+	});
+}
+
+function create_kpi_overview_chart(data) {
+	const ctx = document.getElementById('kpi_overview_chart');
+	if (!ctx) return;
+	
+	const summary = data.summary || {};
+	const kpis = [
+		'Total Records',
+		'Total Pieces',
+		'Quality Score',
+		'Defect Rate',
+		'Avg Defect %'
+	];
+	
+	const values = [
+		summary.total_records || 0,
+		(summary.total_pieces || 0) / 1000, // Scale down for chart
+		100 - (summary.defect_percentage || 0),
+		summary.defect_percentage || 0,
+		summary.avg_defect_percentage || 0
+	];
+	
+	new Chart(ctx, {
+		type: 'radar',
+		data: {
+			labels: kpis,
+			datasets: [{
+				label: 'KPI Values',
+				data: values,
+				backgroundColor: 'rgba(54, 162, 235, 0.2)',
+				borderColor: 'rgba(54, 162, 235, 1)',
+				borderWidth: 2
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				r: {
+					beginAtZero: true
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'KPI Overview Dashboard'
+				}
+			}
+		}
+	});
+}
+
+function create_target_vs_actual_chart(data) {
+	const ctx = document.getElementById('target_vs_actual_chart');
+	if (!ctx) return;
+	
+	const summary = data.summary || {};
+	const metrics = ['Defect Rate', 'Quality Score', 'Production'];
+	const actual = [
+		summary.defect_percentage || 0,
+		100 - (summary.defect_percentage || 0),
+		(summary.total_pieces || 0) / 1000
+	];
+	const target = [2.0, 98.0, 150]; // Target values
+	
+	new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: metrics,
+			datasets: [{
+				label: 'Actual',
+				data: actual,
+				backgroundColor: 'rgba(54, 162, 235, 0.8)'
+			}, {
+				label: 'Target',
+				data: target,
+				backgroundColor: 'rgba(255, 99, 132, 0.8)'
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			},
+			plugins: {
+				title: {
+					display: true,
+					text: 'Target vs Actual Performance'
+				}
+			}
+		}
+	});
 }
 
 function update_article_defect_analysis(data) {
@@ -3163,5 +4375,17 @@ window.clear_filters = clear_filters;
 window.refresh_data = refresh_data;
 window.force_chart_recreation = force_chart_recreation;
 window.refresh_chart_data = refresh_chart_data;
+window.load_all_charts = load_all_charts;
+
+function load_all_charts() {
+	console.log('Loading all charts...');
+	if (window.current_dashboard_data) {
+		update_all_charts(window.current_dashboard_data);
+		console.log('All charts loaded successfully!');
+	} else {
+		console.log('No dashboard data available, refreshing data first...');
+		refresh_data();
+	}
+}
 window.export_data = export_data;
 window.view_record = view_record;
