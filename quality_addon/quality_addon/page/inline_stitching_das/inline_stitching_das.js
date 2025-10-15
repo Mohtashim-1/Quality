@@ -2621,9 +2621,6 @@ function create_machine_performance_chart(data) {
 }
 
 function create_article_performance_chart(data) {
-	const ctx = document.getElementById('article_performance_chart');
-	if (!ctx) return;
-	
 	// Group by article
 	let article_data = {};
 	if (data.records) {
@@ -2643,7 +2640,7 @@ function create_article_performance_chart(data) {
 		return data.total_pieces > 0 ? (data.total_defects / data.total_pieces) * 100 : 0;
 	});
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'doughnut',
 		data: {
 			labels: articles,
@@ -2665,13 +2662,12 @@ function create_article_performance_chart(data) {
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('article_performance_chart', chartConfig);
 }
 
 function create_size_analysis_chart(data) {
-	const ctx = document.getElementById('size_analysis_chart');
-	if (!ctx) return;
-	
 	// Group by size
 	let size_data = {};
 	if (data.records) {
@@ -2688,7 +2684,7 @@ function create_size_analysis_chart(data) {
 	const sizes = Object.keys(size_data).slice(0, 6);
 	const pieces = sizes.map(size => size_data[size].total_pieces);
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'bar',
 		data: {
 			labels: sizes,
@@ -2715,13 +2711,12 @@ function create_size_analysis_chart(data) {
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('size_analysis_chart', chartConfig);
 }
 
 function create_design_quality_chart(data) {
-	const ctx = document.getElementById('design_quality_chart');
-	if (!ctx) return;
-	
 	// Group by design
 	let design_data = {};
 	if (data.records) {
@@ -2742,7 +2737,7 @@ function create_design_quality_chart(data) {
 		return 100 - defect_rate;
 	});
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'line',
 		data: {
 			labels: designs,
@@ -2771,18 +2766,17 @@ function create_design_quality_chart(data) {
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('design_quality_chart', chartConfig);
 }
 
 function create_hourly_performance_chart(data) {
-	const ctx = document.getElementById('hourly_performance_chart');
-	if (!ctx) return;
-	
 	const hourly_data = data.time_analysis?.hourly_analysis || [];
 	const hours = hourly_data.map(h => `Hour ${h.hour || 'Unknown'}`);
 	const efficiency = hourly_data.map(h => 100 - (h.defect_percentage || 0));
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'bar',
 		data: {
 			labels: hours,
@@ -2810,17 +2804,16 @@ function create_hourly_performance_chart(data) {
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('hourly_performance_chart', chartConfig);
 }
 
 function create_daily_production_chart(data) {
-	const ctx = document.getElementById('daily_production_chart');
-	if (!ctx) return;
-	
 	const trend_labels = data.chart_data?.trend_labels || [];
 	const pieces_trend = data.chart_data?.pieces_trend || [];
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'line',
 		data: {
 			labels: trend_labels,
@@ -2848,13 +2841,12 @@ function create_daily_production_chart(data) {
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('daily_production_chart', chartConfig);
 }
 
 function create_quality_score_distribution(data) {
-	const ctx = document.getElementById('quality_score_distribution');
-	if (!ctx) return;
-	
 	const operator_data = data.operator_analysis || [];
 	const quality_scores = operator_data.map(op => 100 - (op.defect_percentage || 0));
 	
@@ -2870,7 +2862,7 @@ function create_quality_score_distribution(data) {
 		else counts[4]++;
 	});
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'bar',
 		data: {
 			labels: ranges,
@@ -2901,7 +2893,9 @@ function create_quality_score_distribution(data) {
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('quality_score_distribution', chartConfig);
 }
 
 function create_performance_ranking_chart(data) {
@@ -2945,9 +2939,6 @@ function create_performance_ranking_chart(data) {
 }
 
 function create_defect_severity_chart(data) {
-	const ctx = document.getElementById('defect_severity_chart');
-	if (!ctx) return;
-	
 	const defect_types = data.chart_data?.defect_labels || [];
 	const defect_values = data.chart_data?.defect_values || [];
 	
@@ -2966,7 +2957,7 @@ function create_defect_severity_chart(data) {
 		else severity_data['Low'] += value;
 	});
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'pie',
 		data: {
 			labels: Object.keys(severity_data),
@@ -2990,13 +2981,12 @@ function create_defect_severity_chart(data) {
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('defect_severity_chart', chartConfig);
 }
 
 function create_machine_operator_comparison_chart(data) {
-	const ctx = document.getElementById('machine_operator_comparison_chart');
-	if (!ctx) return;
-	
 	const machine_data = data.machine_analysis || [];
 	const operator_data = data.operator_analysis || [];
 	
@@ -3007,7 +2997,7 @@ function create_machine_operator_comparison_chart(data) {
 	const machine_avg = top_machines.reduce((sum, m) => sum + (100 - (m.defect_percentage || 0)), 0) / top_machines.length;
 	const operator_avg = top_operators.reduce((sum, o) => sum + (100 - (o.defect_percentage || 0)), 0) / top_operators.length;
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'bar',
 		data: {
 			labels: labels,
@@ -3036,13 +3026,12 @@ function create_machine_operator_comparison_chart(data) {
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('machine_operator_comparison_chart', chartConfig);
 }
 
 function create_production_efficiency_chart(data) {
-	const ctx = document.getElementById('production_efficiency_chart');
-	if (!ctx) return;
-	
 	const trend_labels = data.chart_data?.trend_labels || [];
 	const trend_values = data.chart_data?.trend_values || [];
 	const pieces_trend = data.chart_data?.pieces_trend || [];
@@ -3050,7 +3039,7 @@ function create_production_efficiency_chart(data) {
 	// Calculate efficiency (100 - defect rate)
 	const efficiency = trend_values.map(defect_rate => 100 - defect_rate);
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'line',
 		data: {
 			labels: trend_labels,
@@ -3095,7 +3084,9 @@ function create_production_efficiency_chart(data) {
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('production_efficiency_chart', chartConfig);
 }
 
 function create_defect_pattern_chart(data) {
