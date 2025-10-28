@@ -1,0 +1,23 @@
+{
+ "content": null,
+ "creation": "2025-10-21 12:55:34.044387",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2025-10-21 12:55:43.824416",
+ "modified_by": "Administrator",
+ "module": "Quality Addon",
+ "name": "daily-stitching-dash",
+ "owner": "Administrator",
+ "page_name": "daily-stitching-dash",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Daily Stitching Dashboard"
+}

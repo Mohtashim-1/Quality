@@ -347,30 +347,41 @@ def get_records_data(conditions, filters):
 	# Group records by parent (since we have child table data)
 	grouped_records = {}
 	for record in records:
+		if not record or not record.name:
+			continue
+			
 		parent_name = record.name
 		if parent_name not in grouped_records:
 			grouped_records[parent_name] = {
-				'name': record.name,
+				'name': record.name or '',
 				'reporting_date': record.reporting_date,
-				'process_type': record.process_type,
-				'select_po': record.select_po,
-				'total_number_pcs': record.total_number_pcs,
-				'total_defects': record.total_defects,
-				'defect_percentage': record.defect_percentage,
-				'machine': record.machine,
-				'operator_name': record.operator_name,
-				'article': record.article,
-				'size': record.size,
-				'design': record.design
+				'process_type': record.process_type or '',
+				'select_po': record.select_po or '',
+				'total_number_pcs': record.total_number_pcs or 0,
+				'total_defects': record.total_defects or 0,
+				'defect_percentage': record.defect_percentage or 0,
+				'machine': record.machine or '',
+				'operator_name': record.operator_name or '',
+				'article': record.article or '',
+				'size': record.size or '',
+				'design': record.design or ''
 			}
 		else:
 			# If multiple child records, concatenate values
-			if record.machine and record.machine not in grouped_records[parent_name]['machine']:
+			if record.machine and grouped_records[parent_name]['machine'] and record.machine not in grouped_records[parent_name]['machine']:
 				grouped_records[parent_name]['machine'] += f", {record.machine}"
-			if record.operator_name and record.operator_name not in grouped_records[parent_name]['operator_name']:
+			elif record.machine:
+				grouped_records[parent_name]['machine'] = record.machine
+				
+			if record.operator_name and grouped_records[parent_name]['operator_name'] and record.operator_name not in grouped_records[parent_name]['operator_name']:
 				grouped_records[parent_name]['operator_name'] += f", {record.operator_name}"
-			if record.article and record.article not in grouped_records[parent_name]['article']:
+			elif record.operator_name:
+				grouped_records[parent_name]['operator_name'] = record.operator_name
+				
+			if record.article and grouped_records[parent_name]['article'] and record.article not in grouped_records[parent_name]['article']:
 				grouped_records[parent_name]['article'] += f", {record.article}"
+			elif record.article:
+				grouped_records[parent_name]['article'] = record.article
 	
 	return list(grouped_records.values())
 

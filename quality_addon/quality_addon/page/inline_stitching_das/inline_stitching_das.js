@@ -2390,6 +2390,54 @@ function create_chart_with_management(canvasId, chartConfig) {
 	return chart;
 }
 
+// Shared helpers for tooltips and data labels
+function percentageOf(value, total) {
+	if (!total || total === 0) return 0;
+	return Math.round((value / total) * 1000) / 10; // 1 decimal
+}
+
+function withCountAndPercentOptions(total, extraLabelBuilder) {
+	return {
+		plugins: {
+			tooltip: {
+				callbacks: {
+					label: function(context) {
+						const raw = Array.isArray(context.raw) ? context.raw[0] : context.raw;
+						const label = context.label || '';
+						let parts = [];
+						if (typeof raw === 'number') {
+							const pct = total ? percentageOf(raw, total) : undefined;
+							parts.push(`${label}: ${raw}${pct !== undefined ? ` (${pct}%)` : ''}`);
+						} else {
+							parts.push(`${label}: ${raw}`);
+						}
+						if (typeof extraLabelBuilder === 'function') {
+							const extra = extraLabelBuilder(context);
+							if (extra) parts.push(extra);
+						}
+						return parts.join('\n');
+					}
+				}
+			},
+			// If chartjs-plugin-datalabels is present, show values on segments/bars
+			datalabels: {
+				align: 'center',
+				anchor: 'center',
+				color: '#222',
+				font: { weight: '600' },
+				formatter: function(value, ctx) {
+					const v = Array.isArray(value) ? value[0] : value;
+					if (typeof v !== 'number') return '';
+					if (total) {
+						return `${v} (${percentageOf(v, total)}%)`;
+					}
+					return `${v}`;
+				}
+			}
+		}
+	};
+}
+
 // Cleanup function for page unload
 function cleanup_charts() {
 	destroy_all_charts();
@@ -2458,11 +2506,35 @@ function create_defect_distribution_pie(data) {
 			maintainAspectRatio: false,
 			plugins: {
 				legend: {
-					position: 'bottom'
+					position: 'bottom',
+					labels: {
+						generateLabels: function(chart) {
+							const original = Chart.defaults.plugins.legend.labels.generateLabels;
+							const labels = original.call(this, chart);
+							const total = defect_values.reduce((a, b) => a + (b || 0), 0);
+							labels.forEach((label, idx) => {
+								const value = defect_values[idx] || 0;
+								const pct = total ? ((value / total) * 100).toFixed(1) : 0;
+								const labelName = defect_labels[idx] || 'Unknown';
+								label.text = `${labelName}: ${value} (${pct}%)`;
+							});
+							return labels;
+						}
+					}
 				},
 				title: {
 					display: true,
 					text: 'Defect Distribution'
+				},
+				tooltip: {
+					callbacks: {
+						label: function(context) {
+							const total = defect_values.reduce((a, b) => a + (b || 0), 0);
+							const value = context.parsed;
+							const pct = total ? ((value / total) * 100).toFixed(1) : 0;
+							return `${context.label}: ${value} (${pct}%)`;
+						}
+					}
 				}
 			}
 		}
@@ -2575,7 +2647,16 @@ function create_operator_performance_chart(data) {
 					display: true,
 					text: 'Top 10 Operators by Quality Score'
 				}
-			}
+			},
+			...withCountAndPercentOptions(100, (ctx) => {
+				// Show actual pieces/defects if available from dataset meta
+				const idx = ctx.dataIndex;
+				const op = (data.operator_analysis || [])[idx] || {};
+				if (op && (op.pieces || op.defects)) {
+					return `Pieces: ${op.pieces || 0}, Defects: ${op.defects || 0}`;
+				}
+				return null;
+			}).plugins
 		}
 	};
 	
@@ -2613,7 +2694,15 @@ function create_machine_performance_chart(data) {
 					display: true,
 					text: 'Top 10 Machines by Quality Score'
 				}
-			}
+			},
+			...withCountAndPercentOptions(100, (ctx) => {
+				const idx = ctx.dataIndex;
+				const m = (data.machine_analysis || [])[idx] || {};
+				if (m && (m.pieces || m.defects)) {
+					return `Pieces: ${m.pieces || 0}, Defects: ${m.defects || 0}`;
+				}
+				return null;
+			}).plugins
 		}
 	};
 	
@@ -2656,9 +2745,39 @@ function create_article_performance_chart(data) {
 			responsive: true,
 			maintainAspectRatio: false,
 			plugins: {
+				legend: {
+					position: 'bottom',
+					labels: {
+						generateLabels: function(chart) {
+							const original = Chart.defaults.plugins.legend.labels.generateLabels;
+							const labels = original.call(this, chart);
+							labels.forEach((label, idx) => {
+								const a = articles[idx];
+								const pieces = (article_data[a] && article_data[a].total_pieces) || 0;
+								const defects = (article_data[a] && article_data[a].total_defects) || 0;
+								const pct = defect_rates[idx] || 0;
+								const labelName = a || 'Unknown';
+								label.text = `${labelName}: ${pct.toFixed(1)}% (Pieces: ${pieces}, Defects: ${defects})`;
+							});
+							return labels;
+						}
+					}
+				},
 				title: {
 					display: true,
 					text: 'Article Defect Rates'
+				},
+				tooltip: {
+					callbacks: {
+						label: function(context) {
+							const idx = context.dataIndex;
+							const a = articles[idx];
+							const pieces = (article_data[a] && article_data[a].total_pieces) || 0;
+							const defects = (article_data[a] && article_data[a].total_defects) || 0;
+							const pct = context.parsed || 0;
+							return `${context.label}: ${pct.toFixed(1)}% (Pieces: ${pieces}, Defects: ${defects})`;
+						}
+					}
 				}
 			}
 		}
@@ -2709,7 +2828,8 @@ function create_size_analysis_chart(data) {
 					display: true,
 					text: 'Production by Size'
 				}
-			}
+			},
+			...withCountAndPercentOptions(pieces.reduce((a,b)=>a+(b||0),0)).plugins
 		}
 	};
 	
@@ -2764,7 +2884,14 @@ function create_design_quality_chart(data) {
 					display: true,
 					text: 'Design Quality Scores'
 				}
-			}
+			},
+			...withCountAndPercentOptions(100, (ctx) => {
+				const idx = ctx.dataIndex;
+				const d = designs[idx];
+				const pieces = (design_data[d] && design_data[d].total_pieces) || 0;
+				const defects = (design_data[d] && design_data[d].total_defects) || 0;
+				return `Pieces: ${pieces}, Defects: ${defects}`;
+			}).plugins
 		}
 	};
 	
@@ -2774,14 +2901,14 @@ function create_design_quality_chart(data) {
 function create_hourly_performance_chart(data) {
 	const hourly_data = data.time_analysis?.hourly_analysis || [];
 	const hours = hourly_data.map(h => `Hour ${h.hour || 'Unknown'}`);
-	const efficiency = hourly_data.map(h => 100 - (h.defect_percentage || 0));
+	const efficiency = hourly_data.map(h => (h.defect_percentage || 0));
 	
 	const chartConfig = {
 		type: 'bar',
 		data: {
 			labels: hours,
 			datasets: [{
-				label: 'Efficiency %',
+				label: 'Defect %',
 				data: efficiency,
 				backgroundColor: 'rgba(54, 162, 235, 0.8)',
 				borderColor: 'rgba(54, 162, 235, 1)',
@@ -2800,9 +2927,17 @@ function create_hourly_performance_chart(data) {
 			plugins: {
 				title: {
 					display: true,
-					text: 'Hourly Efficiency Performance'
+					text: 'Hourly Defect Percentage'
 				}
-			}
+			},
+			...withCountAndPercentOptions(100, (ctx) => {
+				const idx = ctx.dataIndex;
+				const h = (hourly_data || [])[idx] || {};
+				if (h && (h.pieces || h.defects)) {
+					return `Pieces: ${h.pieces || 0}, Defects: ${h.defects || 0}`;
+				}
+				return null;
+			}).plugins
 		}
 	};
 	
@@ -2931,7 +3066,15 @@ function create_performance_ranking_chart(data) {
 					display: true,
 					text: 'Top 8 Operators Ranking'
 				}
-			}
+			},
+			...withCountAndPercentOptions(100, (ctx) => {
+				const idx = ctx.dataIndex;
+				const op = (data.operator_analysis || [])[idx] || {};
+				if (op && (op.pieces || op.defects)) {
+					return `Pieces: ${op.pieces || 0}, Defects: ${op.defects || 0}`;
+				}
+				return null;
+			}).plugins
 		}
 	};
 	
@@ -2975,9 +3118,37 @@ function create_defect_severity_chart(data) {
 			responsive: true,
 			maintainAspectRatio: false,
 			plugins: {
+				legend: {
+					position: 'bottom',
+					labels: {
+						generateLabels: function(chart) {
+							const original = Chart.defaults.plugins.legend.labels.generateLabels;
+							const labels = original.call(this, chart);
+							const total = Object.values(severity_data).reduce((a,b)=>a+(b||0),0);
+							const values = Object.values(severity_data);
+							const keys = Object.keys(severity_data);
+							labels.forEach((label, idx) => {
+								const value = values[idx] || 0;
+								const pct = total ? ((value / total) * 100).toFixed(1) : 0;
+								label.text = `${keys[idx]}: ${value} (${pct}%)`;
+							});
+							return labels;
+						}
+					}
+				},
 				title: {
 					display: true,
 					text: 'Defect Severity Distribution'
+				},
+				tooltip: {
+					callbacks: {
+						label: function(context) {
+							const total = Object.values(severity_data).reduce((a,b)=>a+(b||0),0);
+							const value = context.parsed;
+							const pct = total ? ((value / total) * 100).toFixed(1) : 0;
+							return `${context.label}: ${value} (${pct}%)`;
+						}
+					}
 				}
 			}
 		}
@@ -3024,7 +3195,20 @@ function create_machine_operator_comparison_chart(data) {
 					display: true,
 					text: 'Machine vs Operator Performance'
 				}
-			}
+			},
+			...withCountAndPercentOptions(100, (ctx) => {
+				// Show averages of pieces/defects if available
+				const info = [
+					{ label: 'Machine', list: top_machines },
+					{ label: 'Operator', list: top_operators }
+				][ctx.dataIndex];
+				if (info && Array.isArray(info.list) && info.list.length) {
+					const pieces = info.list.reduce((s, i) => s + (i.pieces || 0), 0);
+					const defects = info.list.reduce((s, i) => s + (i.defects || 0), 0);
+					return `${info.label} Pieces: ${pieces}, Defects: ${defects}`;
+				}
+				return null;
+			}).plugins
 		}
 	};
 	
@@ -3090,9 +3274,6 @@ function create_production_efficiency_chart(data) {
 }
 
 function create_defect_pattern_chart(data) {
-	const ctx = document.getElementById('defect_pattern_chart');
-	if (!ctx) return;
-	
 	const defect_types = data.chart_data?.defect_labels || [];
 	const defect_values = data.chart_data?.defect_values || [];
 	
@@ -3109,7 +3290,7 @@ function create_defect_pattern_chart(data) {
 		'Low Frequency': patterns.filter(p => p === 'Low Frequency').length
 	};
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'doughnut',
 		data: {
 			labels: Object.keys(pattern_counts),
@@ -3126,26 +3307,53 @@ function create_defect_pattern_chart(data) {
 			responsive: true,
 			maintainAspectRatio: false,
 			plugins: {
+				legend: {
+					position: 'bottom',
+					labels: {
+						generateLabels: function(chart) {
+							const original = Chart.defaults.plugins.legend.labels.generateLabels;
+							const labels = original.call(this, chart);
+							const total = Object.values(pattern_counts).reduce((a,b)=>a+(b||0),0);
+							const values = Object.values(pattern_counts);
+							const keys = Object.keys(pattern_counts);
+							labels.forEach((label, idx) => {
+								const value = values[idx] || 0;
+								const pct = total ? ((value / total) * 100).toFixed(1) : 0;
+								label.text = `${keys[idx]}: ${value} (${pct}%)`;
+							});
+							return labels;
+						}
+					}
+				},
 				title: {
 					display: true,
 					text: 'Defect Pattern Analysis'
+				},
+				tooltip: {
+					callbacks: {
+						label: function(context) {
+							const total = Object.values(pattern_counts).reduce((a,b)=>a+(b||0),0);
+							const value = context.parsed;
+							const pct = total ? ((value / total) * 100).toFixed(1) : 0;
+							return `${context.label}: ${value} (${pct}%)`;
+						}
+					}
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('defect_pattern_chart', chartConfig);
 }
 
 function create_improvement_trends_chart(data) {
-	const ctx = document.getElementById('improvement_trends_chart');
-	if (!ctx) return;
-	
 	const trend_labels = data.chart_data?.trend_labels || [];
 	const trend_values = data.chart_data?.trend_values || [];
 	
 	// Calculate improvement (inverse of defect rate)
 	const improvement = trend_values.map(defect_rate => 100 - defect_rate);
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'line',
 		data: {
 			labels: trend_labels,
@@ -3172,15 +3380,20 @@ function create_improvement_trends_chart(data) {
 					display: true,
 					text: 'Quality Improvement Trends'
 				}
-			}
+			},
+			...withCountAndPercentOptions(100, (ctx) => {
+				const idx = ctx.dataIndex;
+				const pieces = (data.chart_data && data.chart_data.pieces_trend && data.chart_data.pieces_trend[idx]) || 0;
+				const defects = (data.chart_data && data.chart_data.defects_trend && data.chart_data.defects_trend[idx]) || 0;
+				return `Pieces: ${pieces}, Defects: ${defects}`;
+			}).plugins
 		}
-	});
+	};
+	
+	create_chart_with_management('improvement_trends_chart', chartConfig);
 }
 
 function create_production_distribution_chart(data) {
-	const ctx = document.getElementById('production_distribution_chart');
-	if (!ctx) return;
-	
 	// Group by article
 	let article_data = {};
 	if (data.records) {
@@ -3196,7 +3409,7 @@ function create_production_distribution_chart(data) {
 	const articles = Object.keys(article_data).slice(0, 6);
 	const pieces = articles.map(article => article_data[article]);
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'pie',
 		data: {
 			labels: articles,
@@ -3211,19 +3424,45 @@ function create_production_distribution_chart(data) {
 			responsive: true,
 			maintainAspectRatio: false,
 			plugins: {
+				legend: {
+					position: 'bottom',
+					labels: {
+						generateLabels: function(chart) {
+							const original = Chart.defaults.plugins.legend.labels.generateLabels;
+							const labels = original.call(this, chart);
+							const total = pieces.reduce((a,b)=>a+(b||0),0);
+							labels.forEach((label, idx) => {
+								const value = pieces[idx] || 0;
+								const pct = total ? ((value / total) * 100).toFixed(1) : 0;
+								const articleName = articles[idx] || 'Unknown';
+								label.text = `${articleName}: ${value} pieces (${pct}%)`;
+							});
+							return labels;
+						}
+					}
+				},
 				title: {
 					display: true,
 					text: 'Production Distribution by Article'
+				},
+				tooltip: {
+					callbacks: {
+						label: function(context) {
+							const total = pieces.reduce((a,b)=>a+(b||0),0);
+							const value = context.parsed;
+							const pct = total ? ((value / total) * 100).toFixed(1) : 0;
+							return `${context.label}: ${value} pieces (${pct}%)`;
+						}
+					}
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('production_distribution_chart', chartConfig);
 }
 
 function create_kpi_overview_chart(data) {
-	const ctx = document.getElementById('kpi_overview_chart');
-	if (!ctx) return;
-	
 	const summary = data.summary || {};
 	const kpis = [
 		'Total Records',
@@ -3241,7 +3480,7 @@ function create_kpi_overview_chart(data) {
 		summary.avg_defect_percentage || 0
 	];
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'radar',
 		data: {
 			labels: kpis,
@@ -3268,13 +3507,12 @@ function create_kpi_overview_chart(data) {
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('kpi_overview_chart', chartConfig);
 }
 
 function create_target_vs_actual_chart(data) {
-	const ctx = document.getElementById('target_vs_actual_chart');
-	if (!ctx) return;
-	
 	const summary = data.summary || {};
 	const metrics = ['Defect Rate', 'Quality Score', 'Production'];
 	const actual = [
@@ -3284,7 +3522,7 @@ function create_target_vs_actual_chart(data) {
 	];
 	const target = [2.0, 98.0, 150]; // Target values
 	
-	new Chart(ctx, {
+	const chartConfig = {
 		type: 'bar',
 		data: {
 			labels: metrics,
@@ -3313,7 +3551,9 @@ function create_target_vs_actual_chart(data) {
 				}
 			}
 		}
-	});
+	};
+	
+	create_chart_with_management('target_vs_actual_chart', chartConfig);
 }
 
 function update_article_defect_analysis(data) {
