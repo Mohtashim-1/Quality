@@ -4,7 +4,7 @@
  "docstatus": 0,
  "doctype": "Page",
  "idx": 0,
- "modified": "2025-10-21 12:55:43.824416",
+ "modified": "2025-10-30 01:15:48.073131",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "daily-stitching-dash",
@@ -19,5 +19,5 @@
  "standard": "Yes",
  "style": null,
  "system_page": 0,
- "title": "Daily Stitching Dashboard"
+ "title": "Daily Checking Dashboard"
 }

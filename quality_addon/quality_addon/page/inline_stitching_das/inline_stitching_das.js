@@ -196,7 +196,7 @@ function create_summary_cards(container) {
 					<div class="card-body">
 						<div class="d-flex justify-content-between">
 							<div>
-								<h6 class="card-title text-muted">Total Pieces</h6>
+								<h6 class="card-title text-muted">Total Operations</h6>
 								<h3 class="mb-0" id="total_pieces">0</h3>
 								<small class="text-muted" id="pieces_trend">+0%</small>
 							</div>
@@ -457,21 +457,6 @@ function create_charts(container) {
 function create_breakdown_section(container) {
 	let breakdown_html = `
 		<div class="row">
-			<div class="col-md-6">
-				<div class="card">
-					<div class="card-header">
-						<h5><i class="fa fa-list"></i> Defect Breakdown</h5>
-					</div>
-					<div class="card-body">
-						<div id="defect_breakdown_table">
-							<div class="text-center p-3">
-								<div class="loading-spinner"></div>
-								<p>Loading defect breakdown...</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="col-md-6">
 				<div class="card">
 					<div class="card-header">
@@ -1831,17 +1816,6 @@ function view_record(record_name) {
 function update_breakdown_section(data) {
 	console.log('Updating breakdown section with data:', data);
 	
-	// Update defect breakdown - use chart data if available
-	let defect_breakdown = data.summary?.defect_breakdown || {};
-	if (data.chart_data?.defect_labels && data.chart_data?.defect_values) {
-		// Create defect breakdown from chart data
-		defect_breakdown = {};
-		for (let i = 0; i < data.chart_data.defect_labels.length; i++) {
-			defect_breakdown[data.chart_data.defect_labels[i]] = data.chart_data.defect_values[i];
-		}
-	}
-	update_defect_breakdown(defect_breakdown);
-	
 	// Update top performers
 	update_top_performers(data.operator_analysis || []);
 	
@@ -1852,42 +1826,6 @@ function update_breakdown_section(data) {
 	update_article_analysis_table(data.article_analysis || []);
 }
 
-function update_defect_breakdown(defect_data) {
-	let table_html = `
-		<div class="table-responsive">
-			<table class="table table-sm">
-				<thead>
-					<tr>
-						<th>Defect Type</th>
-						<th>Count</th>
-						<th>Percentage</th>
-					</tr>
-				</thead>
-				<tbody>
-	`;
-	
-	if (defect_data && Object.keys(defect_data).length > 0) {
-		let total_defects = Object.values(defect_data).reduce((sum, val) => sum + (val || 0), 0);
-		
-		Object.entries(defect_data).forEach(([defect_type, count]) => {
-			if (count > 0) {
-				let percentage = total_defects > 0 ? ((count / total_defects) * 100).toFixed(1) : 0;
-				table_html += `
-					<tr>
-						<td>${defect_type.replace(/_/g, ' ').toUpperCase()}</td>
-						<td>${count}</td>
-						<td>${percentage}%</td>
-					</tr>
-				`;
-			}
-		});
-	} else {
-		table_html += '<tr><td colspan="3" class="text-center">No defect data available</td></tr>';
-	}
-	
-	table_html += '</tbody></table></div>';
-	$('#defect_breakdown_table').html(table_html);
-}
 
 function update_top_performers(operator_data) {
 	let table_html = `
@@ -3466,7 +3404,7 @@ function create_kpi_overview_chart(data) {
 	const summary = data.summary || {};
 	const kpis = [
 		'Total Records',
-		'Total Pieces',
+		'Total Operations',
 		'Quality Score',
 		'Defect Rate',
 		'Avg Defect %'

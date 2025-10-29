@@ -85,7 +85,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Daily Stitching Dashboard",
+   "label": "Daily Checking Dashboard",
    "link_count": 0,
    "link_to": "daily-stitching-dash",
    "link_type": "Page",
@@ -103,7 +103,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-10-28 17:16:19.978968",
+ "modified": "2025-10-30 01:16:46.623503",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Quality Addon",
