@@ -1,14 +1,79 @@
 // Copyright (c) 2024, mohtashim and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Final Inspection Report', {
+function has_populated_final_inspection_rows(frm) {
+	return (frm.doc.fir_ct || []).some((row) =>
+		row.code || row.item || row.at_article || row.at_design || row.qty
+	);
+}
+
+function fetch_final_inspection_from_order_sheet(frm) {
+	if (!frm.doc.order_sheet) {
+		frm.clear_table('fir_ct');
+		frm.refresh_field('fir_ct');
+		return;
+	}
+
+	frappe.call({
+		method: 'quality_addon.quality_addon.doctype.final_inspection.final_inspection.get_order_sheet_details',
+		args: {
+			order_sheet: frm.doc.order_sheet
+		},
+		freeze: true,
+		freeze_message: __('Fetching Order Sheet details...'),
+		callback: function (r) {
+			const data = r.message || {};
+			const rows = data.items || [];
+
+			frm.set_value('customer', data.customer || '');
+			frm.set_value('po', data.po || '');
+			frm.set_value('order_qty', data.order_qty || 0);
+			frm.set_value('design', data.design || '');
+			frm.set_value('color', data.color || '');
+
+			frm.clear_table('fir_ct');
+
+			rows.forEach((item) => {
+				const row = frm.add_child('fir_ct');
+				row.code = item.code;
+				row.item = item.item;
+				row.at_finished_size = item.at_finished_size;
+				row.qty = item.qty;
+				row.at_color = item.at_color;
+				row.at_article = item.at_article;
+				row.at_design = item.at_design;
+			});
+
+			frm.refresh_field('fir_ct');
+		}
+	});
+}
+
+frappe.ui.form.on('Final Inspection', {
+	refresh: function (frm) {
+		if (frm.doc.order_sheet) {
+			frm.add_custom_button(__('Fetch From Order Sheet'), function () {
+				fetch_final_inspection_from_order_sheet(frm);
+			}, __('Actions'));
+		}
+
+		if (frm.doc.order_sheet && !has_populated_final_inspection_rows(frm)) {
+			fetch_final_inspection_from_order_sheet(frm);
+		}
+	},
+
+	order_sheet: function (frm) {
+		fetch_final_inspection_from_order_sheet(frm);
+	},
+
 	po: function (frm) {
-		frm.doc.fir_ct = [];
-		erpnext.utils.map_current_doc({
-			method: "erpnext.quality_management.doctype.final_inspection_report.final_inspection_report.fetch_so_items",
-			source_name: frm.doc.po,
-			frm: frm
-		});
+		if (frm.doc.order_sheet) {
+			fetch_final_inspection_from_order_sheet(frm);
+			return;
+		}
+
+		frm.clear_table('fir_ct');
+		frm.refresh_field('fir_ct');
 	},
 
 });
