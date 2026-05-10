@@ -14,6 +14,8 @@
   "reporting_date",
   "column_break_cc1m1",
   "time",
+  "column_break_tkbk",
+  "order_sheet",
   "column_break_xsmk8",
   "inspection_level",
   "column_break_rydqn",
@@ -465,13 +467,24 @@
    "fieldname": "ss_qty1",
    "fieldtype": "Int",
    "label": "Short Size Qty"
+  },
+  {
+   "fieldname": "column_break_tkbk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "order_sheet",
+   "fieldtype": "Link",
+   "label": "Order Sheet",
+   "options": "Order Sheet"
   }
  ],
+ "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2024-07-25 17:24:06.826566",
+ "modified": "2026-05-11 01:22:28.365102",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking",
@@ -491,6 +504,8 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
  "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "DESC",

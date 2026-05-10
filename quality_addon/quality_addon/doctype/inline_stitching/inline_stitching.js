@@ -1,7 +1,57 @@
+function has_populated_inline_stitching_rows(frm) {
+    return (frm.doc.inline_stitching_ct || []).some((row) =>
+        row.article || row.size || row.design || row.no_of_pcs
+    );
+}
+
+function fetch_inline_stitching_from_order_sheet(frm) {
+    if (!frm.doc.order_sheet) {
+        frm.clear_table('inline_stitching_ct');
+        frm.refresh_field('inline_stitching_ct');
+        return;
+    }
+
+    frappe.call({
+        method: 'quality_addon.quality_addon.doctype.inline_stitching.inline_stitching.get_order_sheet_details',
+        args: {
+            order_sheet: frm.doc.order_sheet
+        },
+        freeze: true,
+        freeze_message: __('Fetching Order Sheet details...'),
+        callback: function (r) {
+            const data = r.message || {};
+            const rows = data.items || [];
+
+            frm.clear_table('inline_stitching_ct');
+
+            rows.forEach((item) => {
+                const row = frm.add_child('inline_stitching_ct');
+                row.article = item.article;
+                row.size = item.size;
+                row.design = item.design;
+                row.no_of_pcs = item.no_of_pcs;
+            });
+
+            frm.refresh_field('inline_stitching_ct');
+            calculate_totals(frm);
+        }
+    });
+}
+
 frappe.ui.form.on('Inline Stitching', {
     refresh: function(frm) {
         frm.set_df_property('start_time', 'read_only', 1);
         frm.set_df_property('end_time', 'read_only', 1);
+
+        if (frm.doc.order_sheet) {
+            frm.add_custom_button(__('Fetch From Order Sheet'), function() {
+                fetch_inline_stitching_from_order_sheet(frm);
+            }, __('Actions'));
+        }
+
+        if (frm.doc.order_sheet && !has_populated_inline_stitching_rows(frm)) {
+            fetch_inline_stitching_from_order_sheet(frm);
+        }
 
         if (!frm.doc.start_time && frm.doc.docstatus != 1) {
             frm.add_custom_button(__('Set Start Time'), function() {
@@ -44,6 +94,10 @@ frappe.ui.form.on('Inline Stitching', {
             frm.set_value('start_time', null);
             frm.set_value('end_time', null);
         }
+    },
+
+    order_sheet: function(frm) {
+        fetch_inline_stitching_from_order_sheet(frm);
     },
 
 });
@@ -337,4 +391,3 @@ frappe.ui.form.on('Inline Stitching CT', {
 
 	}
 });
-

@@ -2,7 +2,67 @@
 // Copyright(c) 2024, mohtashim and contributors
 // For license information, please see license.txt
 
+function has_populated_daily_checking_rows(frm) {
+    return (frm.doc.items || []).some((row) =>
+        row.customer || row.po || row.code || row.at_article || row.at_design || row.size
+    );
+}
+
+function fetch_daily_checking_from_order_sheet(frm) {
+    if (!frm.doc.order_sheet) {
+        frm.clear_table('items');
+        frm.refresh_field('items');
+        return;
+    }
+
+    frappe.call({
+        method: 'quality_addon.quality_addon.doctype.daily_checking.daily_checking.get_order_sheet_details',
+        args: {
+            order_sheet: frm.doc.order_sheet
+        },
+        freeze: true,
+        freeze_message: __('Fetching Order Sheet details...'),
+        callback: function (r) {
+            const data = r.message || {};
+            const rows = data.items || [];
+
+            frm.clear_table('items');
+
+            rows.forEach((item) => {
+                const row = frm.add_child('items');
+                row.customer = item.customer;
+                row.po = item.po;
+                row.code = item.code;
+                row.at_article = item.at_article;
+                row.size = item.size;
+                row.at_design = item.at_design;
+                row.total_qty = item.total_qty;
+                row.finished_size = item.finished_size;
+                row.color = item.color;
+            });
+
+            frm.refresh_field('items');
+        }
+    });
+}
+
 frappe.ui.form.on('Daily Checking', {
+    refresh: function (frm) {
+        if (frm.doc.order_sheet) {
+            frm.add_custom_button(__('Fetch From Order Sheet'), function () {
+                fetch_daily_checking_from_order_sheet(frm);
+            }, __('Actions'));
+        }
+
+        if (frm.doc.order_sheet && !has_populated_daily_checking_rows(frm)) {
+            fetch_daily_checking_from_order_sheet(frm);
+        }
+    },
+
+    order_sheet: function (frm) {
+        fetch_daily_checking_from_order_sheet(frm);
+    },
+
     po: function (frm) {
         frm.doc.items = [];
         erpnext.utils.map_current_doc({
