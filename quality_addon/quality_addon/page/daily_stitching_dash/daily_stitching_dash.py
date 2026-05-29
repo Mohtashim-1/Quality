@@ -15,10 +15,10 @@ def _parse_daily_checking_filters(filters=None):
 	values = {}
 
 	if filters.get("from_date"):
-		conditions += " AND parent_dc.date >= %(from_date)s"
+		conditions += " AND parent_dc.reporting_date >= %(from_date)s"
 		values["from_date"] = filters["from_date"]
 	if filters.get("to_date"):
-		conditions += " AND parent_dc.date <= %(to_date)s"
+		conditions += " AND parent_dc.reporting_date <= %(to_date)s"
 		values["to_date"] = filters["to_date"]
 	if filters.get("date"):
 		if isinstance(filters["date"], list) and len(filters["date"]) == 2:
@@ -34,6 +34,10 @@ def _parse_daily_checking_filters(filters=None):
 	if filters.get("inspection_level"):
 		conditions += " AND parent_dc.inspection_level = %(inspection_level)s"
 		values["inspection_level"] = filters["inspection_level"]
+
+	if filters.get("order_sheet"):
+		conditions += " AND parent_dc.order_sheet = %(order_sheet)s"
+		values["order_sheet"] = filters["order_sheet"]
 
 	return conditions, values
 

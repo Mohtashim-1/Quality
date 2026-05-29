@@ -126,7 +126,9 @@ def build_progress_data(rows):
 
 
 def _fetch_daily_checking_rows(filters):
-	conditions = ["dc.docstatus < 2", "IFNULL(dc.order_sheet, '') != ''"]
+	conditions = ["dc.docstatus < 2"]
+	if not filters.get("order_sheet") and not filters.get("from_date") and not filters.get("to_date"):
+		conditions.append("IFNULL(dc.order_sheet, '') != ''")
 	values = _date_filters(filters, "dc.reporting_date", conditions)
 
 	rows = frappe.db.sql(
@@ -151,7 +153,9 @@ def _fetch_daily_checking_rows(filters):
 
 
 def _fetch_inline_stitching_rows(filters):
-	conditions = ["`is`.docstatus < 2", "IFNULL(`is`.order_sheet, '') != ''"]
+	conditions = ["`is`.docstatus < 2"]
+	if not filters.get("order_sheet") and not filters.get("from_date") and not filters.get("to_date"):
+		conditions.append("IFNULL(`is`.order_sheet, '') != ''")
 	values = _date_filters(filters, "`is`.reporting_date", conditions)
 
 	rows = frappe.db.sql(
@@ -178,7 +182,9 @@ def _fetch_inline_stitching_rows(filters):
 
 
 def _fetch_final_inspection_rows(filters):
-	conditions = ["fi.docstatus < 2", "IFNULL(fi.order_sheet, '') != ''"]
+	conditions = ["fi.docstatus < 2"]
+	if not filters.get("order_sheet") and not filters.get("from_date") and not filters.get("to_date"):
+		conditions.append("IFNULL(fi.order_sheet, '') != ''")
 	values = _date_filters(filters, "fi.reporting_date", conditions)
 
 	rows = frappe.db.sql(
