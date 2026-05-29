@@ -5,13 +5,8 @@ frappe.pages['daily-stitching-dash'].on_page_load = function(wrapper) {
 		single_column: true
 	});
 
-	// Add CSS inline
 	add_inline_css();
-	
-	// Load Chart.js
-	loadChartJS();
 
-	// Create dashboard container
 	let dashboard_container = $(`<div class="daily-stitching-dashboard">
 		<div class="dashboard-filters"></div>
 		<div class="dashboard-summary"></div>
@@ -34,8 +29,35 @@ frappe.pages['daily-stitching-dash'].on_page_load = function(wrapper) {
 		<div class="dashboard-individual-defect-analysis"></div>
 	</div>`).appendTo(page.main);
 
-	// Initialize dashboard
-	init_dashboard(dashboard_container);
+	loadChartJS().then(() => {
+		init_dashboard(dashboard_container);
+	}).catch((err) => {
+		console.error(err);
+		frappe.show_alert({
+			message: __('Chart.js could not be loaded. Some charts may not render.'),
+			indicator: 'orange',
+		});
+		init_dashboard(dashboard_container);
+	});
+};
+
+let dashboard_filter_controls = {};
+
+function getDefaultToDate() {
+	return frappe.datetime.get_today();
+}
+
+function getDefaultFromDate() {
+	return frappe.datetime.add_days(getDefaultToDate(), -30);
+}
+
+function setDefaultDateFilters() {
+	if (dashboard_filter_controls.from_date) {
+		dashboard_filter_controls.from_date.set_value(getDefaultFromDate());
+	}
+	if (dashboard_filter_controls.to_date) {
+		dashboard_filter_controls.to_date.set_value(getDefaultToDate());
+	}
 }
 
 function init_dashboard(container) {
@@ -69,6 +91,8 @@ function init_dashboard(container) {
 	create_article_analysis_section(container.find('.dashboard-article-analysis'));
 	create_checker_analysis_section(container.find('.dashboard-checker-analysis'));
 	create_individual_defect_analysis_section(container.find('.dashboard-individual-defect-analysis'));
+
+	// Heavy defect chart grid loads only when user clicks the button (see load_individual_defect_charts)
 	
 	// Create data table
 	create_data_table(container.find('.dashboard-table'));
@@ -78,64 +102,116 @@ function init_dashboard(container) {
 }
 
 function loadChartJS() {
-	// Try multiple methods to load Chart.js
-	if (typeof Chart !== 'undefined') {
-		debugLog('Chart.js already loaded');
-		return;
-	}
-	
-	// Method 1: Try frappe.require
-	frappe.require([
-		'https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js'
+	return frappe.require([
+		'/assets/quality_addon/js/chart.min.js',
+		'/assets/quality_addon/js/quality_chartjs.js',
 	]).then(() => {
-		debugLog('Chart.js loaded via frappe.require');
-		checkChartJS();
-	}).catch(() => {
-		debugLog('frappe.require failed, trying direct script loading');
-		loadChartJSDirect();
+		if (typeof quality_addon !== 'undefined' && quality_addon.chartjs) {
+			return quality_addon.chartjs.load();
+		}
+		if (typeof Chart !== 'undefined') {
+			return Chart;
+		}
+		throw new Error('Chart.js not available');
 	});
 }
 
-function loadChartJSDirect() {
-	// Method 2: Direct script loading
-	const script = document.createElement('script');
-	script.src = 'https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js';
-	script.onload = () => {
-		debugLog('Chart.js loaded via direct script');
-		checkChartJS();
-	};
-	script.onerror = () => {
-		debugLog('Direct script loading failed, using table format');
-	};
-	document.head.appendChild(script);
+function getChartHelper() {
+	return quality_addon && quality_addon.chartjs ? quality_addon.chartjs : null;
 }
 
-function checkChartJS() {
-	setTimeout(() => {
-		if (typeof Chart !== 'undefined' && Chart) {
-			debugLog('Chart.js is now available!');
-			// Force refresh of charts
-			load_dashboard_data();
-		} else {
-			debugLog('Chart.js still not available after loading');
+function createChart(key, canvasId, config) {
+	const helper = getChartHelper();
+	if (helper) {
+		return helper.create(key, canvasId, config);
+	}
+	const canvas = document.getElementById(canvasId);
+	if (!canvas || typeof Chart === 'undefined') {
+		return null;
+	}
+	if (window[key] && typeof window[key].destroy === 'function') {
+		window[key].destroy();
+	}
+	const chart = new Chart(canvas.getContext('2d'), config);
+	window[key] = chart;
+	return chart;
+}
+
+/** Group records by date for charts; limits x-axis labels when range is large */
+function groupRecordsForCharts(data, valueFn) {
+	const groups = {};
+	(data || []).forEach((record) => {
+		const date = record.date || record.reporting_date;
+		if (!date) return;
+		if (!groups[date]) {
+			groups[date] = { date, value: 0, count: 0 };
 		}
-	}, 500);
+		groups[date].value += valueFn(record);
+		groups[date].count += 1;
+	});
+	let rows = Object.values(groups).sort((a, b) => a.date.localeCompare(b.date));
+	if (rows.length <= MAX_CHART_DATE_POINTS) {
+		return rows;
+	}
+	const bucketSize = Math.ceil(rows.length / MAX_CHART_DATE_POINTS);
+	const bucketed = [];
+	for (let i = 0; i < rows.length; i += bucketSize) {
+		const chunk = rows.slice(i, i + bucketSize);
+		const sum = chunk.reduce((acc, r) => acc + r.value, 0);
+		bucketed.push({
+			date: chunk[0].date + ' … ' + chunk[chunk.length - 1].date,
+			value: sum,
+			count: chunk.length,
+		});
+	}
+	return bucketed;
+}
+
+/** Merge daily rows into fewer buckets for line charts */
+function bucketDateRows(rows, mergeFn) {
+	if (!rows.length || rows.length <= MAX_CHART_DATE_POINTS) {
+		return rows;
+	}
+	const bucketSize = Math.ceil(rows.length / MAX_CHART_DATE_POINTS);
+	const out = [];
+	for (let i = 0; i < rows.length; i += bucketSize) {
+		out.push(mergeFn(rows.slice(i, i + bucketSize)));
+	}
+	return out;
+}
+
+function reset_individual_defect_placeholder() {
+	$('#individual_defect_analysis_container').html(`
+		<div class="col-md-12 text-center p-4">
+			<p class="text-muted mb-3">${__('Detailed per-defect charts are heavy (~48 charts). Load them only when needed.')}</p>
+			<button type="button" class="btn btn-primary btn-sm" onclick="load_individual_defect_charts()">
+				<i class="fa fa-bar-chart"></i> ${__('Load defect charts')}
+			</button>
+		</div>
+	`);
+}
+
+function load_individual_defect_charts() {
+	if (_individualDefectChartsLoaded) {
+		return;
+	}
+	const data = _dashboardDataCache;
+	if (!data || !data.length) {
+		frappe.show_alert({ message: __('Apply filters first to load data'), indicator: 'orange' });
+		return;
+	}
+	_individualDefectChartsLoaded = true;
+	update_individual_defect_analysis(data);
 }
 
 function create_filters(container) {
 	let filters_html = `
 		<div class="row">
 			<div class="col-md-3">
-				<div class="form-group">
-					<label>From Date</label>
-					<input type="date" class="form-control" id="from_date">
-				</div>
+				<div id="from_date_wrapper" class="dashboard-date-filter"></div>
 			</div>
 			<div class="col-md-3">
-				<div class="form-group">
-					<label>To Date</label>
-					<input type="date" class="form-control" id="to_date">
-				</div>
+				<div id="to_date_wrapper" class="dashboard-date-filter"></div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
@@ -198,18 +274,10 @@ function create_filters(container) {
 			<div class="col-md-3">
 				<div class="form-group">
 					<label>&nbsp;</label>
-					<div>
-						<button class="btn btn-primary" onclick="apply_filters()">Apply Filters</button>
-						<button class="btn btn-secondary" onclick="clear_filters()">Clear</button>
-						<button class="btn btn-info" onclick="refresh_data()">Refresh</button>
-						<button class="btn btn-success" onclick="force_chart_recreation()">Load Charts</button>
-						<button class="btn btn-warning" onclick="debug_chart_status()">Debug Charts</button>
-						<button class="btn btn-info" onclick="show_all_sections()">Show All Sections</button>
-						<button class="btn btn-warning" onclick="force_refresh_charts()">Force Refresh Charts</button>
-		<button class="btn btn-success" onclick="debug_chart_visibility()">Debug Chart Visibility</button>
-		<button class="btn btn-primary" onclick="test_simple_chart()">Test Simple Chart</button>
-		<button class="btn btn-danger" onclick="debug_individual_charts()">Debug Individual Charts</button>
-		<button class="btn btn-info" onclick="fix_loading_charts()">Fix Loading Charts</button>
+					<div class="qa-filter-actions">
+						<button class="btn btn-primary btn-sm" onclick="apply_filters()">Apply Filters</button>
+						<button class="btn btn-default btn-sm" onclick="clear_filters()">Clear</button>
+						<button class="btn btn-default btn-sm" onclick="refresh_data()">Refresh</button>
 					</div>
 				</div>
 			</div>
@@ -217,12 +285,36 @@ function create_filters(container) {
 	`;
 	
 	container.html(filters_html);
-	
-	// Set default date range (last 30 days)
-	let today = new Date();
-	let thirty_days_ago = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000));
-	$('#from_date').val(thirty_days_ago.toISOString().split('T')[0]);
-	$('#to_date').val(today.toISOString().split('T')[0]);
+	create_dashboard_date_controls(container);
+}
+
+function create_dashboard_date_controls(container) {
+	const fromDate = getDefaultFromDate();
+	const toDate = getDefaultToDate();
+
+	dashboard_filter_controls.from_date = frappe.ui.form.make_control({
+		parent: container.find('#from_date_wrapper')[0],
+		df: {
+			fieldtype: 'Date',
+			label: __('From Date'),
+			fieldname: 'from_date',
+			default: fromDate,
+		},
+		render_input: true,
+	});
+	dashboard_filter_controls.from_date.set_value(fromDate);
+
+	dashboard_filter_controls.to_date = frappe.ui.form.make_control({
+		parent: container.find('#to_date_wrapper')[0],
+		df: {
+			fieldtype: 'Date',
+			label: __('To Date'),
+			fieldname: 'to_date',
+			default: toDate,
+		},
+		render_input: true,
+	});
+	dashboard_filter_controls.to_date.set_value(toDate);
 }
 
 function create_summary_cards(container) {
@@ -398,6 +490,11 @@ function create_summary_cards(container) {
 
 // Debug logging toggle
 const DEBUG_LOGS = false;
+const MAX_CHART_DATE_POINTS = 20;
+const DAILY_CHECKING_PAGE_SIZES = [10, 25, 50, 100, 250];
+let _dashboardDataCache = null;
+let _individualDefectChartsLoaded = false;
+const _dailyCheckingTable = { data: [], page: 1, pageSize: 10 };
 function debugLog() {
     if (DEBUG_LOGS) console.log.apply(console, arguments);
 }
@@ -606,7 +703,7 @@ function create_defect_breakdown_section(container) {
 						<h5><i class="fa fa-bug"></i> Detailed Defect Breakdown</h5>
 					</div>
 					<div class="card-body">
-						<div class="defect-breakdown" id="defect_breakdown_container">
+						<div id="defect_breakdown_container" class="qa-defect-breakdown-panel">
 							<!-- Defect breakdown will be populated here -->
 						</div>
 					</div>
@@ -627,6 +724,19 @@ function create_data_table(container) {
 						<h5><i class="fa fa-table"></i> Daily Checking Records</h5>
 					</div>
 					<div class="card-body">
+						<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 qa-table-toolbar">
+							<div class="form-inline mb-2 mb-md-0">
+								<label class="mr-2 mb-0 text-muted" for="daily_checking_page_size">Rows per page</label>
+								<select id="daily_checking_page_size" class="form-control form-control-sm" onchange="setDailyCheckingPageSize(this.value)">
+									<option value="10" selected>10</option>
+									<option value="25">25</option>
+									<option value="50">50</option>
+									<option value="100">100</option>
+									<option value="250">250</option>
+								</select>
+							</div>
+							<div id="daily_checking_table_info" class="text-muted small mb-2 mb-md-0"></div>
+						</div>
 						<div class="table-responsive">
 							<table class="table table-hover" id="daily_checking_table">
 								<thead>
@@ -666,6 +776,7 @@ function create_data_table(container) {
 }
 
 function load_dashboard_data() {
+	clearDefectBreakdownCache();
 	// Show loading spinner
 	show_loading();
 	
@@ -677,7 +788,7 @@ function load_dashboard_data() {
 	}, 10000); // 10 second timeout
 	
 	// Get filter values
-	let filters = get_filter_values();
+	let filters = get_frappe_list_filters();
 	
 	debugLog('Loading dashboard data with filters:', filters);
 	
@@ -732,8 +843,12 @@ function load_dashboard_data() {
 function get_filter_values() {
 	let filters = {};
 	
-	let from_date = $('#from_date').val();
-	let to_date = $('#to_date').val();
+	let from_date = dashboard_filter_controls.from_date
+		? dashboard_filter_controls.from_date.get_value()
+		: '';
+	let to_date = dashboard_filter_controls.to_date
+		? dashboard_filter_controls.to_date.get_value()
+		: '';
 	let inspection_level = $('#inspection_level').val();
 	let aql_major = $('#aql_major').val();
 	let aql_minor = $('#aql_minor').val();
@@ -741,10 +856,10 @@ function get_filter_values() {
 	let search_text = $('#search_text').val();
 	
 	if (from_date) {
-		filters['date'] = ['>=', from_date];
+		filters.from_date = from_date;
 	}
 	if (to_date) {
-		filters['date'] = ['<=', to_date];
+		filters.to_date = to_date;
 	}
 	if (inspection_level) {
 		filters['inspection_level'] = inspection_level;
@@ -759,6 +874,21 @@ function get_filter_values() {
 		filters['remarks'] = ['like', '%' + search_text + '%'];
 	}
 	
+	return filters;
+}
+
+function get_frappe_list_filters() {
+	const raw = get_filter_values();
+	const filters = { ...raw };
+	delete filters.from_date;
+	delete filters.to_date;
+	if (raw.from_date && raw.to_date) {
+		filters.date = ['between', [raw.from_date, raw.to_date]];
+	} else if (raw.from_date) {
+		filters.date = ['>=', raw.from_date];
+	} else if (raw.to_date) {
+		filters.date = ['<=', raw.to_date];
+	}
 	return filters;
 }
 
@@ -871,11 +1001,7 @@ function process_dashboard_data(data) {
             console.error('Error updating checker analysis:', error);
         }
         
-        try {
-            update_individual_defect_analysis(data);
-        } catch (error) {
-            debugLog('Error updating individual defect analysis:', error);
-        }
+        // Individual defect charts (24×2 Chart.js) load on demand — see load_individual_defect_charts()
         
         // Update data table with error handling
         try {
@@ -884,7 +1010,9 @@ function process_dashboard_data(data) {
             console.error('Error updating data table:', error);
         }
         
-        // Update charts with error handling
+        _dashboardDataCache = data;
+
+        // Main charts only (4) — fast path
         try {
             update_charts(data);
         } catch (error) {
@@ -911,42 +1039,6 @@ function process_dashboard_data(data) {
 		$('.dashboard-individual-defect-analysis').show();
 		$('.dashboard-table').show();
 		$('.dashboard-charts').show();
-		
-		// Debug: Check what sections are visible
-		debugLog('Dashboard sections visible');
-		
-		// If charts failed, show a simple data summary
-		setTimeout(() => {
-			if ($('.dashboard-charts .chart-container canvas').length === 0) {
-				debugLog('Charts not rendered, showing data summary');
-				$('.dashboard-charts').html(`
-					<div class="row">
-						<div class="col-md-12">
-							<div class="card">
-								<div class="card-header gradient-header">
-									<h5><i class="fa fa-bar-chart"></i> Data Summary (Charts Loading...)</h5>
-								</div>
-								<div class="card-body">
-									<p>Data loaded successfully: ${data.length} records</p>
-									<p>Charts are being rendered. If they don't appear, please refresh the page.</p>
-									<button class="btn btn-primary" onclick="refresh_data()">Refresh Data</button>
-									<button class="btn btn-warning" onclick="fix_loading_charts()">Fix Loading Charts</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				`);
-			}
-		}, 2000);
-		
-		// Additional timeout to force chart recreation if stuck
-		setTimeout(() => {
-			let loadingElements = $('.loading, .spinner, [class*="loading"]');
-			if (loadingElements.length > 0) {
-				debugLog('Charts stuck in loading state, forcing recreation...');
-				fix_loading_charts();
-			}
-		}, 10000);
     } catch (error) {
         console.error('Critical error in process_dashboard_data:', error);
         show_error_message('Error processing dashboard data: ' + (error.message || 'Unknown error'));
@@ -1294,54 +1386,501 @@ function update_quality_metrics(data) {
 	container.html(metrics_html);
 }
 
-function update_defect_breakdown(data) {
-	let container = $('#defect_breakdown_container');
+function formatDefectLabel(key) {
+	return (key || '').replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+}
+
+function toChartNumber(value) {
+	const n = Number(value);
+	return Number.isFinite(n) ? n : 0;
+}
+
+let _defectBreakdownCache = { key: null, data: null, promise: null };
+
+function clearDefectBreakdownCache() {
+	_defectBreakdownCache = { key: null, data: null, promise: null };
+}
+
+function getDefectBreakdownData() {
+	const filters = get_filter_values();
+	const key = JSON.stringify(filters);
+	if (_defectBreakdownCache.key === key && _defectBreakdownCache.data) {
+		return Promise.resolve(_defectBreakdownCache.data);
+	}
+	if (_defectBreakdownCache.key === key && _defectBreakdownCache.promise) {
+		return _defectBreakdownCache.promise;
+	}
+	_defectBreakdownCache.key = key;
+	_defectBreakdownCache.promise = new Promise((resolve, reject) => {
+		frappe.call({
+			method: 'quality_addon.quality_addon.page.daily_stitching_dash.daily_stitching_dash.get_defect_breakdown',
+			args: { filters },
+			callback(r) {
+				_defectBreakdownCache.data = (r.message && r.message[0]) ? r.message[0] : null;
+				_defectBreakdownCache.promise = null;
+				resolve(_defectBreakdownCache.data);
+			},
+			error(err) {
+				_defectBreakdownCache.promise = null;
+				reject(err);
+			},
+		});
+	});
+	return _defectBreakdownCache.promise;
+}
+
+function scheduleDashboardCharts(renderFn, delayMs = 120) {
+	requestAnimationFrame(() => {
+		setTimeout(() => {
+			renderFn();
+			resizeDashboardCharts();
+		}, delayMs);
+	});
+}
+
+function resizeDashboardCharts() {
+	const helper = getChartHelper();
+	if (helper && helper.instances) {
+		Object.values(helper.instances).forEach((chart) => {
+			if (chart && typeof chart.resize === 'function') {
+				try {
+					chart.resize();
+				} catch (e) {
+					/* ignore */
+				}
+			}
+		});
+	}
+	[
+		'defectsTrendChart', 'defectTypeChart', 'qualityMetricsChart', 'inspectionLevelChart',
+	].forEach((id) => {
+		if (window[id] && typeof window[id].resize === 'function') {
+			try {
+				window[id].resize();
+			} catch (e) {
+				/* ignore */
+			}
+		}
+	});
+}
+
+function ensureChartContainerSize(canvasId, minHeight) {
+	const canvas = document.getElementById(canvasId);
+	if (!canvas) {
+		return null;
+	}
+	const container = canvas.closest('.chart-container');
+	if (container) {
+		container.style.position = 'relative';
+		if (!container.style.minHeight) {
+			container.style.minHeight = minHeight || '200px';
+		}
+	}
+	canvas.style.width = '100%';
+	canvas.style.height = '100%';
+	canvas.style.display = 'block';
+	return canvas;
+}
+
+function categorySectionChartKey(prefix, chartType) {
+	const cap = (prefix || '').charAt(0).toUpperCase() + (prefix || '').slice(1);
+	return `defectSection${cap}${chartType}`;
+}
+
+function renderDefectBreakdownCharts(weaving_defects, finishing_defects, sewing_defects, totals) {
+	if (typeof Chart === 'undefined') {
+		return;
+	}
+	const weaving = totals.weaving || 0;
+	const finishing = totals.finishing || 0;
+	const sewing = totals.sewing || 0;
+	const grandTotal = weaving + finishing + sewing;
+
+	if (grandTotal > 0) {
+		ensureChartContainerSize('defect_breakdown_category_pie', '220px');
+		ensureChartContainerSize('defect_breakdown_top_bar', '220px');
+		createChart('defectBreakdownCategoryPie', 'defect_breakdown_category_pie', {
+			type: 'pie',
+			data: {
+				labels: ['Weaving', 'Finishing', 'Sewing'],
+				datasets: [{
+					data: [weaving, finishing, sewing],
+					backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+					borderColor: '#fff',
+					borderWidth: 1,
+				}],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				plugins: { legend: { position: 'bottom' } },
+			},
+		});
+	}
+
+	const allDefects = [];
+	const pushDefects = (obj, category, color) => {
+		Object.entries(obj).forEach(([key, value]) => {
+			if (value > 0) {
+				allDefects.push({ label: formatDefectLabel(key), value, category, color });
+			}
+		});
+	};
+	pushDefects(weaving_defects, 'Weaving', '#FF6384');
+	pushDefects(finishing_defects, 'Finishing', '#36A2EB');
+	pushDefects(sewing_defects, 'Sewing', '#FFCE56');
+	allDefects.sort((a, b) => b.value - a.value);
+	const top = allDefects.slice(0, 12);
+
+	if (top.length) {
+		createChart('defectBreakdownTopBar', 'defect_breakdown_top_bar', {
+			type: 'bar',
+			data: {
+				labels: top.map((d) => d.label),
+				datasets: [{
+					label: 'Defect Qty',
+					data: top.map((d) => d.value),
+					backgroundColor: top.map((d) => d.color + 'B3'),
+					borderColor: top.map((d) => d.color),
+					borderWidth: 1,
+				}],
+			},
+			options: {
+				indexAxis: 'y',
+				responsive: true,
+				maintainAspectRatio: false,
+				plugins: { legend: { display: false } },
+				scales: {
+					x: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.06)' } },
+					y: { grid: { display: false } },
+				},
+			},
+		});
+	}
+
+	const renderCategoryBar = (chartKey, canvasId, defects, color) => {
+		const entries = Object.entries(defects)
+			.map(([k, v]) => [k, toChartNumber(v)])
+			.filter(([, v]) => v > 0)
+			.sort((a, b) => b[1] - a[1])
+			.slice(0, 8);
+		if (!entries.length) {
+			return;
+		}
+		ensureChartContainerSize(canvasId, '220px');
+		createChart(chartKey, canvasId, {
+			type: 'bar',
+			data: {
+				labels: entries.map(([k]) => formatDefectLabel(k)),
+				datasets: [{
+					label: 'Qty',
+					data: entries.map(([, v]) => v),
+					backgroundColor: color + 'B3',
+					borderColor: color,
+					borderWidth: 1,
+				}],
+			},
+			options: {
+				indexAxis: 'y',
+				responsive: true,
+				maintainAspectRatio: false,
+				plugins: { legend: { display: false } },
+				scales: {
+					x: { beginAtZero: true, ticks: { precision: 0 } },
+					y: { ticks: { autoSkip: false, font: { size: 11 } } },
+				},
+			},
+		});
+	};
+
+	renderCategoryBar('defectBreakdownWeavingBar', 'defect_breakdown_weaving_bar', weaving_defects, '#FF6384');
+	renderCategoryBar('defectBreakdownFinishingBar', 'defect_breakdown_finishing_bar', finishing_defects, '#36A2EB');
+	renderCategoryBar('defectBreakdownSewingBar', 'defect_breakdown_sewing_bar', sewing_defects, '#FFCE56');
+}
+
+function buildCategorySectionChartRow(prefix, title, hasData) {
+	if (!hasData) {
+		return `
+		<div class="row mb-3 qa-category-section-charts">
+			<div class="col-md-12">
+				<div class="alert alert-light border text-center mb-0 py-4">
+					<i class="fa fa-bar-chart text-muted"></i>
+					<span class="text-muted">No ${title.toLowerCase()} defect quantities in the selected range.</span>
+				</div>
+			</div>
+		</div>
+	`;
+	}
+	return `
+		<div class="row mb-3 qa-category-section-charts">
+			<div class="col-md-5">
+				<div class="card border-0 bg-light h-100">
+					<div class="card-body">
+						<h6 class="text-muted mb-2"><i class="fa fa-pie-chart"></i> ${title} — Share</h6>
+						<div class="chart-container" style="height: 220px; min-height: 220px;">
+							<canvas id="defect_section_${prefix}_pie"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-7">
+				<div class="card border-0 bg-light h-100">
+					<div class="card-body">
+						<h6 class="text-muted mb-2"><i class="fa fa-bar-chart"></i> ${title} — By Type</h6>
+						<div class="chart-container" style="height: 220px; min-height: 220px;">
+							<canvas id="defect_section_${prefix}_bar"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	`;
+}
+
+function renderCategorySectionCharts(prefix, defects, barColor, pieColors) {
+	if (typeof Chart === 'undefined') {
+		return;
+	}
+	const entries = Object.entries(defects)
+		.map(([key, value]) => [key, toChartNumber(value)])
+		.filter(([, value]) => value > 0)
+		.sort((a, b) => b[1] - a[1]);
+	if (!entries.length) {
+		return;
+	}
+
+	const labels = entries.map(([key]) => formatDefectLabel(key));
+	const values = entries.map(([, value]) => value);
+	const colors = pieColors || [
+		'#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#C9CBCF',
+	];
+
+	const pieId = `defect_section_${prefix}_pie`;
+	const barId = `defect_section_${prefix}_bar`;
+	ensureChartContainerSize(pieId, '220px');
+	ensureChartContainerSize(barId, '220px');
+
+	createChart(categorySectionChartKey(prefix, 'Pie'), pieId, {
+		type: 'pie',
+		data: {
+			labels,
+			datasets: [{
+				data: values,
+				backgroundColor: colors.slice(0, values.length),
+				borderColor: '#fff',
+				borderWidth: 1,
+			}],
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: { legend: { position: 'bottom' } },
+		},
+	});
+
+	createChart(categorySectionChartKey(prefix, 'Bar'), barId, {
+		type: 'bar',
+		data: {
+			labels,
+			datasets: [{
+				label: 'Qty',
+				data: values,
+				backgroundColor: barColor + 'B3',
+				borderColor: barColor,
+				borderWidth: 1,
+			}],
+		},
+		options: {
+			indexAxis: 'y',
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: { legend: { display: false } },
+			scales: { x: { beginAtZero: true, ticks: { precision: 0 } } },
+		},
+	});
+}
+
+function buildDefectItemsGrid(defects, total, categoryLabel) {
+	let html = '';
+	const keys = Object.keys(defects).filter((key) => defects[key] > 0);
+	if (!keys.length) {
+		return `<p class="text-muted text-center mb-0">No ${categoryLabel} defects in the selected range.</p>`;
+	}
+	keys.forEach((key) => {
+		const percentage = total > 0 ? (defects[key] / total * 100) : 0;
+		html += `
+			<div class="defect-item">
+				<h6>${formatDefectLabel(key)}</h6>
+				<div class="defect-count">${defects[key]}</div>
+				<small class="text-muted">${percentage.toFixed(1)}% of ${categoryLabel}</small>
+			</div>
+		`;
+	});
+	return html;
+}
+
+function buildCategoryDefectsFromRecords(data) {
+	return {
+		weaving: {
+			miss_pick: data.reduce((sum, r) => sum + (r.miss_pick__double_pick_qty || 0), 0),
+			fly_yarn: data.reduce((sum, r) => sum + (r.fly_yarn_qty || 0), 0),
+			incorrect_construct: data.reduce((sum, r) => sum + (r.incorrect_construct_qty || 0), 0),
+			registration_out: data.reduce((sum, r) => sum + (r.registration_out_qty || 0), 0),
+			miss_print: data.reduce((sum, r) => sum + (r.miss_print_qty || 0), 0),
+			bowing: data.reduce((sum, r) => sum + (r.bowing_qty || 0), 0),
+			touching: data.reduce((sum, r) => sum + (r.touching_qty || 0), 0),
+			streaks: data.reduce((sum, r) => sum + (r.streaks_qty || 0), 0),
+			salvage: data.reduce((sum, r) => sum + (r.salvage_qty || 0), 0),
+			smash: data.reduce((sum, r) => sum + (r.smash_qty || 0), 0),
+			weaving_other: data.reduce((sum, r) => sum + (r.weaving_qty || 0), 0),
+		},
+		finishing: {
+			clipper_cut: data.reduce((sum, r) => sum + (r.cc_qty || 0), 0),
+			un_cut: data.reduce((sum, r) => sum + (r.un_cut_qty || 0), 0),
+			needle_hole: data.reduce((sum, r) => sum + (r.nh_qty || 0), 0),
+			finishing_other: data.reduce((sum, r) => sum + (r.finishing_qty || 0), 0),
+			oil_stain: data.reduce((sum, r) => sum + (r.os_qty || 0), 0),
+			wash_mark: data.reduce((sum, r) => sum + (r.wm_qty || 0), 0),
+			dust_mark: data.reduce((sum, r) => sum + (r.dm_qty || 0), 0),
+		},
+		sewing: {
+			missing_wrong_label: data.reduce((sum, r) => sum + (r.mwl_qty || 0), 0),
+			uneven_stitch: data.reduce((sum, r) => sum + (r.us_qty || 0), 0),
+			wrong_thread: data.reduce((sum, r) => sum + (r.wt_qty || 0), 0),
+			puckering: data.reduce((sum, r) => sum + (r.p_qty || 0), 0),
+			sewing_other: data.reduce((sum, r) => sum + (r.sewing_qty || 0), 0),
+			broken_loose_stitch: data.reduce((sum, r) => sum + (r.bls_qty || 0), 0),
+			open_hem_sem: data.reduce((sum, r) => sum + (r.ohs_qty || 0), 0),
+			bad_stitch: data.reduce((sum, r) => sum + (r.bs_qty || 0), 0),
+			short_size: data.reduce((sum, r) => sum + (r.ss_qty1 || 0), 0),
+			wrong_direction: data.reduce((sum, r) => sum + (r.wd_qty || 0), 0),
+		},
+	};
+}
+
+function buildCategoryDefectsFromApiRaw(raw) {
+	const r = raw || {};
+	const num = toChartNumber;
+	return {
+		weaving: {
+			miss_pick: num(r.miss_pick_total),
+			fly_yarn: num(r.fly_yarn_total),
+			incorrect_construct: num(r.incorrect_total),
+			registration_out: num(r.reg_out_total),
+			miss_print: num(r.miss_print_total),
+			bowing: num(r.bowing_total),
+			touching: num(r.touching_total),
+			streaks: num(r.streaks_total),
+			salvage: num(r.salvage_total),
+			smash: num(r.smash_total),
+			weaving_other: num(r.owp_total),
+		},
+		finishing: {
+			clipper_cut: num(r.cc_total),
+			un_cut: num(r.un_cut_total),
+			needle_hole: num(r.nh_total),
+			finishing_other: num(r.finishing_other_total),
+			oil_stain: num(r.os_total),
+			wash_mark: num(r.wm_total),
+			dust_mark: num(r.dm_total),
+		},
+		sewing: {
+			missing_wrong_label: num(r.mwl_total),
+			uneven_stitch: num(r.us_total),
+			wrong_thread: num(r.wt_total),
+			puckering: num(r.p_total),
+			sewing_other: num(r.sewing_other_total),
+			broken_loose_stitch: num(r.bls_total),
+			open_hem_sem: num(r.ohs_total),
+			bad_stitch: num(r.bs_total),
+			short_size: num(r.ss_total),
+			wrong_direction: num(r.wd_total),
+		},
+	};
+}
+
+function sumCategoryDefects(defects) {
+	return Object.values(defects || {}).reduce((sum, val) => sum + toChartNumber(val), 0);
+}
+
+function paintDefectBreakdown(container, weaving_defects, finishing_defects, sewing_defects) {
 	let breakdown_html = '';
+	const total_weaving = sumCategoryDefects(weaving_defects);
+	const total_finishing = sumCategoryDefects(finishing_defects);
+	const total_sewing = sumCategoryDefects(sewing_defects);
+	const total_all_defects = total_weaving + total_finishing + total_sewing;
+	const hasWeavingData = total_weaving > 0;
+	const hasFinishingData = total_finishing > 0;
+	const hasSewingData = total_sewing > 0;
+
+	breakdown_html += `
+		<div class="row mb-4 qa-defect-breakdown-charts">
+			<div class="col-md-4">
+				<div class="card h-100">
+					<div class="card-body">
+						<h6 class="text-muted mb-2"><i class="fa fa-pie-chart"></i> Defects by Category</h6>
+						<div class="chart-container" style="height: 260px;">
+							<canvas id="defect_breakdown_category_pie"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="card h-100">
+					<div class="card-body">
+						<h6 class="text-muted mb-2"><i class="fa fa-bar-chart"></i> Top Defect Types (All Categories)</h6>
+						<div class="chart-container" style="height: 260px;">
+							<canvas id="defect_breakdown_top_bar"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mb-4">
+			<div class="col-md-4">
+				<div class="card h-100">
+					<div class="card-body">
+						<h6 class="text-muted mb-2"><i class="fa fa-th"></i> Weaving</h6>
+						<div class="chart-container" style="height: 220px;">
+							<canvas id="defect_breakdown_weaving_bar"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card h-100">
+					<div class="card-body">
+						<h6 class="text-muted mb-2"><i class="fa fa-cog"></i> Finishing</h6>
+						<div class="chart-container" style="height: 220px;">
+							<canvas id="defect_breakdown_finishing_bar"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card h-100">
+					<div class="card-body">
+						<h6 class="text-muted mb-2"><i class="fa fa-scissors"></i> Sewing</h6>
+						<div class="chart-container" style="height: 220px;">
+							<canvas id="defect_breakdown_sewing_bar"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	`;
+
+	if (!total_all_defects) {
+		breakdown_html += `
+			<div class="alert alert-info text-center mb-4">
+				<i class="fa fa-info-circle"></i> No defect quantities in the selected date range.
+			</div>
+		`;
+	}
 	
-	// Calculate defect totals with percentages
-	let weaving_defects = {
-		'miss_pick': data.reduce((sum, r) => sum + (r.miss_pick__double_pick_qty || 0), 0),
-		'fly_yarn': data.reduce((sum, r) => sum + (r.fly_yarn_qty || 0), 0),
-		'incorrect_construct': data.reduce((sum, r) => sum + (r.incorrect_construct_qty || 0), 0),
-		'registration_out': data.reduce((sum, r) => sum + (r.registration_out_qty || 0), 0),
-		'miss_print': data.reduce((sum, r) => sum + (r.miss_print_qty || 0), 0),
-		'bowing': data.reduce((sum, r) => sum + (r.bowing_qty || 0), 0),
-		'touching': data.reduce((sum, r) => sum + (r.touching_qty || 0), 0),
-		'streaks': data.reduce((sum, r) => sum + (r.streaks_qty || 0), 0),
-		'salvage': data.reduce((sum, r) => sum + (r.salvage_qty || 0), 0),
-		'smash': data.reduce((sum, r) => sum + (r.smash_qty || 0), 0),
-		'weaving_other': data.reduce((sum, r) => sum + (r.weaving_qty || 0), 0)
-	};
-	
-	let finishing_defects = {
-		'clipper_cut': data.reduce((sum, r) => sum + (r.cc_qty || 0), 0),
-		'un_cut': data.reduce((sum, r) => sum + (r.un_cut_qty || 0), 0),
-		'needle_hole': data.reduce((sum, r) => sum + (r.nh_qty || 0), 0),
-		'finishing_other': data.reduce((sum, r) => sum + (r.finishing_qty || 0), 0),
-		'oil_stain': data.reduce((sum, r) => sum + (r.os_qty || 0), 0),
-		'wash_mark': data.reduce((sum, r) => sum + (r.wm_qty || 0), 0),
-		'dust_mark': data.reduce((sum, r) => sum + (r.dm_qty || 0), 0)
-	};
-	
-	let sewing_defects = {
-		'missing_wrong_label': data.reduce((sum, r) => sum + (r.mwl_qty || 0), 0),
-		'uneven_stitch': data.reduce((sum, r) => sum + (r.us_qty || 0), 0),
-		'wrong_thread': data.reduce((sum, r) => sum + (r.wt_qty || 0), 0),
-		'puckering': data.reduce((sum, r) => sum + (r.p_qty || 0), 0),
-		'sewing_other': data.reduce((sum, r) => sum + (r.sewing_qty || 0), 0),
-		'broken_loose_stitch': data.reduce((sum, r) => sum + (r.bls_qty || 0), 0),
-		'open_hem_sem': data.reduce((sum, r) => sum + (r.ohs_qty || 0), 0),
-		'bad_stitch': data.reduce((sum, r) => sum + (r.bs_qty || 0), 0),
-		'short_size': data.reduce((sum, r) => sum + (r.ss_qty1 || 0), 0),
-		'wrong_direction': data.reduce((sum, r) => sum + (r.wd_qty || 0), 0)
-	};
-	
-	// Calculate total defects for percentage calculation
-	let total_weaving = Object.values(weaving_defects).reduce((sum, val) => sum + val, 0);
-	let total_finishing = Object.values(finishing_defects).reduce((sum, val) => sum + val, 0);
-	let total_sewing = Object.values(sewing_defects).reduce((sum, val) => sum + val, 0);
-	let total_all_defects = total_weaving + total_finishing + total_sewing;
-	
+	// Category summary cards
+	breakdown_html += `<div class="row">`;
+
 	// Weaving defects section
 	breakdown_html += `
 		<div class="col-md-12 mb-4">
@@ -1350,23 +1889,9 @@ function update_defect_breakdown(data) {
 					<h6><i class="fa fa-th"></i> Weaving Defects (${total_weaving} total - ${total_all_defects > 0 ? (total_weaving/total_all_defects*100).toFixed(1) : 0}%)</h6>
 				</div>
 				<div class="card-body">
-					<div class="defect-breakdown">
-	`;
-	
-	Object.keys(weaving_defects).forEach(key => {
-		if (weaving_defects[key] > 0) {
-			let percentage = total_weaving > 0 ? (weaving_defects[key] / total_weaving * 100) : 0;
-			breakdown_html += `
-				<div class="defect-item">
-					<h6>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h6>
-					<div class="defect-count">${weaving_defects[key]}</div>
-					<small class="text-muted">${percentage.toFixed(1)}% of weaving</small>
-				</div>
-			`;
-		}
-	});
-	
-	breakdown_html += `
+					${buildCategorySectionChartRow('weaving', 'Weaving', hasWeavingData)}
+					<div class="defect-breakdown-grid">
+						${buildDefectItemsGrid(weaving_defects, total_weaving, 'weaving')}
 					</div>
 				</div>
 			</div>
@@ -1381,23 +1906,9 @@ function update_defect_breakdown(data) {
 					<h6><i class="fa fa-cog"></i> Finishing Defects (${total_finishing} total - ${total_all_defects > 0 ? (total_finishing/total_all_defects*100).toFixed(1) : 0}%)</h6>
 				</div>
 				<div class="card-body">
-					<div class="defect-breakdown">
-	`;
-	
-	Object.keys(finishing_defects).forEach(key => {
-		if (finishing_defects[key] > 0) {
-			let percentage = total_finishing > 0 ? (finishing_defects[key] / total_finishing * 100) : 0;
-			breakdown_html += `
-				<div class="defect-item">
-					<h6>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h6>
-					<div class="defect-count">${finishing_defects[key]}</div>
-					<small class="text-muted">${percentage.toFixed(1)}% of finishing</small>
-				</div>
-			`;
-		}
-	});
-	
-	breakdown_html += `
+					${buildCategorySectionChartRow('finishing', 'Finishing', hasFinishingData)}
+					<div class="defect-breakdown-grid">
+						${buildDefectItemsGrid(finishing_defects, total_finishing, 'finishing')}
 					</div>
 				</div>
 			</div>
@@ -1412,30 +1923,58 @@ function update_defect_breakdown(data) {
 					<h6><i class="fa fa-scissors"></i> Sewing Defects (${total_sewing} total - ${total_all_defects > 0 ? (total_sewing/total_all_defects*100).toFixed(1) : 0}%)</h6>
 				</div>
 				<div class="card-body">
-					<div class="defect-breakdown">
-	`;
-	
-	Object.keys(sewing_defects).forEach(key => {
-		if (sewing_defects[key] > 0) {
-			let percentage = total_sewing > 0 ? (sewing_defects[key] / total_sewing * 100) : 0;
-			breakdown_html += `
-				<div class="defect-item">
-					<h6>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h6>
-					<div class="defect-count">${sewing_defects[key]}</div>
-					<small class="text-muted">${percentage.toFixed(1)}% of sewing</small>
-				</div>
-			`;
-		}
-	});
-	
-	breakdown_html += `
+					${buildCategorySectionChartRow('sewing', 'Sewing', hasSewingData)}
+					<div class="defect-breakdown-grid">
+						${buildDefectItemsGrid(sewing_defects, total_sewing, 'sewing')}
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	`;
 	
 	container.html(breakdown_html);
+
+	scheduleDashboardCharts(() => {
+		if (total_all_defects > 0) {
+			renderDefectBreakdownCharts(weaving_defects, finishing_defects, sewing_defects, {
+				weaving: total_weaving,
+				finishing: total_finishing,
+				sewing: total_sewing,
+			});
+		}
+		if (hasWeavingData) {
+			renderCategorySectionCharts('weaving', weaving_defects, '#FF6384');
+		}
+		if (hasFinishingData) {
+			renderCategorySectionCharts('finishing', finishing_defects, '#36A2EB');
+		}
+		if (hasSewingData) {
+			renderCategorySectionCharts('sewing', sewing_defects, '#FFCE56');
+		}
+	});
+}
+
+function update_defect_breakdown(data) {
+	const container = $('#defect_breakdown_container');
+	container.html(
+		'<div class="text-center p-4"><div class="loading-spinner"></div><p class="text-muted">Loading defect breakdown...</p></div>'
+	);
+
+	getDefectBreakdownData()
+		.then((raw) => {
+			if (raw) {
+				const cats = buildCategoryDefectsFromApiRaw(raw);
+				paintDefectBreakdown(container, cats.weaving, cats.finishing, cats.sewing);
+				return;
+			}
+			const cats = buildCategoryDefectsFromRecords(data || []);
+			paintDefectBreakdown(container, cats.weaving, cats.finishing, cats.sewing);
+		})
+		.catch(() => {
+			const cats = buildCategoryDefectsFromRecords(data || []);
+			paintDefectBreakdown(container, cats.weaving, cats.finishing, cats.sewing);
+		});
 }
 
 function update_performance_metrics(data) {
@@ -1705,249 +2244,166 @@ function create_statistical_analysis_section(container) {
 	container.html(statistical_html);
 }
 
+function buildDailyCheckingTableRow(record) {
+	let quality_status = 'Pass';
+	let status_class = 'success';
+
+	if ((record.total_percent || 0) >= 10) {
+		quality_status = 'Critical';
+		status_class = 'danger';
+	} else if ((record.total_percent || 0) >= 5) {
+		quality_status = 'Fail';
+		status_class = 'warning';
+	}
+
+	let recSums;
+	try {
+		let sums = computeDefectSums(record);
+		let major = sums.major;
+		if (major >= 100) {
+			major = Math.floor(Math.random() * 100);
+		}
+		let minor = sums.minor;
+		if (minor <= 0) {
+			minor = Math.floor(Math.random() * 51);
+		}
+		let critical = sums.critical;
+		if (critical > 30) {
+			critical = Math.floor(Math.random() * 21);
+		} else if (critical <= 0) {
+			critical = Math.floor(Math.random() * 21);
+		}
+		recSums = { major, minor, critical };
+	} catch (error) {
+		debugLog('Error computing defect sums for table row:', error);
+		recSums = { major: 0, minor: 0, critical: 0 };
+	}
+
+	const total_defects = recSums.major + recSums.minor + recSums.critical;
+	const safeName = frappe.utils.escape_html(record.name || '');
+
+	return `
+		<tr>
+			<td>${record.date || ''}</td>
+			<td>${record.reporting_date || ''}</td>
+			<td>${record.time || ''}</td>
+			<td>${record.inspection_level || ''}</td>
+			<td>${record.aql_major || ''}</td>
+			<td>${record.aql_minor || ''}</td>
+			<td>${record.total_sample_qty || 0}</td>
+			<td>${total_defects}</td>
+			<td>${recSums.major || 0}</td>
+			<td>${recSums.minor || 0}</td>
+			<td>${recSums.critical || 0}</td>
+			<td>${(record.total_percent || 0).toFixed(2)}%</td>
+			<td><span class="badge badge-${status_class}">${quality_status}</span></td>
+			<td>${frappe.utils.escape_html(record.remarks || '')}</td>
+			<td>
+				<button class="btn btn-sm btn-primary" onclick="view_record('${safeName}')">View</button>
+				<button class="btn btn-sm btn-info" onclick="edit_record('${safeName}')">Edit</button>
+			</td>
+		</tr>
+	`;
+}
+
+function renderDailyCheckingTablePage() {
+	const tbody = $('#daily_checking_tbody');
+	const { data, page, pageSize } = _dailyCheckingTable;
+
+	if (!data.length) {
+		tbody.html('<tr><td colspan="15" class="text-center text-muted py-4">No records found</td></tr>');
+		return;
+	}
+
+	const totalPages = Math.max(1, Math.ceil(data.length / pageSize));
+	const safePage = Math.min(Math.max(1, page), totalPages);
+	if (safePage !== page) {
+		_dailyCheckingTable.page = safePage;
+	}
+
+	const start = (safePage - 1) * pageSize;
+	const pageRows = data.slice(start, start + pageSize);
+	tbody.html(pageRows.map(buildDailyCheckingTableRow).join(''));
+}
+
+function renderDailyCheckingTablePagination() {
+	const { data, page, pageSize } = _dailyCheckingTable;
+	const total = data.length;
+	const totalPages = Math.max(1, Math.ceil(total / pageSize) || 1);
+	const safePage = total ? Math.min(Math.max(1, page), totalPages) : 1;
+	const start = total ? (safePage - 1) * pageSize + 1 : 0;
+	const end = total ? Math.min(safePage * pageSize, total) : 0;
+
+	$('#daily_checking_table_info').text(
+		total ? `Showing ${start}-${end} of ${total}` : 'No records'
+	);
+	$('#daily_checking_page_size').val(String(pageSize));
+
+	const prevDisabled = safePage <= 1 ? 'disabled' : '';
+	const nextDisabled = safePage >= totalPages ? 'disabled' : '';
+	$('#pagination_container').html(`
+		<nav aria-label="Daily checking pagination">
+			<ul class="pagination justify-content-center mb-0">
+				<li class="page-item ${prevDisabled}">
+					<a class="page-link" href="#" onclick="goDailyCheckingPage(${safePage - 1}); return false;">Previous</a>
+				</li>
+				<li class="page-item active">
+					<span class="page-link">Page ${safePage} of ${totalPages}</span>
+				</li>
+				<li class="page-item ${nextDisabled}">
+					<a class="page-link" href="#" onclick="goDailyCheckingPage(${safePage + 1}); return false;">Next</a>
+				</li>
+			</ul>
+		</nav>
+	`);
+}
+
+function setDailyCheckingPageSize(size) {
+	const parsed = parseInt(size, 10);
+	_dailyCheckingTable.pageSize = DAILY_CHECKING_PAGE_SIZES.includes(parsed) ? parsed : 10;
+	_dailyCheckingTable.page = 1;
+	renderDailyCheckingTablePage();
+	renderDailyCheckingTablePagination();
+}
+
+function goDailyCheckingPage(page) {
+	const totalPages = Math.max(1, Math.ceil(_dailyCheckingTable.data.length / _dailyCheckingTable.pageSize));
+	const next = Math.max(1, Math.min(page, totalPages));
+	if (next === _dailyCheckingTable.page) {
+		return;
+	}
+	_dailyCheckingTable.page = next;
+	renderDailyCheckingTablePage();
+	renderDailyCheckingTablePagination();
+}
+
 function update_data_table(data) {
-	let tbody = $('#daily_checking_tbody');
-	let table_html = '';
-	
-	data.forEach(record => {
-		let quality_status = 'Pass';
-		let status_class = 'success';
-		
-		if ((record.total_percent || 0) >= 10) {
-			quality_status = 'Critical';
-			status_class = 'danger';
-		} else if ((record.total_percent || 0) >= 5) {
-			quality_status = 'Fail';
-			status_class = 'warning';
-		}
-		
-		let recSums;
-		try {
-			let sums = computeDefectSums(record);
-			
-			// Apply same random logic for consistency
-			let major = sums.major;
-			if (major >= 100) {
-				major = Math.floor(Math.random() * 100); // Random between 0-99
-			}
-			
-			let minor = sums.minor;
-			if (minor <= 0) {
-				minor = Math.floor(Math.random() * 51); // Random between 0-50
-			}
-			
-			let critical = sums.critical;
-			if (critical > 30) {
-				critical = Math.floor(Math.random() * 21); // Random between 0-20
-			} else if (critical <= 0) {
-				critical = Math.floor(Math.random() * 21); // Random between 0-20
-			}
-			
-			recSums = { major: major, minor: minor, critical: critical };
-		} catch (error) {
-			debugLog('Error computing defect sums for table row:', error);
-			recSums = { major: 0, minor: 0, critical: 0 };
-		}
-		
-		// Recalculate total defects
-		let total_defects = recSums.major + recSums.minor + recSums.critical;
-		
-		table_html += `
-			<tr>
-				<td>${record.date || ''}</td>
-				<td>${record.reporting_date || ''}</td>
-				<td>${record.time || ''}</td>
-				<td>${record.inspection_level || ''}</td>
-				<td>${record.aql_major || ''}</td>
-				<td>${record.aql_minor || ''}</td>
-				<td>${record.total_sample_qty || 0}</td>
-				<td>${total_defects}</td>
-				<td>${recSums.major || 0}</td>
-				<td>${recSums.minor || 0}</td>
-				<td>${recSums.critical || 0}</td>
-				<td>${(record.total_percent || 0).toFixed(2)}%</td>
-				<td><span class="badge badge-${status_class}">${quality_status}</span></td>
-				<td>${record.remarks || ''}</td>
-				<td>
-					<button class="btn btn-sm btn-primary" onclick="view_record('${record.name}')">View</button>
-					<button class="btn btn-sm btn-info" onclick="edit_record('${record.name}')">Edit</button>
-				</td>
-			</tr>
-		`;
-	});
-	
-	tbody.html(table_html);
+	_dailyCheckingTable.data = Array.isArray(data) ? data : [];
+	_dailyCheckingTable.page = 1;
+	renderDailyCheckingTablePage();
+	renderDailyCheckingTablePagination();
 }
 
 function update_charts(data) {
-	debugLog('Updating charts with data:', data.length, 'records');
-	
 	if (typeof Chart === 'undefined') {
-		recordChartStatus('All charts', false, 'Chart.js not available');
-		// renderChartStatus(); // Commented out
-		// Show message instead of charts
-		$('.dashboard-charts').html(`
-			<div class="row">
-				<div class="col-md-12">
-					<div class="alert alert-info">
-						<i class="fa fa-info-circle"></i> Charts are not available. Please refresh the page to load Chart.js.
-					</div>
-				</div>
-			</div>
-		`);
+		$('.dashboard-charts').html(
+			'<div class="alert alert-info">Chart.js is loading. Please refresh the page.</div>'
+		);
 		return;
 	}
-	
-	// Wait a bit for DOM to be fully rendered
-	setTimeout(() => {
+	if (!$('#defectsTrendChart').length) {
+		create_charts($('.dashboard-charts'));
+	}
+	requestAnimationFrame(() => {
 		try {
-			debugLog('Attempting to update charts after DOM delay...');
-			
-			// Force recreate charts to ensure they exist
-			debugLog('Force recreating chart containers...');
-			create_charts($('.dashboard-charts'));
-			
-			// Wait a bit more for DOM to update, then check for canvas elements
-			setTimeout(() => {
-				// Wait for canvas elements to exist with retry logic
-				let attempts = 0;
-				const maxAttempts = 5;
-				
-				const tryUpdateCharts = () => {
-					// Check if all canvas elements exist
-					let allCanvases = {
-						defectsTrendChart: document.getElementById('defectsTrendChart'),
-						defectTypeChart: document.getElementById('defectTypeChart'),
-						qualityMetricsChart: document.getElementById('qualityMetricsChart'),
-						inspectionLevelChart: document.getElementById('inspectionLevelChart')
-					};
-					
-					let allFound = Object.values(allCanvases).every(canvas => canvas !== null);
-					
-					if (!allFound && attempts < maxAttempts) {
-						attempts++;
-						setTimeout(tryUpdateCharts, 200);
-						return;
-					}
-					
-					// Reset status before recording new statuses
-					window.chartStatus = [];
-					
-					// Update charts with individual error handling (chart functions record their own status)
-					if (allCanvases.defectsTrendChart) {
-						try { update_defects_trend_chart(data); } catch (error) { recordChartStatus('Defects Trend', false, error.message); }
-					} else { recordChartStatus('Defects Trend', false, 'Canvas element not found after retries'); }
-					
-					if (allCanvases.defectTypeChart) {
-						try { update_defect_type_chart(data); } catch (error) { recordChartStatus('Defect Type Distribution', false, error.message); }
-					} else { recordChartStatus('Defect Type Distribution', false, 'Canvas element not found after retries'); }
-					
-					if (allCanvases.qualityMetricsChart) {
-						try { update_quality_metrics_chart(data); } catch (error) { recordChartStatus('Quality Metrics', false, error.message); }
-					} else { recordChartStatus('Quality Metrics', false, 'Canvas element not found after retries'); }
-					
-					if (allCanvases.inspectionLevelChart) {
-						try { update_inspection_level_chart(data); } catch (error) { recordChartStatus('Inspection Level Performance', false, error.message); }
-					} else { recordChartStatus('Inspection Level Performance', false, 'Canvas element not found after retries'); }
-					
-					// Render status panel after a brief delay to check visibility
-					// setTimeout(() => { renderChartStatus(); }, 300); // Commented out
-				};
-				
-				tryUpdateCharts();
-		
-		// Force show charts section and containers
-		$('.dashboard-charts').show();
-		$('.chart-container').show();
-		$('.chart-container canvas').show();
-		
-		// Force visibility with CSS
-		$('.dashboard-charts').css({
-			'display': 'block !important',
-			'visibility': 'visible !important',
-			'opacity': '1 !important'
-		});
-		
-		$('.chart-container').css({
-			'display': 'block !important',
-			'visibility': 'visible !important',
-			'opacity': '1 !important'
-		});
-		
-		$('.chart-container canvas').css({
-			'display': 'block !important',
-			'visibility': 'visible !important',
-			'opacity': '1 !important'
-		});
-		
-		// Additional debugging
-		debugLog('Chart containers after force show:', $('.chart-container').length);
-		debugLog('Canvas elements after force show:', $('.chart-container canvas').length);
-		
-		// Check if charts are actually visible
-		setTimeout(() => {
-			let visibleCharts = $('.chart-container canvas:visible').length;
-			debugLog('Visible charts after force show:', visibleCharts);
-			
-			if (visibleCharts === 0) {
-				debugLog('No charts visible, attempting alternative approach...');
-				// Try alternative approach - recreate charts with different method
-				$('.dashboard-charts').html(`
-					<div class="row">
-						<div class="col-md-6">
-							<div class="card" style="background: white; border: 1px solid #ddd; margin: 10px; padding: 15px;">
-								<h4 style="color: #333;">Defects Trend Over Time</h4>
-								<canvas id="defectsTrendChart" width="400" height="200" style="display: block; background: #f9f9f9;"></canvas>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="card" style="background: white; border: 1px solid #ddd; margin: 10px; padding: 15px;">
-								<h4 style="color: #333;">Defect Type Distribution</h4>
-								<canvas id="defectTypeChart" width="400" height="200" style="display: block; background: #f9f9f9;"></canvas>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="card" style="background: white; border: 1px solid #ddd; margin: 10px; padding: 15px;">
-								<h4 style="color: #333;">Quality Metrics Over Time</h4>
-								<canvas id="qualityMetricsChart" width="400" height="200" style="display: block; background: #f9f9f9;"></canvas>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="card" style="background: white; border: 1px solid #ddd; margin: 10px; padding: 15px;">
-								<h4 style="color: #333;">Inspection Level Performance</h4>
-								<canvas id="inspectionLevelChart" width="400" height="200" style="display: block; background: #f9f9f9;"></canvas>
-							</div>
-						</div>
-					</div>
-				`);
-				
-				// Recreate charts with new elements
-				setTimeout(() => {
-					update_defects_trend_chart(data);
-					update_defect_type_chart(data);
-					update_quality_metrics_chart(data);
-					update_inspection_level_chart(data);
-					debugLog('Charts recreated with alternative approach');
-				}, 500);
-			}
-		}, 1000);
-			}, 1000);
+			update_defects_trend_chart(data);
+			update_defect_type_chart(data);
+			update_quality_metrics_chart(data);
+			update_inspection_level_chart(data);
 		} catch (error) {
-			console.error('Error in chart update process:', error);
-			$('.dashboard-charts').html(`
-				<div class="row">
-					<div class="col-md-12">
-						<div class="alert alert-warning">
-							<i class="fa fa-exclamation-triangle"></i> Error rendering charts: ${error.message}
-							<br><button class="btn btn-primary mt-2" onclick="force_chart_recreation()">Retry Charts</button>
-						</div>
-					</div>
-				</div>
-			`);
+			console.error('Error rendering charts:', error);
 		}
-	}, 500); // 500ms delay
+	});
 }
 
 function update_defects_trend_chart(data) {
@@ -2024,23 +2480,38 @@ function update_defects_trend_chart(data) {
 			}
 		});
 		
-		let dates = Object.keys(dateGroups).sort();
-		debugLog('Chart data points:', dates.length, 'dates');
-		
-		if (dates.length === 0) {
+		let rows = Object.keys(dateGroups).sort().map((d) => ({
+			date: d,
+			total_defects: dateGroups[d].total_defects || 0,
+			major: dateGroups[d].major || 0,
+			minor: dateGroups[d].minor || 0,
+			critical: dateGroups[d].critical || 0,
+		}));
+		rows = bucketDateRows(rows, (chunk) => {
+			const first = chunk[0].date;
+			const last = chunk[chunk.length - 1].date;
+			return {
+				date: chunk.length === 1 ? first : first + ' … ' + last,
+				total_defects: chunk.reduce((s, r) => s + r.total_defects, 0),
+				major: chunk.reduce((s, r) => s + r.major, 0),
+				minor: chunk.reduce((s, r) => s + r.minor, 0),
+				critical: chunk.reduce((s, r) => s + r.critical, 0),
+			};
+		});
+		if (!rows.length) {
 			recordChartStatus('Defects Trend', false, 'No valid dates');
 			return;
 		}
-		
-		let totalDefects = dates.map(d => dateGroups[d].total_defects || 0);
-		let majorDefects = dates.map(d => dateGroups[d].major || 0);
-		let minorDefects = dates.map(d => dateGroups[d].minor || 0);
-		let criticalDefects = dates.map(d => dateGroups[d].critical || 0);
+		let dates = rows.map((r) => r.date);
+		let totalDefects = rows.map((r) => r.total_defects);
+		let majorDefects = rows.map((r) => r.major);
+		let minorDefects = rows.map((r) => r.minor);
+		let criticalDefects = rows.map((r) => r.critical);
 		
 		debugLog('Chart datasets ready');
 		
 		try {
-			window.defectsTrendChart = new Chart(ctx, {
+			const chart = createChart('defectsTrendChart', 'defectsTrendChart', {
 				type: 'line',
 				data: {
 					labels: dates,
@@ -2077,49 +2548,23 @@ function update_defects_trend_chart(data) {
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
-					animation: {
-						duration: 750
-					},
-					interaction: {
-						intersect: false,
-						mode: 'index'
-					},
+					animation: { duration: 750 },
+					interaction: { intersect: false, mode: 'index' },
 					plugins: {
-						legend: {
-							display: true,
-							position: 'top'
-						},
-						tooltip: {
-							enabled: true
-						}
+						legend: { display: true, position: 'top' },
+						tooltip: { enabled: true }
 					},
 					scales: {
-						y: {
-							beginAtZero: true,
-							ticks: {
-								maxTicksLimit: 20
-							}
-						},
-						x: {
-							ticks: {
-								maxRotation: 45,
-								minRotation: 45
-							}
-						}
+						y: { beginAtZero: true, ticks: { maxTicksLimit: 12 } },
+						x: { ticks: { maxRotation: 45, minRotation: 0, autoSkip: true, maxTicksLimit: MAX_CHART_DATE_POINTS } }
 					}
 				}
 			});
-			
-			recordChartStatus('Defects Trend', true);
-			
-			// Force update/redraw
-			setTimeout(() => {
-				if (window.defectsTrendChart) {
-					window.defectsTrendChart.update('none');
-					debugLog('Chart updated/redrawn');
-				}
-			}, 100);
-			
+			if (chart) {
+				recordChartStatus('Defects Trend', true);
+			} else {
+				recordChartStatus('Defects Trend', false, 'Chart creation failed');
+			}
 		} catch (chartError) {
 			recordChartStatus('Defects Trend', false, chartError.message || 'Chart creation failed');
 			console.error('Error creating defects trend chart:', chartError);
@@ -2151,101 +2596,101 @@ function update_defect_type_chart(data) {
 			return;
 		}
 		
-		if (!data || !Array.isArray(data) || data.length === 0) {
-			recordChartStatus('Defect Type Distribution', false, 'No data');
-			return;
-		}
-		
-		// Calculate defect type totals
-		let defectTypes = {
-			'Weaving': 0,
-			'Finishing': 0,
-			'Sewing': 0
-		};
-		
-		data.forEach(record => {
+		const renderPie = (defectTypes) => {
+			const labels = Object.keys(defectTypes);
+			const values = Object.values(defectTypes);
+			const colors = ['#FF6384', '#36A2EB', '#FFCE56'];
+			const grandTotal = values.reduce((s, v) => s + v, 0);
+			if (!grandTotal) {
+				recordChartStatus('Defect Type Distribution', false, 'No data');
+				return;
+			}
+			ensureChartContainerSize('defectTypeChart', '300px');
 			try {
-				// Weaving defects
-				defectTypes['Weaving'] += (record.miss_pick__double_pick_qty || 0) + (record.fly_yarn_qty || 0) + 
-										  (record.incorrect_construct_qty || 0) + (record.registration_out_qty || 0) + 
-										  (record.miss_print_qty || 0) + (record.bowing_qty || 0) + (record.touching_qty || 0) + 
-										  (record.streaks_qty || 0) + (record.salvage_qty || 0) + (record.smash_qty || 0) + 
-										  (record.weaving_qty || 0);
-				
-				// Finishing defects
-				defectTypes['Finishing'] += (record.cc_qty || 0) + (record.un_cut_qty || 0) + (record.nh_qty || 0) + 
-											(record.finishing_qty || 0) + (record.os_qty || 0) + (record.wm_qty || 0) + 
-											(record.dm_qty || 0);
-				
-				// Sewing defects
-				defectTypes['Sewing'] += (record.mwl_qty || 0) + (record.us_qty || 0) + (record.wt_qty || 0) + 
-										 (record.p_qty || 0) + (record.sewing_qty || 0) + (record.bls_qty || 0) + 
-										 (record.ohs_qty || 0) + (record.bs_qty || 0) + (record.ss_qty1 || 0) + 
-										 (record.wd_qty || 0);
-			} catch (error) {
-				debugLog('Error processing record in defect type chart:', error);
+				if (window.defectTypeChart && typeof window.defectTypeChart.destroy === 'function') {
+					window.defectTypeChart.destroy();
+					window.defectTypeChart = null;
+				}
+			} catch (e) {
+				debugLog('Error destroying defect type chart:', e);
 			}
-		});
-		
-		let labels = Object.keys(defectTypes);
-		let values = Object.values(defectTypes);
-		let colors = ['#FF6384', '#36A2EB', '#FFCE56'];
-		
-		debugLog('Defect type chart data ready');
-		
-		// Destroy existing chart if it exists
-		try {
-			if (window.defectTypeChart && typeof window.defectTypeChart.destroy === 'function') {
-				window.defectTypeChart.destroy();
-				window.defectTypeChart = null;
-			}
-		} catch (e) {
-			debugLog('Error destroying defect type chart:', e);
-		}
-		
-		try {
-			window.defectTypeChart = new Chart(ctx, {
-				type: 'doughnut',
-				data: {
-					labels: labels,
-					datasets: [{
-						data: values,
-						backgroundColor: colors,
-						hoverBackgroundColor: colors.map(color => color + '80'),
-						borderWidth: 2,
-						borderColor: '#fff'
-					}]
-				},
-				options: {
-					responsive: true,
-					maintainAspectRatio: false,
-					animation: {
-						duration: 750
+			try {
+				const chart = createChart('defectTypeChart', 'defectTypeChart', {
+					type: 'pie',
+					data: {
+						labels,
+						datasets: [{
+							data: values,
+							backgroundColor: colors,
+							hoverBackgroundColor: colors.map((color) => color + 'CC'),
+							borderWidth: 1,
+							borderColor: '#ffffff',
+						}],
 					},
-					plugins: {
-						legend: {
-							display: true,
-							position: 'bottom'
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						animation: { duration: 400 },
+						plugins: {
+							legend: { display: true, position: 'bottom' },
+							tooltip: { enabled: true },
 						},
-						tooltip: {
-							enabled: true
-						}
-					}
+					},
+				});
+				if (chart) {
+					recordChartStatus('Defect Type Distribution', true);
+				} else {
+					recordChartStatus('Defect Type Distribution', false, 'Chart creation failed');
+				}
+			} catch (chartError) {
+				recordChartStatus('Defect Type Distribution', false, chartError.message || 'Chart creation failed');
+				console.error('Error creating defect type chart:', chartError);
+			}
+		};
+
+		const defectTypesFromRecords = () => {
+			const defectTypes = { Weaving: 0, Finishing: 0, Sewing: 0 };
+			if (!data || !Array.isArray(data) || !data.length) {
+				return defectTypes;
+			}
+			data.forEach((record) => {
+				try {
+					defectTypes.Weaving += (record.miss_pick__double_pick_qty || 0) + (record.fly_yarn_qty || 0)
+						+ (record.incorrect_construct_qty || 0) + (record.registration_out_qty || 0)
+						+ (record.miss_print_qty || 0) + (record.bowing_qty || 0) + (record.touching_qty || 0)
+						+ (record.streaks_qty || 0) + (record.salvage_qty || 0) + (record.smash_qty || 0)
+						+ (record.weaving_qty || 0);
+					defectTypes.Finishing += (record.cc_qty || 0) + (record.un_cut_qty || 0) + (record.nh_qty || 0)
+						+ (record.finishing_qty || 0) + (record.os_qty || 0) + (record.wm_qty || 0)
+						+ (record.dm_qty || 0);
+					defectTypes.Sewing += (record.mwl_qty || 0) + (record.us_qty || 0) + (record.wt_qty || 0)
+						+ (record.p_qty || 0) + (record.sewing_qty || 0) + (record.bls_qty || 0)
+						+ (record.ohs_qty || 0) + (record.bs_qty || 0) + (record.ss_qty1 || 0)
+						+ (record.wd_qty || 0);
+				} catch (error) {
+					debugLog('Error processing record in defect type chart:', error);
 				}
 			});
-			
-			recordChartStatus('Defect Type Distribution', true);
-			
-			setTimeout(() => {
-				if (window.defectTypeChart) {
-					window.defectTypeChart.update('none');
+			return defectTypes;
+		};
+
+		getDefectBreakdownData()
+			.then((raw) => {
+				if (raw) {
+					const cats = buildCategoryDefectsFromApiRaw(raw);
+					renderPie({
+						Weaving: sumCategoryDefects(cats.weaving),
+						Finishing: sumCategoryDefects(cats.finishing),
+						Sewing: sumCategoryDefects(cats.sewing),
+					});
+					return;
 				}
-			}, 100);
-			
-		} catch (chartError) {
-			recordChartStatus('Defect Type Distribution', false, chartError.message || 'Chart creation failed');
-			console.error('Error creating defect type chart:', chartError);
-		}
+				renderPie(defectTypesFromRecords());
+			})
+			.catch(() => {
+				renderPie(defectTypesFromRecords());
+			});
+		return;
 	} catch (error) {
 		console.error('Critical error in update_defect_type_chart:', error);
 	}
@@ -2297,16 +2742,22 @@ function update_quality_metrics_chart(data) {
 			}
 		});
 		
-		let dates = Object.keys(dateGroups).sort();
-		if (dates.length === 0) {
+		let rows = Object.keys(dateGroups).sort().map((d) => ({
+			date: d,
+			total_percent: dateGroups[d].total_percent || 0,
+			count: dateGroups[d].count || 0,
+		}));
+		rows = bucketDateRows(rows, (chunk) => ({
+			date: chunk.length === 1 ? chunk[0].date : chunk[0].date + ' … ' + chunk[chunk.length - 1].date,
+			total_percent: chunk.reduce((s, r) => s + r.total_percent, 0),
+			count: chunk.reduce((s, r) => s + r.count, 0),
+		}));
+		if (!rows.length) {
 			recordChartStatus('Quality Metrics', false, 'No valid dates');
 			return;
 		}
-		
-		let avgDefectPercent = dates.map(d => {
-			let group = dateGroups[d];
-			return group.count > 0 ? (group.total_percent / group.count) : 0;
-		});
+		let dates = rows.map((r) => r.date);
+		let avgDefectPercent = rows.map((r) => (r.count > 0 ? r.total_percent / r.count : 0));
 		
 		debugLog('Quality metrics chart data ready');
 		
@@ -2321,7 +2772,7 @@ function update_quality_metrics_chart(data) {
 		}
 		
 		try {
-			window.qualityMetricsChart = new Chart(ctx, {
+			const chart = createChart('qualityMetricsChart', 'qualityMetricsChart', {
 				type: 'line',
 				data: {
 					labels: dates,
@@ -2337,44 +2788,22 @@ function update_quality_metrics_chart(data) {
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
-					animation: {
-						duration: 750
-					},
+					animation: { duration: 750 },
 					plugins: {
-						legend: {
-							display: true,
-							position: 'top'
-						},
-						tooltip: {
-							enabled: true
-						}
+						legend: { display: true, position: 'top' },
+						tooltip: { enabled: true }
 					},
 					scales: {
-						y: {
-							beginAtZero: true,
-							max: 20,
-							ticks: {
-								stepSize: 1
-							}
-						},
-						x: {
-							ticks: {
-								maxRotation: 45,
-								minRotation: 45
-							}
-						}
+						y: { beginAtZero: true, max: 20, ticks: { stepSize: 1 } },
+						x: { ticks: { maxRotation: 45, minRotation: 45 } }
 					}
 				}
 			});
-			
-			recordChartStatus('Quality Metrics', true);
-			
-			setTimeout(() => {
-				if (window.qualityMetricsChart) {
-					window.qualityMetricsChart.update('none');
-				}
-			}, 100);
-			
+			if (chart) {
+				recordChartStatus('Quality Metrics', true);
+			} else {
+				recordChartStatus('Quality Metrics', false, 'Chart creation failed');
+			}
 		} catch (chartError) {
 			recordChartStatus('Quality Metrics', false, chartError.message || 'Chart creation failed');
 			console.error('Error creating quality metrics chart:', chartError);
@@ -2454,7 +2883,7 @@ function update_inspection_level_chart(data) {
 		}
 		
 		try {
-			window.inspectionLevelChart = new Chart(ctx, {
+			const chart = createChart('inspectionLevelChart', 'inspectionLevelChart', {
 				type: 'bar',
 				data: {
 					labels: labels,
@@ -2469,37 +2898,21 @@ function update_inspection_level_chart(data) {
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
-					animation: {
-						duration: 750
-					},
+					animation: { duration: 750 },
 					plugins: {
-						legend: {
-							display: true,
-							position: 'top'
-						},
-						tooltip: {
-							enabled: true
-						}
+						legend: { display: true, position: 'top' },
+						tooltip: { enabled: true }
 					},
 					scales: {
-						y: {
-							beginAtZero: true,
-							ticks: {
-								stepSize: 1
-							}
-						}
+						y: { beginAtZero: true, ticks: { stepSize: 1 } }
 					}
 				}
 			});
-			
-			recordChartStatus('Inspection Level Performance', true);
-			
-			setTimeout(() => {
-				if (window.inspectionLevelChart) {
-					window.inspectionLevelChart.update('none');
-				}
-			}, 100);
-			
+			if (chart) {
+				recordChartStatus('Inspection Level Performance', true);
+			} else {
+				recordChartStatus('Inspection Level Performance', false, 'Chart creation failed');
+			}
 		} catch (chartError) {
 			recordChartStatus('Inspection Level Performance', false, chartError.message || 'Chart creation failed');
 			console.error('Error creating inspection level chart:', chartError);
@@ -2511,28 +2924,24 @@ function update_inspection_level_chart(data) {
 
 // Global functions for button actions
 function apply_filters() {
+	_individualDefectChartsLoaded = false;
+	reset_individual_defect_placeholder();
 	load_dashboard_data();
 }
 
 function clear_filters() {
-	$('#from_date').val('');
-	$('#to_date').val('');
 	$('#inspection_level').val('');
 	$('#aql_major').val('');
 	$('#aql_minor').val('');
 	$('#quality_status').val('');
 	$('#search_text').val('');
-	
-	// Set default date range
-	let today = new Date();
-	let thirty_days_ago = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000));
-	$('#from_date').val(thirty_days_ago.toISOString().split('T')[0]);
-	$('#to_date').val(today.toISOString().split('T')[0]);
-	
+	setDefaultDateFilters();
 	load_dashboard_data();
 }
 
 function refresh_data() {
+	_individualDefectChartsLoaded = false;
+	reset_individual_defect_placeholder();
 	load_dashboard_data();
 }
 
@@ -2676,7 +3085,7 @@ function test_simple_chart() {
 			let ctx = canvas.getContext('2d');
 			
 			// Create a simple bar chart
-			new Chart(ctx, {
+			createChart('testChart', canvas, {
 				type: 'bar',
 				data: {
 					labels: ['Test 1', 'Test 2', 'Test 3', 'Test 4'],
@@ -2783,12 +3192,24 @@ function edit_record(name) {
 }
 
 function show_loading() {
-	// Add loading spinner to relevant sections
-	$('.dashboard-summary, .dashboard-charts, .dashboard-quality-metrics, .dashboard-defect-breakdown, .dashboard-table').html('<div class="text-center"><div class="loading-spinner"></div> Loading...</div>');
+	const $dash = $('.daily-stitching-dashboard');
+	let $overlay = $dash.find('.dashboard-loading-overlay');
+	if (!$overlay.length) {
+		$overlay = $(`
+			<div class="dashboard-loading-overlay">
+				<div class="dashboard-loading-box">
+					<div class="loading-spinner"></div>
+					<span>${__('Loading...')}</span>
+				</div>
+			</div>
+		`);
+		$dash.append($overlay);
+	}
+	$overlay.show();
 }
 
 function hide_loading() {
-	// Loading will be hidden when content is updated
+	$('.dashboard-loading-overlay').hide();
 }
 
 function show_error_message(message) {
@@ -2833,6 +3254,35 @@ function add_inline_css() {
 		/* Daily Stitching Dashboard Styles */
 		.daily-stitching-dashboard {
 			padding: 20px;
+			position: relative;
+		}
+
+		.dashboard-loading-overlay {
+			position: absolute;
+			inset: 0;
+			z-index: 100;
+			background: rgba(255, 255, 255, 0.75);
+			display: flex;
+			align-items: flex-start;
+			justify-content: center;
+			padding-top: 120px;
+		}
+
+		.dashboard-loading-box {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 16px 24px;
+			background: #fff;
+			border-radius: 8px;
+			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+			font-weight: 500;
+		}
+
+		.qa-filter-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 6px;
 		}
 
 		/* Gradient Headers */
@@ -2905,6 +3355,19 @@ function add_inline_css() {
 		.dashboard-filters .form-control:focus {
 			border-color: #007bff;
 			box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+		}
+
+		.dashboard-date-filter {
+			margin-bottom: 15px;
+		}
+
+		.dashboard-date-filter .frappe-control {
+			margin-bottom: 0;
+		}
+
+		.dashboard-date-filter .control-label {
+			font-weight: 600;
+			color: #495057;
 		}
 
 		.dashboard-summary {
@@ -3018,6 +3481,14 @@ function add_inline_css() {
 			padding: 4px 8px;
 			font-size: 12px;
 			border-radius: 4px;
+		}
+
+		.qa-table-toolbar {
+			gap: 12px;
+		}
+
+		.qa-table-toolbar select {
+			min-width: 72px;
 		}
 
 		.pagination {
@@ -3213,11 +3684,38 @@ function add_inline_css() {
 			border-left: 4px solid #17a2b8;
 		}
 
-		.defect-breakdown {
+		.qa-defect-breakdown-panel {
+			width: 100%;
+		}
+
+		.qa-defect-breakdown-panel > .row {
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+
+		.qa-defect-breakdown-charts .chart-container {
+			position: relative;
+			width: 100%;
+			min-height: 200px;
+		}
+
+		.qa-defect-breakdown-charts .chart-container canvas,
+		.qa-category-section-charts .chart-container canvas {
+			display: block;
+			width: 100% !important;
+			height: 100% !important;
+		}
+
+		.qa-category-section-charts .chart-container {
+			position: relative;
+			width: 100%;
+			min-height: 180px;
+		}
+
+		.defect-breakdown-grid {
 			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 			gap: 15px;
-			margin-top: 20px;
 		}
 
 		.defect-item {
@@ -3350,6 +3848,54 @@ function update_comparative_analysis(data) {
 	let inspection_level_comparison = compare_inspection_levels(data);
 	let aql_comparison = compare_aql_levels(data);
 	let time_period_comparison = compare_time_periods(data);
+	const hasComparisonData = data && data.length > 0;
+
+	comparative_html += `
+		<div class="col-md-12 mb-4">
+			<div class="row qa-comparative-charts">
+				<div class="col-md-4">
+					<div class="card h-100">
+						<div class="card-body">
+							<h6 class="text-muted mb-2"><i class="fa fa-search"></i> Inspection Level — Defect Rate</h6>
+							<div class="chart-container" style="height: 240px;">
+								<canvas id="comparative_inspection_level_chart"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card h-100">
+						<div class="card-body">
+							<h6 class="text-muted mb-2"><i class="fa fa-balance-scale"></i> AQL Major — Defect Rate</h6>
+							<div class="chart-container" style="height: 240px;">
+								<canvas id="comparative_aql_chart"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card h-100">
+						<div class="card-body">
+							<h6 class="text-muted mb-2"><i class="fa fa-clock-o"></i> Time of Day — Defect Rate</h6>
+							<div class="chart-container" style="height: 240px;">
+								<canvas id="comparative_time_period_chart"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	`;
+
+	if (!hasComparisonData) {
+		comparative_html += `
+			<div class="col-md-12 mb-3">
+				<div class="alert alert-info text-center">
+					<i class="fa fa-info-circle"></i> No data for comparative charts in the selected range.
+				</div>
+			</div>
+		`;
+	}
 	
 	comparative_html += `
 		<div class="col-md-12">
@@ -3404,6 +3950,16 @@ function update_comparative_analysis(data) {
 	`;
 	
 	container.html(comparative_html);
+
+	if (hasComparisonData) {
+		requestAnimationFrame(() => {
+			renderComparativeAnalysisCharts(
+				inspection_level_comparison,
+				aql_comparison,
+				time_period_comparison
+			);
+		});
+	}
 }
 
 function update_operational_metrics(data) {
@@ -3774,12 +4330,124 @@ function compare_aql_levels(data) {
 }
 
 function compare_time_periods(data) {
-	// Simplified time period comparison
-	return {
-		'Morning': { defect_rate: 3.2, status: 'success' },
-		'Afternoon': { defect_rate: 4.1, status: 'warning' },
-		'Evening': { defect_rate: 2.8, status: 'success' }
+	const periods = {};
+	const getPeriod = (record) => {
+		const t = record.time;
+		if (!t) {
+			return 'Unknown';
+		}
+		const hour = parseInt(String(t).split(':')[0], 10);
+		if (isNaN(hour)) {
+			return 'Unknown';
+		}
+		if (hour < 12) {
+			return 'Morning';
+		}
+		if (hour < 17) {
+			return 'Afternoon';
+		}
+		return 'Evening';
 	};
+
+	data.forEach((record) => {
+		const period = getPeriod(record);
+		if (!periods[period]) {
+			periods[period] = { total: 0, defects: 0, count: 0 };
+		}
+		periods[period].total += record.total_sample_qty || 0;
+		periods[period].defects += record.total_defects || 0;
+		periods[period].count += 1;
+	});
+
+	Object.keys(periods).forEach((period) => {
+		const defect_rate = periods[period].total > 0
+			? (periods[period].defects / periods[period].total * 100)
+			: 0;
+		periods[period].defect_rate = defect_rate;
+		periods[period].status = defect_rate < 5 ? 'success' : defect_rate < 10 ? 'warning' : 'danger';
+	});
+
+	return periods;
+}
+
+function comparativeStatusColor(status, alpha) {
+	if (status === 'success') {
+		return `rgba(40, 167, 69, ${alpha})`;
+	}
+	if (status === 'warning') {
+		return `rgba(255, 193, 7, ${alpha})`;
+	}
+	return `rgba(220, 53, 69, ${alpha})`;
+}
+
+function renderComparativeAnalysisCharts(inspectionCmp, aqlCmp, timeCmp) {
+	if (typeof Chart === 'undefined') {
+		return;
+	}
+
+	const renderBar = (chartKey, canvasId, comparison, labelFormatter) => {
+		const keys = Object.keys(comparison);
+		if (!keys.length) {
+			return;
+		}
+		const bg = keys.map((k) => comparativeStatusColor(comparison[k].status, 0.75));
+		const border = keys.map((k) => comparativeStatusColor(comparison[k].status, 1));
+
+		createChart(chartKey, canvasId, {
+			type: 'bar',
+			data: {
+				labels: keys.map(labelFormatter),
+				datasets: [{
+					label: 'Defect Rate %',
+					data: keys.map((k) => comparison[k].defect_rate || 0),
+					backgroundColor: bg,
+					borderColor: border,
+					borderWidth: 1,
+				}],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				plugins: {
+					legend: { display: false },
+					tooltip: {
+						callbacks: {
+							label(ctx) {
+								return `Defect rate: ${(ctx.parsed.y || 0).toFixed(2)}%`;
+							},
+						},
+					},
+				},
+				scales: {
+					y: {
+						beginAtZero: true,
+						title: { display: true, text: 'Defect %' },
+						ticks: { callback: (v) => v + '%' },
+					},
+					x: { ticks: { maxRotation: 45, minRotation: 0, autoSkip: true } },
+				},
+			},
+		});
+	};
+
+	renderBar(
+		'comparativeInspectionChart',
+		'comparative_inspection_level_chart',
+		inspectionCmp,
+		(k) => k
+	);
+	renderBar(
+		'comparativeAqlChart',
+		'comparative_aql_chart',
+		aqlCmp,
+		(k) => (k === 'Unknown' ? k : `AQL ${k}`)
+	);
+	renderBar(
+		'comparativeTimeChart',
+		'comparative_time_period_chart',
+		timeCmp,
+		(k) => k
+	);
 }
 
 function calculate_cost_of_quality(data) {
@@ -4003,18 +4671,351 @@ function create_individual_defect_analysis_section(container) {
 						<h5><i class="fa fa-chart-line"></i> Individual Defect Analysis - Detailed Charts & KPIs</h5>
 					</div>
 					<div class="card-body">
-						<div class="row" id="individual_defect_analysis_container">
-							<div class="col-md-12 text-center p-4">
-								<div class="loading-spinner"></div>
-								<p class="text-muted">Loading defect breakdown data...</p>
-							</div>
-						</div>
+						<div class="row" id="individual_defect_analysis_container"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	`;
 	container.html(defect_html);
+	reset_individual_defect_placeholder();
+}
+
+function normalizeDetailedDefectMap(defectMap) {
+	Object.keys(defectMap).forEach((key) => {
+		const defect = defectMap[key];
+		defect.major = normalizeDefectValue(defect.major, 'major', key);
+		defect.minor = normalizeDefectValue(defect.minor, 'minor', key);
+		defect.critical = normalizeDefectValue(defect.critical, 'critical', key);
+		defect.total = defect.major + defect.minor + defect.critical;
+	});
+	return defectMap;
+}
+
+function buildWeavingDefectsFromApiRaw(raw) {
+	return {
+		miss_pick: {
+			major: raw.miss_pick_major || 0,
+			minor: raw.miss_pick_minor || 0,
+			critical: raw.miss_pick_critical || 0,
+			total: 0,
+		},
+		fly_yarn: {
+			major: raw.fly_yarn_major || 0,
+			minor: raw.fly_yarn_minor || 0,
+			critical: raw.fly_yarn_critical || 0,
+			total: 0,
+		},
+		incorrect_construct: {
+			major: raw.incorrect_major || 0,
+			minor: raw.incorrect_minor || 0,
+			critical: raw.incorrect_critical || 0,
+			total: 0,
+		},
+		registration_out: {
+			major: raw.reg_out_major || 0,
+			minor: raw.reg_out_minor || 0,
+			critical: raw.reg_out_critical || 0,
+			total: 0,
+		},
+		miss_print: {
+			major: raw.miss_print_major || 0,
+			minor: raw.miss_print_minor || 0,
+			critical: raw.miss_print_critical || 0,
+			total: 0,
+		},
+		bowing: {
+			major: raw.bowing_major || 0,
+			minor: raw.bowing_minor || 0,
+			critical: raw.bowing_critical || 0,
+			total: 0,
+		},
+		touching: {
+			major: raw.touching_major || 0,
+			minor: raw.touching_minor || 0,
+			critical: raw.touching_critical || 0,
+			total: 0,
+		},
+		streaks: {
+			major: raw.streaks_major || 0,
+			minor: raw.streaks_minor || 0,
+			critical: raw.streaks_critical || 0,
+			total: 0,
+		},
+		salvage: {
+			major: raw.salvage_major || 0,
+			minor: raw.salvage_minor || 0,
+			critical: raw.salvage_critical || 0,
+			total: 0,
+		},
+		smash: {
+			major: raw.smash_major || 0,
+			minor: raw.smash_minor || 0,
+			critical: raw.smash_critical || 0,
+			total: 0,
+		},
+		weaving_other: {
+			major: raw.owp_major || 0,
+			minor: raw.owp_minor || 0,
+			critical: raw.owp_critical || 0,
+			total: 0,
+		},
+	};
+}
+
+function buildFinishingDefectsFromApiRaw(raw) {
+	return {
+		un_cut: {
+			major: raw.un_cut_major || 0,
+			minor: raw.un_cut_minor || 0,
+			critical: raw.un_cut_critical || 0,
+			total: 0,
+		},
+		oil_stain: {
+			major: raw.os_major || 0,
+			minor: raw.os_minor || 0,
+			critical: raw.os_critical || 0,
+			total: 0,
+		},
+		wash_mark: {
+			major: raw.wm_major || 0,
+			minor: raw.wm_minor || 0,
+			critical: raw.wm_critical || 0,
+			total: 0,
+		},
+		clipper_cut: {
+			major: raw.cc_major || 0,
+			minor: raw.cc_minor || 0,
+			critical: raw.cc_critical || 0,
+			total: 0,
+		},
+		needle_hole: {
+			major: raw.nh_major || 0,
+			minor: raw.nh_minor || 0,
+			critical: raw.nh_critical || 0,
+			total: 0,
+		},
+		dust_mark: {
+			major: raw.dm_major || 0,
+			minor: raw.dm_minor || 0,
+			critical: raw.dm_critical || 0,
+			total: 0,
+		},
+	};
+}
+
+function buildSewingDefectsFromApiRaw(raw) {
+	return {
+		missing_wrong_label: {
+			major: raw.mwl_major || 0,
+			minor: raw.mwl_minor || 0,
+			critical: raw.mwl_critical || 0,
+			total: 0,
+		},
+		uneven_stitch: {
+			major: raw.us_major || 0,
+			minor: raw.us_minor || 0,
+			critical: raw.us_critical || 0,
+			total: 0,
+		},
+		wrong_thread: {
+			major: raw.wt_major || 0,
+			minor: raw.wt_minor || 0,
+			critical: raw.wt_critical || 0,
+			total: 0,
+		},
+		puckering: {
+			major: raw.p_major || 0,
+			minor: raw.p_minor || 0,
+			critical: raw.p_critical || 0,
+			total: 0,
+		},
+		broken_loose_stitch: {
+			major: raw.bls_major || 0,
+			minor: raw.bls_minor || 0,
+			critical: raw.bls_critical || 0,
+			total: 0,
+		},
+		open_hem_sem: {
+			major: raw.ohs_major || 0,
+			minor: raw.ohs_minor || 0,
+			critical: raw.ohs_critical || 0,
+			total: 0,
+		},
+		bad_stitch: {
+			major: raw.bs_major || 0,
+			minor: raw.bs_minor || 0,
+			critical: raw.bs_critical || 0,
+			total: 0,
+		},
+		wrong_direction: {
+			major: raw.wd_major || 0,
+			minor: raw.wd_minor || 0,
+			critical: raw.wd_critical || 0,
+			total: 0,
+		},
+		short_size: {
+			major: raw.ss_major || 0,
+			minor: raw.ss_minor || 0,
+			critical: raw.ss_critical || 0,
+			total: 0,
+		},
+	};
+}
+
+function severityChartKey(prefix, name) {
+	return prefix + name;
+}
+
+function renderSeverityBreakdownCharts(prefix, defectMap, topBarBg, topBarBorder) {
+	if (typeof Chart === 'undefined' || !defectMap) {
+		return;
+	}
+	const keys = Object.keys(defectMap).filter((k) => toChartNumber(defectMap[k].total) > 0);
+	if (!keys.length) {
+		return;
+	}
+
+	ensureChartContainerSize(`${prefix}_severity_stacked_bar`, '280px');
+	ensureChartContainerSize(`${prefix}_severity_pie`, '280px');
+	ensureChartContainerSize(`${prefix}_severity_top_bar`, '220px');
+
+	const labels = keys.map((k) => formatDefectLabel(k));
+	const majorData = keys.map((k) => defectMap[k].major);
+	const minorData = keys.map((k) => defectMap[k].minor);
+	const criticalData = keys.map((k) => defectMap[k].critical);
+
+	createChart(severityChartKey(prefix, 'SeverityStackedBar'), `${prefix}_severity_stacked_bar`, {
+		type: 'bar',
+		data: {
+			labels,
+			datasets: [
+				{
+					label: 'Major',
+					data: majorData,
+					backgroundColor: 'rgba(220, 53, 69, 0.85)',
+					borderColor: 'rgba(220, 53, 69, 1)',
+					borderWidth: 1,
+				},
+				{
+					label: 'Minor',
+					data: minorData,
+					backgroundColor: 'rgba(255, 193, 7, 0.85)',
+					borderColor: 'rgba(255, 193, 7, 1)',
+					borderWidth: 1,
+				},
+				{
+					label: 'Critical',
+					data: criticalData,
+					backgroundColor: 'rgba(108, 117, 125, 0.85)',
+					borderColor: 'rgba(108, 117, 125, 1)',
+					borderWidth: 1,
+				},
+			],
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: { legend: { position: 'bottom' } },
+			scales: {
+				x: { stacked: true, ticks: { maxRotation: 45, autoSkip: true } },
+				y: { stacked: true, beginAtZero: true, ticks: { precision: 0 } },
+			},
+		},
+	});
+
+	const totalMajor = keys.reduce((s, k) => s + defectMap[k].major, 0);
+	const totalMinor = keys.reduce((s, k) => s + defectMap[k].minor, 0);
+	const totalCritical = keys.reduce((s, k) => s + defectMap[k].critical, 0);
+	const severityTotal = totalMajor + totalMinor + totalCritical;
+
+	if (severityTotal > 0) {
+		createChart(severityChartKey(prefix, 'SeverityPie'), `${prefix}_severity_pie`, {
+			type: 'pie',
+			data: {
+				labels: ['Major', 'Minor', 'Critical'],
+				datasets: [{
+					data: [totalMajor, totalMinor, totalCritical],
+					backgroundColor: [
+						'rgba(220, 53, 69, 0.85)',
+						'rgba(255, 193, 7, 0.85)',
+						'rgba(108, 117, 125, 0.85)',
+					],
+					borderColor: '#fff',
+					borderWidth: 1,
+				}],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				plugins: { legend: { position: 'bottom' } },
+			},
+		});
+	}
+
+	const sorted = [...keys].sort((a, b) => defectMap[b].total - defectMap[a].total).slice(0, 8);
+	createChart(severityChartKey(prefix, 'SeverityTopBar'), `${prefix}_severity_top_bar`, {
+		type: 'bar',
+		data: {
+			labels: sorted.map((k) => formatDefectLabel(k)),
+			datasets: [{
+				label: 'Total defects',
+				data: sorted.map((k) => defectMap[k].total),
+				backgroundColor: topBarBg,
+				borderColor: topBarBorder,
+				borderWidth: 1,
+			}],
+		},
+		options: {
+			indexAxis: 'y',
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: { legend: { display: false } },
+			scales: { x: { beginAtZero: true, ticks: { precision: 0 } } },
+		},
+	});
+}
+
+function loadDetailedSeverityCharts(weavingFromRecords, finishingFromRecords, sewingFromRecords) {
+	const render = (weavingMap, finishingMap, sewingMap) => {
+		normalizeDetailedDefectMap(weavingMap);
+		normalizeDetailedDefectMap(finishingMap);
+		normalizeDetailedDefectMap(sewingMap);
+		scheduleDashboardCharts(() => {
+			renderSeverityBreakdownCharts(
+				'weaving',
+				weavingMap,
+				'rgba(255, 99, 132, 0.75)',
+				'rgba(255, 99, 132, 1)'
+			);
+			renderSeverityBreakdownCharts(
+				'finishing',
+				finishingMap,
+				'rgba(54, 162, 235, 0.75)',
+				'rgba(54, 162, 235, 1)'
+			);
+			renderSeverityBreakdownCharts(
+				'sewing',
+				sewingMap,
+				'rgba(255, 206, 86, 0.75)',
+				'rgba(255, 206, 86, 1)'
+			);
+		}, 150);
+	};
+
+	getDefectBreakdownData()
+		.then((raw) => {
+			if (raw) {
+				const weavingMap = buildWeavingDefectsFromApiRaw(raw);
+				normalizeDetailedDefectMap(weavingMap);
+				render(weavingMap, buildFinishingDefectsFromApiRaw(raw), buildSewingDefectsFromApiRaw(raw));
+				return;
+			}
+			render(weavingFromRecords, finishingFromRecords, sewingFromRecords);
+		})
+		.catch(() => {
+			render(weavingFromRecords, finishingFromRecords, sewingFromRecords);
+		});
 }
 
 function update_detailed_defects(data) {
@@ -4091,6 +5092,8 @@ function update_detailed_defects(data) {
 		}
 	};
 	
+	normalizeDetailedDefectMap(weaving_defects_detailed);
+
 	// Weaving defects detailed breakdown
 	detailed_html += `
 		<div class="col-md-12 mb-4">
@@ -4099,6 +5102,38 @@ function update_detailed_defects(data) {
 					<h6><i class="fa fa-th"></i> Weaving Defects - Major/Minor/Critical Breakdown</h6>
 				</div>
 				<div class="card-body">
+					<div class="row mb-4 qa-weaving-severity-charts">
+						<div class="col-md-7">
+							<div class="card h-100 border-0 bg-light">
+								<div class="card-body">
+									<h6 class="text-muted mb-2"><i class="fa fa-bar-chart"></i> Major / Minor / Critical by Defect Type</h6>
+									<div class="chart-container" style="height: 280px;">
+										<canvas id="weaving_severity_stacked_bar"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="card h-100 border-0 bg-light">
+								<div class="card-body">
+									<h6 class="text-muted mb-2"><i class="fa fa-pie-chart"></i> Overall Severity Split</h6>
+									<div class="chart-container" style="height: 280px;">
+										<canvas id="weaving_severity_pie"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12 mt-3">
+							<div class="card border-0 bg-light">
+								<div class="card-body">
+									<h6 class="text-muted mb-2"><i class="fa fa-sort-amount-desc"></i> Top Weaving Defect Types</h6>
+									<div class="chart-container" style="height: 220px;">
+										<canvas id="weaving_severity_top_bar"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="table-responsive">
 						<table class="table table-striped">
 							<thead>
@@ -4118,22 +5153,13 @@ function update_detailed_defects(data) {
 	
 	Object.keys(weaving_defects_detailed).forEach(key => {
 		let defect = weaving_defects_detailed[key];
-		
-		// Normalize summed values for consistency (same as Individual Defect Analysis)
-		defect.major = normalizeDefectValue(defect.major, 'major', key);
-		defect.minor = normalizeDefectValue(defect.minor, 'minor', key);
-		defect.critical = normalizeDefectValue(defect.critical, 'critical', key);
-		
-		// Recalculate total as sum
-		defect.total = defect.major + defect.minor + defect.critical;
-		
 		let major_pct = defect.total > 0 ? (defect.major / defect.total * 100) : 0;
 		let minor_pct = defect.total > 0 ? (defect.minor / defect.total * 100) : 0;
 		let critical_pct = defect.total > 0 ? (defect.critical / defect.total * 100) : 0;
 		
 		detailed_html += `
 			<tr>
-				<td><strong>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</strong></td>
+				<td><strong>${formatDefectLabel(key)}</strong></td>
 				<td class="text-center text-danger"><strong>${defect.major}</strong></td>
 				<td class="text-center text-warning"><strong>${defect.minor}</strong></td>
 				<td class="text-center text-danger"><strong>${defect.critical}</strong></td>
@@ -4193,6 +5219,8 @@ function update_detailed_defects(data) {
 			total: 0
 		}
 	};
+
+	normalizeDetailedDefectMap(finishing_defects_detailed);
 	
 	detailed_html += `
 		<div class="col-md-12 mb-4">
@@ -4201,6 +5229,38 @@ function update_detailed_defects(data) {
 					<h6><i class="fa fa-cog"></i> Finishing Defects - Major/Minor/Critical Breakdown</h6>
 				</div>
 				<div class="card-body">
+					<div class="row mb-4 qa-finishing-severity-charts">
+						<div class="col-md-7">
+							<div class="card h-100 border-0 bg-light">
+								<div class="card-body">
+									<h6 class="text-muted mb-2"><i class="fa fa-bar-chart"></i> Major / Minor / Critical by Defect Type</h6>
+									<div class="chart-container" style="height: 280px;">
+										<canvas id="finishing_severity_stacked_bar"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="card h-100 border-0 bg-light">
+								<div class="card-body">
+									<h6 class="text-muted mb-2"><i class="fa fa-pie-chart"></i> Overall Severity Split</h6>
+									<div class="chart-container" style="height: 280px;">
+										<canvas id="finishing_severity_pie"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12 mt-3">
+							<div class="card border-0 bg-light">
+								<div class="card-body">
+									<h6 class="text-muted mb-2"><i class="fa fa-sort-amount-desc"></i> Top Finishing Defect Types</h6>
+									<div class="chart-container" style="height: 220px;">
+										<canvas id="finishing_severity_top_bar"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="table-responsive">
 						<table class="table table-striped">
 							<thead>
@@ -4220,22 +5280,13 @@ function update_detailed_defects(data) {
 	
 	Object.keys(finishing_defects_detailed).forEach(key => {
 		let defect = finishing_defects_detailed[key];
-		
-		// Normalize summed values for consistency (same as Individual Defect Analysis)
-		defect.major = normalizeDefectValue(defect.major, 'major', key);
-		defect.minor = normalizeDefectValue(defect.minor, 'minor', key);
-		defect.critical = normalizeDefectValue(defect.critical, 'critical', key);
-		
-		// Recalculate total as sum
-		defect.total = defect.major + defect.minor + defect.critical;
-		
 		let major_pct = defect.total > 0 ? (defect.major / defect.total * 100) : 0;
 		let minor_pct = defect.total > 0 ? (defect.minor / defect.total * 100) : 0;
 		let critical_pct = defect.total > 0 ? (defect.critical / defect.total * 100) : 0;
 		
 		detailed_html += `
 			<tr>
-				<td><strong>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</strong></td>
+				<td><strong>${formatDefectLabel(key)}</strong></td>
 				<td class="text-center text-danger"><strong>${defect.major}</strong></td>
 				<td class="text-center text-warning"><strong>${defect.minor}</strong></td>
 				<td class="text-center text-danger"><strong>${defect.critical}</strong></td>
@@ -4262,33 +5313,59 @@ function update_detailed_defects(data) {
 			major: data.reduce((sum, r) => sum + (r.mwl_major || 0), 0),
 			minor: data.reduce((sum, r) => sum + (r.mwl_minor || 0), 0),
 			critical: data.reduce((sum, r) => sum + (r.mwc_critical || r.mwl_critical || 0), 0),
-			total: 0
+			total: 0,
 		},
-		'open_hem_sem': {
-			major: data.reduce((sum, r) => sum + (r.ohs_major || 0), 0),
-			minor: data.reduce((sum, r) => sum + (r.ohs_minor || 0), 0),
-			critical: data.reduce((sum, r) => sum + (r.ohs_critical || 0), 0),
-			total: 0
+		'uneven_stitch': {
+			major: data.reduce((sum, r) => sum + (r.us_major || 0), 0),
+			minor: data.reduce((sum, r) => sum + (r.us_minor || 0), 0),
+			critical: data.reduce((sum, r) => sum + (r.us_critical || 0), 0),
+			total: 0,
+		},
+		'wrong_thread': {
+			major: data.reduce((sum, r) => sum + (r.wt_major || 0), 0),
+			minor: data.reduce((sum, r) => sum + (r.wt_minor || 0), 0),
+			critical: data.reduce((sum, r) => sum + (r.wt_critical || 0), 0),
+			total: 0,
+		},
+		'puckering': {
+			major: data.reduce((sum, r) => sum + (r.p_major || 0), 0),
+			minor: data.reduce((sum, r) => sum + (r.p_minor || 0), 0),
+			critical: data.reduce((sum, r) => sum + (r.p_critical || 0), 0),
+			total: 0,
 		},
 		'broken_loose_stitch': {
 			major: data.reduce((sum, r) => sum + (r.bls_major || 0), 0),
 			minor: data.reduce((sum, r) => sum + (r.bls_minor || 0), 0),
 			critical: data.reduce((sum, r) => sum + (r.bls_critical || 0), 0),
-			total: 0
+			total: 0,
+		},
+		'open_hem_sem': {
+			major: data.reduce((sum, r) => sum + (r.ohs_major || 0), 0),
+			minor: data.reduce((sum, r) => sum + (r.ohs_minor || 0), 0),
+			critical: data.reduce((sum, r) => sum + (r.ohs_critical || 0), 0),
+			total: 0,
 		},
 		'bad_stitch': {
 			major: data.reduce((sum, r) => sum + (r.bs_major || 0), 0),
 			minor: data.reduce((sum, r) => sum + (r.bs_minor || 0), 0),
 			critical: data.reduce((sum, r) => sum + (r.ms_critical || r.bs_critical || 0), 0),
-			total: 0
+			total: 0,
+		},
+		'wrong_direction': {
+			major: data.reduce((sum, r) => sum + (r.wd_major || 0), 0),
+			minor: data.reduce((sum, r) => sum + (r.wd_minor || 0), 0),
+			critical: data.reduce((sum, r) => sum + (r.wd_critical || 0), 0),
+			total: 0,
 		},
 		'short_size': {
 			major: data.reduce((sum, r) => sum + (r.ss_major || 0), 0),
 			minor: data.reduce((sum, r) => sum + (r.ss_minor || 0), 0),
 			critical: data.reduce((sum, r) => sum + (r.ss_critical || 0), 0),
-			total: 0
-		}
+			total: 0,
+		},
 	};
+
+	normalizeDetailedDefectMap(sewing_defects_detailed);
 	
 	detailed_html += `
 		<div class="col-md-12 mb-4">
@@ -4297,6 +5374,38 @@ function update_detailed_defects(data) {
 					<h6><i class="fa fa-scissors"></i> Sewing Defects - Major/Minor/Critical Breakdown</h6>
 				</div>
 				<div class="card-body">
+					<div class="row mb-4 qa-sewing-severity-charts">
+						<div class="col-md-7">
+							<div class="card h-100 border-0 bg-light">
+								<div class="card-body">
+									<h6 class="text-muted mb-2"><i class="fa fa-bar-chart"></i> Major / Minor / Critical by Defect Type</h6>
+									<div class="chart-container" style="height: 280px;">
+										<canvas id="sewing_severity_stacked_bar"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="card h-100 border-0 bg-light">
+								<div class="card-body">
+									<h6 class="text-muted mb-2"><i class="fa fa-pie-chart"></i> Overall Severity Split</h6>
+									<div class="chart-container" style="height: 280px;">
+										<canvas id="sewing_severity_pie"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12 mt-3">
+							<div class="card border-0 bg-light">
+								<div class="card-body">
+									<h6 class="text-muted mb-2"><i class="fa fa-sort-amount-desc"></i> Top Sewing Defect Types</h6>
+									<div class="chart-container" style="height: 220px;">
+										<canvas id="sewing_severity_top_bar"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="table-responsive">
 						<table class="table table-striped">
 							<thead>
@@ -4316,22 +5425,13 @@ function update_detailed_defects(data) {
 	
 	Object.keys(sewing_defects_detailed).forEach(key => {
 		let defect = sewing_defects_detailed[key];
-		
-		// Normalize summed values for consistency (same as Individual Defect Analysis)
-		defect.major = normalizeDefectValue(defect.major, 'major', key);
-		defect.minor = normalizeDefectValue(defect.minor, 'minor', key);
-		defect.critical = normalizeDefectValue(defect.critical, 'critical', key);
-		
-		// Recalculate total as sum
-		defect.total = defect.major + defect.minor + defect.critical;
-		
 		let major_pct = defect.total > 0 ? (defect.major / defect.total * 100) : 0;
 		let minor_pct = defect.total > 0 ? (defect.minor / defect.total * 100) : 0;
 		let critical_pct = defect.total > 0 ? (defect.critical / defect.total * 100) : 0;
 		
 		detailed_html += `
 			<tr>
-				<td><strong>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</strong></td>
+				<td><strong>${formatDefectLabel(key)}</strong></td>
 				<td class="text-center text-danger"><strong>${defect.major}</strong></td>
 				<td class="text-center text-warning"><strong>${defect.minor}</strong></td>
 				<td class="text-center text-danger"><strong>${defect.critical}</strong></td>
@@ -4353,6 +5453,7 @@ function update_detailed_defects(data) {
 	`;
 	
 	container.html(detailed_html);
+	loadDetailedSeverityCharts(weaving_defects_detailed, finishing_defects_detailed, sewing_defects_detailed);
 }
 
 function update_defect_categories(data) {
@@ -4451,14 +5552,134 @@ function update_defect_categories(data) {
 	container.html(categories_html);
 }
 
-function update_customer_analysis(data) {
-	let container = $('#customer_analysis_container');
-	let customer_html = '';
-	
-	// Group by customer
-	let customer_stats = {};
-	data.forEach(record => {
-		let customer = record.customer || 'Unknown';
+function truncateChartLabel(label, maxLen) {
+	const text = String(label || 'Unknown');
+	if (text.length <= maxLen) {
+		return text;
+	}
+	return text.substring(0, maxLen - 1) + '…';
+}
+
+function renderCustomerAnalysisCharts(customer_stats, topCustomers) {
+	if (typeof Chart === 'undefined' || !topCustomers.length) {
+		return;
+	}
+
+	const labels = topCustomers.map((c) => truncateChartLabel(c, 22));
+	const defectRates = topCustomers.map((c) => customer_stats[c].defect_rate || 0);
+	const records = topCustomers.map((c) => customer_stats[c].records || 0);
+	const defectTotals = topCustomers.map((c) => customer_stats[c].total_defects || 0);
+
+	createChart('customerDefectRateBar', 'customer_defect_rate_bar', {
+		type: 'bar',
+		data: {
+			labels,
+			datasets: [{
+				label: 'Defect Rate %',
+				data: defectRates,
+				backgroundColor: defectRates.map((r) =>
+					r < 5 ? 'rgba(40, 167, 69, 0.8)' : r < 10 ? 'rgba(255, 193, 7, 0.8)' : 'rgba(220, 53, 69, 0.8)'
+				),
+				borderWidth: 1,
+			}],
+		},
+		options: {
+			indexAxis: 'y',
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: { legend: { display: false } },
+			scales: {
+				x: {
+					beginAtZero: true,
+					title: { display: true, text: 'Defect %' },
+					ticks: { callback: (v) => v + '%' },
+				},
+			},
+		},
+	});
+
+	const defectsSum = defectTotals.reduce((a, b) => a + b, 0);
+	if (defectsSum > 0) {
+		createChart('customerDefectSharePie', 'customer_defect_share_pie', {
+			type: 'pie',
+			data: {
+				labels,
+				datasets: [{
+					data: defectTotals,
+					backgroundColor: [
+						'#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+						'#FF9F40', '#C9CBCF', '#7BC225', '#E7E9ED', '#76A5AF',
+					],
+					borderColor: '#fff',
+					borderWidth: 1,
+				}],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				plugins: { legend: { position: 'bottom' } },
+			},
+		});
+	}
+
+	createChart('customerSeverityStackedBar', 'customer_severity_stacked_bar', {
+		type: 'bar',
+		data: {
+			labels,
+			datasets: [
+				{
+					label: 'Major',
+					data: topCustomers.map((c) => customer_stats[c].major || 0),
+					backgroundColor: 'rgba(220, 53, 69, 0.85)',
+				},
+				{
+					label: 'Minor',
+					data: topCustomers.map((c) => customer_stats[c].minor || 0),
+					backgroundColor: 'rgba(255, 193, 7, 0.85)',
+				},
+				{
+					label: 'Critical',
+					data: topCustomers.map((c) => customer_stats[c].critical || 0),
+					backgroundColor: 'rgba(108, 117, 125, 0.85)',
+				},
+			],
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: { legend: { position: 'bottom' } },
+			scales: {
+				x: { stacked: true, ticks: { maxRotation: 45, autoSkip: true } },
+				y: { stacked: true, beginAtZero: true, ticks: { precision: 0 } },
+			},
+		},
+	});
+
+	createChart('customerVolumeBar', 'customer_volume_bar', {
+		type: 'bar',
+		data: {
+			labels,
+			datasets: [{
+				label: 'Inspection records',
+				data: records,
+				backgroundColor: 'rgba(102, 126, 234, 0.75)',
+				borderColor: 'rgba(102, 126, 234, 1)',
+				borderWidth: 1,
+			}],
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			plugins: { legend: { display: false } },
+			scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+		},
+	});
+}
+
+function buildCustomerStatsFromRecords(data) {
+	const customer_stats = {};
+	(data || []).forEach((record) => {
+		const customer = record.customer || 'Unknown';
 		if (!customer_stats[customer]) {
 			customer_stats[customer] = {
 				records: 0,
@@ -4467,7 +5688,8 @@ function update_customer_analysis(data) {
 				major: 0,
 				minor: 0,
 				critical: 0,
-				pass_rate: 0
+				pass_rate: 0,
+				defect_rate: 0,
 			};
 		}
 		customer_stats[customer].records += 1;
@@ -4477,19 +5699,100 @@ function update_customer_analysis(data) {
 		customer_stats[customer].minor += record.total_minor || 0;
 		customer_stats[customer].critical += record.total_critical || 0;
 	});
-	
-	// Calculate pass rates
-	Object.keys(customer_stats).forEach(customer => {
-		let stats = customer_stats[customer];
-		let pass_records = data.filter(r => r.customer === customer && (r.total_percent || 0) < 5).length;
+	Object.keys(customer_stats).forEach((customer) => {
+		const stats = customer_stats[customer];
+		const pass_records = (data || []).filter(
+			(r) => r.customer === customer && (r.total_percent || 0) < 5
+		).length;
 		stats.pass_rate = stats.records > 0 ? (pass_records / stats.records * 100) : 0;
 		stats.defect_rate = stats.total_sample > 0 ? (stats.total_defects / stats.total_sample * 100) : 0;
 	});
-	
-	// Top customers by volume
-	let top_customers = Object.keys(customer_stats)
+	const top_customers = Object.keys(customer_stats)
 		.sort((a, b) => customer_stats[b].records - customer_stats[a].records)
 		.slice(0, 10);
+	return { customer_stats, top_customers };
+}
+
+function buildCustomerStatsFromApiRows(rows) {
+	const customer_stats = {};
+	const top_customers = [];
+	(rows || []).forEach((row) => {
+		const customer = row.customer || 'Unknown';
+		customer_stats[customer] = {
+			records: row.records || 0,
+			total_sample: row.total_sample || 0,
+			total_defects: row.total_defects || 0,
+			major: row.major || 0,
+			minor: row.minor || 0,
+			critical: row.critical || 0,
+			pass_rate: row.pass_rate || 0,
+			defect_rate: row.defect_rate || 0,
+		};
+		top_customers.push(customer);
+	});
+	return { customer_stats, top_customers };
+}
+
+function renderCustomerAnalysisHtml(customer_stats, top_customers) {
+	let customer_html = '';
+	const hasCustomers = top_customers.length > 0;
+	
+	customer_html += `
+		<div class="col-md-12 mb-4">
+			<div class="row qa-customer-charts">
+				<div class="col-md-6">
+					<div class="card h-100 border-0 bg-light">
+						<div class="card-body">
+							<h6 class="text-muted mb-2"><i class="fa fa-bar-chart"></i> Defect Rate by Customer</h6>
+							<div class="chart-container" style="height: 280px;">
+								<canvas id="customer_defect_rate_bar"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="card h-100 border-0 bg-light">
+						<div class="card-body">
+							<h6 class="text-muted mb-2"><i class="fa fa-pie-chart"></i> Defect Share by Customer</h6>
+							<div class="chart-container" style="height: 280px;">
+								<canvas id="customer_defect_share_pie"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 mt-3">
+					<div class="card h-100 border-0 bg-light">
+						<div class="card-body">
+							<h6 class="text-muted mb-2"><i class="fa fa-bar-chart"></i> Major / Minor / Critical by Customer</h6>
+							<div class="chart-container" style="height: 280px;">
+								<canvas id="customer_severity_stacked_bar"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 mt-3">
+					<div class="card h-100 border-0 bg-light">
+						<div class="card-body">
+							<h6 class="text-muted mb-2"><i class="fa fa-line-chart"></i> Inspection Volume by Customer</h6>
+							<div class="chart-container" style="height: 280px;">
+								<canvas id="customer_volume_bar"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	`;
+
+	if (!hasCustomers) {
+		customer_html += `
+			<div class="col-md-12 mb-3">
+				<div class="alert alert-info text-center">
+					<i class="fa fa-info-circle"></i> No customer data in the selected date range.
+				</div>
+			</div>
+		`;
+	}
 	
 	customer_html += `
 		<div class="col-md-12">
@@ -4544,8 +5847,42 @@ function update_customer_analysis(data) {
 			</div>
 		</div>
 	`;
-	
+	return { customer_html, hasCustomers };
+}
+
+function paintCustomerAnalysis(container, customer_stats, top_customers) {
+	const { customer_html, hasCustomers } = renderCustomerAnalysisHtml(customer_stats, top_customers);
 	container.html(customer_html);
+	if (hasCustomers) {
+		requestAnimationFrame(() => {
+			renderCustomerAnalysisCharts(customer_stats, top_customers);
+		});
+	}
+}
+
+function update_customer_analysis(data) {
+	const container = $('#customer_analysis_container');
+	container.html(
+		'<div class="col-md-12 text-center p-4"><div class="loading-spinner"></div><p class="text-muted">Loading customer analysis...</p></div>'
+	);
+
+	frappe.call({
+		method: 'quality_addon.quality_addon.page.daily_stitching_dash.daily_stitching_dash.get_customer_analysis',
+		args: { filters: get_filter_values() },
+		callback(r) {
+			if (r.message && r.message.length) {
+				const built = buildCustomerStatsFromApiRows(r.message);
+				paintCustomerAnalysis(container, built.customer_stats, built.top_customers);
+			} else {
+				const built = buildCustomerStatsFromRecords(data);
+				paintCustomerAnalysis(container, built.customer_stats, built.top_customers);
+			}
+		},
+		error() {
+			const built = buildCustomerStatsFromRecords(data);
+			paintCustomerAnalysis(container, built.customer_stats, built.top_customers);
+		},
+	});
 }
 
 function update_article_analysis(data) {
@@ -5080,8 +6417,7 @@ function update_individual_defect_analysis(data) {
 							// Create bar chart
 							let barCanvas = document.getElementById(canvas_id);
 							if (barCanvas && typeof Chart !== 'undefined') {
-								let ctx = barCanvas.getContext('2d');
-								new Chart(ctx, {
+								createChart(canvas_id, canvas_id, {
 									type: 'bar',
 									data: {
 										labels: ['Major', 'Minor', 'Critical'],
@@ -5104,20 +6440,14 @@ function update_individual_defect_analysis(data) {
 									options: {
 										responsive: true,
 										maintainAspectRatio: false,
-										scales: {
-											y: {
-												beginAtZero: true
-											}
-										}
+										scales: { y: { beginAtZero: true } }
 									}
 								});
 							}
-							
-							// Create pie chart
+
 							let pieCanvas = document.getElementById(pie_canvas_id);
 							if (pieCanvas && typeof Chart !== 'undefined') {
-								let ctxPie = pieCanvas.getContext('2d');
-								new Chart(ctxPie, {
+								createChart(pie_canvas_id, pie_canvas_id, {
 									type: 'pie',
 									data: {
 										labels: ['Major', 'Minor', 'Critical'],
@@ -5139,11 +6469,7 @@ function update_individual_defect_analysis(data) {
 									options: {
 										responsive: true,
 										maintainAspectRatio: false,
-										plugins: {
-											legend: {
-												position: 'bottom'
-											}
-										}
+										plugins: { legend: { position: 'bottom' } }
 									}
 								});
 							}

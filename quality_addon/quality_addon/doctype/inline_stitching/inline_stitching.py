@@ -5,7 +5,15 @@ import frappe
 from frappe.model.document import Document
 
 class InlineStitching(Document):
-	pass
+	def before_save(self):
+		self._apply_header_defaults_to_rows()
+
+	def _apply_header_defaults_to_rows(self):
+		for row in self.get("inline_stitching_ct") or []:
+			if self.operator_name and not row.operator_name:
+				row.operator_name = self.operator_name
+			if self.machine and not row.machine:
+				row.machine = self.machine
 
 
 def _ensure_master(doctype, fieldname, value):
@@ -34,12 +42,14 @@ def get_order_sheet_details(order_sheet):
 		article = _ensure_master("Stitching Article", "article", row.stitching_article_no)
 		size = _ensure_master("Attribute Size", "size", row.size)
 		design = _ensure_master("Stitching Design", "design", row.design)
+		color = _ensure_master("Stitching Colour", "colour", row.colour) if row.colour else ""
 		items.append(
 			{
 				"article": article,
 				"size": size,
+				"color": color,
 				"design": design,
-				"no_of_pcs": row.order_qty or row.planned_qty or 0,
+				"no_of_pcs": row.planned_qty or row.order_qty or 0,
 			}
 		)
 

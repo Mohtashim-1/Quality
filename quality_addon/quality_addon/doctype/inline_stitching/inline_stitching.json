@@ -20,6 +20,9 @@
   "department",
   "column_break_pb2sp",
   "order_sheet",
+  "operator_name",
+  "column_break_is_op",
+  "machine",
   "select_po",
   "detail_section",
   "inline_stitching_ct",
@@ -496,8 +499,29 @@
   {
    "fieldname": "order_sheet",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Order Sheet",
    "options": "Order Sheet"
+  },
+  {
+   "fieldname": "operator_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Operator Name",
+   "options": "Machine Operator"
+  },
+  {
+   "fieldname": "column_break_is_op",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "machine",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Machine #",
+   "options": "Asset"
   }
  ],
  "grid_page_length": 50,

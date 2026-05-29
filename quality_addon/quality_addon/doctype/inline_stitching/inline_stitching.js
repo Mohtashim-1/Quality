@@ -28,8 +28,11 @@ function fetch_inline_stitching_from_order_sheet(frm) {
                 const row = frm.add_child('inline_stitching_ct');
                 row.article = item.article;
                 row.size = item.size;
+                row.color = item.color;
                 row.design = item.design;
                 row.no_of_pcs = item.no_of_pcs;
+                if (frm.doc.operator_name) row.operator_name = frm.doc.operator_name;
+                if (frm.doc.machine) row.machine = frm.doc.machine;
             });
 
             frm.refresh_field('inline_stitching_ct');
@@ -100,13 +103,32 @@ frappe.ui.form.on('Inline Stitching', {
         fetch_inline_stitching_from_order_sheet(frm);
     },
 
+    operator_name: function(frm) {
+        apply_inline_header_defaults_to_rows(frm);
+    },
+
+    machine: function(frm) {
+        apply_inline_header_defaults_to_rows(frm);
+    },
+
 });
+
+function apply_inline_header_defaults_to_rows(frm) {
+    (frm.doc.inline_stitching_ct || []).forEach((row) => {
+        if (frm.doc.operator_name) row.operator_name = frm.doc.operator_name;
+        if (frm.doc.machine) row.machine = frm.doc.machine;
+    });
+    frm.refresh_field('inline_stitching_ct');
+}
 
 
 
 
 frappe.ui.form.on('Inline Stitching CT', {
 	inline_stitching_ct_add: function (frm, cdt, cdn) {
+		const row = locals[cdt][cdn];
+		if (frm.doc.operator_name && !row.operator_name) row.operator_name = frm.doc.operator_name;
+		if (frm.doc.machine && !row.machine) row.machine = frm.doc.machine;
 		calculate_totals(frm);
 	},
 	inline_stitching_ct_remove: function (frm, cdt, cdn) {

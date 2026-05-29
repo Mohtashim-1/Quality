@@ -1,8 +1,13 @@
 {
  "charts": [],
- "content": "[{\"id\":\"ApdWkxAzaC\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quality Addon</span>\",\"col\":12}},{\"id\":\"OtDieEmkeu\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Daily Checkin\",\"col\":4}},{\"id\":\"gfimWoxBmn\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Inline Stitching\",\"col\":4}},{\"id\":\"cBqJZM8TgB\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Final Inspection\",\"col\":4}},{\"id\":\"RJ0REHuUZw\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"PCSoEAfIH9\",\"type\":\"card\",\"data\":{\"card_name\":\"Report\",\"col\":4}}]",
+ "content": "[{\"id\":\"qaHdr\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quality Addon</span>\",\"col\":12}},{\"id\":\"qaNc1\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Daily Checkin\",\"col\":4}},{\"id\":\"qaNc2\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Inline Stitching\",\"col\":4}},{\"id\":\"qaNc3\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Final Inspection\",\"col\":4}},{\"id\":\"qaSp1\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"qaCharts\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Quality - Charts Dashboard\",\"col\":12}},{\"id\":\"qaSp2\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"qaHdr2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports &amp; Masters</b></span>\",\"col\":12}},{\"id\":\"qaCardTx\",\"type\":\"card\",\"data\":{\"card_name\":\"Transactions\",\"col\":4}},{\"id\":\"qaCardDash\",\"type\":\"card\",\"data\":{\"card_name\":\"Dashboards\",\"col\":4}},{\"id\":\"qaCardRpt\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
  "creation": "2024-06-08 17:35:04.028339",
- "custom_blocks": [],
+ "custom_blocks": [
+  {
+   "custom_block_name": "Quality - Charts Dashboard",
+   "label": "Quality - Charts Dashboard"
+  }
+ ],
  "docstatus": 0,
  "doctype": "Workspace",
  "for_user": "",
@@ -12,6 +17,15 @@
  "is_hidden": 0,
  "label": "Quality Addon",
  "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Transactions",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
   {
    "hidden": 0,
    "is_query_report": 0,
@@ -45,42 +59,11 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Report",
-   "link_count": 5,
+   "label": "Dashboards",
+   "link_count": 3,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Quality Addon Dashboard",
-   "link_count": 0,
-   "link_to": "Quality Addon Dashboard",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Quality Inspection Summary",
-   "link_count": 0,
-   "link_to": "Quality Inspection Summary",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Daily Checking Report",
-   "link_count": 0,
-   "link_to": "daily checking report",
-   "link_type": "Report",
-   "onboard": 0,
-   "report_ref_doctype": "Daily Checking",
-   "type": "Link"
   },
   {
    "hidden": 0,
@@ -101,9 +84,82 @@
    "link_type": "Page",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Quality Addon Dashboard",
+   "link_count": 0,
+   "link_to": "Quality Addon",
+   "link_type": "Dashboard",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports",
+   "link_count": 5,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Quality Order Sheet Progress",
+   "link_count": 0,
+   "link_to": "Quality Order Sheet Progress",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "Daily Checking",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Quality Order Sheet Analysis",
+   "link_count": 0,
+   "link_to": "Quality Order Sheet Analysis",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "Daily Checking",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Quality Addon Dashboard",
+   "link_count": 0,
+   "link_to": "Quality Addon Dashboard",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Daily Checking Report",
+   "link_count": 0,
+   "link_to": "daily checking report",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "Daily Checking",
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Daily Inline Stitching Report",
+   "link_count": 0,
+   "link_to": "Daily Inline stitching Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "report_ref_doctype": "Inline Stitching",
+   "type": "Link"
   }
  ],
- "modified": "2025-10-30 01:16:46.623503",
+ "modified": "2026-05-29 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Quality Addon",
@@ -127,6 +183,35 @@
  "quick_lists": [],
  "roles": [],
  "sequence_id": 27.0,
- "shortcuts": [],
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "format": "{} Open",
+   "label": "Daily Checking",
+   "link_to": "Daily Checking",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "format": "{} Open",
+   "label": "Inline Stitching",
+   "link_to": "Inline Stitching",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "format": "{} Open",
+   "label": "Quality Order Sheet Progress",
+   "link_to": "Quality Order Sheet Progress",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "format": "{} Open",
+   "label": "Daily Checking Dashboard",
+   "link_to": "daily-stitching-dash",
+   "type": "Page"
+  }
+ ],
  "title": "Quality Addon"
 }

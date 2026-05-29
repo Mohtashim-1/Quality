@@ -213,3 +213,14 @@ app_license = "MIT"
 # auth_hooks = [
 # 	"quality_addon.auth.validate"
 # ]
+
+fixtures = [
+	{
+		"dt": "Custom HTML Block",
+		"filters": [["name", "=", "Quality - Charts Dashboard"]],
+	},
+	{
+		"dt": "Workspace",
+		"filters": [["name", "=", "Quality Addon"]],
+	},
+]

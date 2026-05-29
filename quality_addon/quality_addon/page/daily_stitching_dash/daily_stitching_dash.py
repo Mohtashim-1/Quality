@@ -1,39 +1,91 @@
 import frappe
 import json
 
-@frappe.whitelist(allow_guest=True)
-def get_defect_breakdown(filters=None):
-	"""Get detailed defect breakdown with major/minor/critical counts"""
-	
+
+def _parse_daily_checking_filters(filters=None):
 	if filters is None:
 		filters = {}
-	
-	# Parse filters if it's a JSON string
 	if isinstance(filters, str):
 		try:
 			filters = json.loads(filters)
 		except (json.JSONDecodeError, TypeError):
 			filters = {}
-	
-	# Parse filters
-	conditions = "1=1"
+
+	conditions = "parent_dc.docstatus < 2"
 	values = {}
-	
-	# Handle date filters - check for both >= and <= operators in separate checks
-	if filters.get('date'):
-		if isinstance(filters['date'], list) and len(filters['date']) == 2:
-			operator = filters['date'][0]
-			date_value = filters['date'][1]
-			if operator == '>=':
+
+	if filters.get("from_date"):
+		conditions += " AND parent_dc.date >= %(from_date)s"
+		values["from_date"] = filters["from_date"]
+	if filters.get("to_date"):
+		conditions += " AND parent_dc.date <= %(to_date)s"
+		values["to_date"] = filters["to_date"]
+	if filters.get("date"):
+		if isinstance(filters["date"], list) and len(filters["date"]) == 2:
+			operator = filters["date"][0]
+			date_value = filters["date"][1]
+			if operator == ">=":
 				conditions += " AND parent_dc.date >= %(from_date)s"
-				values['from_date'] = date_value
-			elif operator == '<=':
+				values["from_date"] = date_value
+			elif operator == "<=":
 				conditions += " AND parent_dc.date <= %(to_date)s"
-				values['to_date'] = date_value
-	
-	if filters.get('inspection_level'):
+				values["to_date"] = date_value
+
+	if filters.get("inspection_level"):
 		conditions += " AND parent_dc.inspection_level = %(inspection_level)s"
-		values['inspection_level'] = filters['inspection_level']
+		values["inspection_level"] = filters["inspection_level"]
+
+	return conditions, values
+
+
+@frappe.whitelist()
+def get_customer_analysis(filters=None):
+	"""Aggregate quality metrics by customer from inspection child rows."""
+	conditions, values = _parse_daily_checking_filters(filters)
+
+	rows = frappe.db.sql(
+		f"""
+		SELECT
+			COALESCE(NULLIF(TRIM(dc.customer), ''), 'Unknown') AS customer,
+			COUNT(*) AS records,
+			SUM(COALESCE(dc.sample_qty, 0)) AS total_sample,
+			SUM(COALESCE(dc.total_qty, 0)) AS total_defects,
+			SUM(COALESCE(dc.major, 0)) AS major,
+			SUM(COALESCE(dc.minor, 0)) AS minor,
+			SUM(COALESCE(dc.critical, 0)) AS critical,
+			SUM(
+				CASE
+					WHEN COALESCE(dc.sample_qty, 0) > 0
+						AND (COALESCE(dc.total_qty, 0) / dc.sample_qty * 100) < 5
+					THEN 1
+					ELSE 0
+				END
+			) AS pass_count
+		FROM `tabDaily Checking Inspection CT` dc
+		INNER JOIN `tabDaily Checking` parent_dc ON dc.parent = parent_dc.name
+		WHERE {conditions}
+		GROUP BY COALESCE(NULLIF(TRIM(dc.customer), ''), 'Unknown')
+		ORDER BY records DESC
+		LIMIT 10
+		""",
+		values,
+		as_dict=True,
+	)
+
+	for row in rows:
+		records = row.records or 0
+		total_sample = row.total_sample or 0
+		row.pass_rate = (row.pass_count / records * 100) if records else 0
+		row.defect_rate = (row.total_defects / total_sample * 100) if total_sample else 0
+
+	return rows
+
+
+@frappe.whitelist(allow_guest=True)
+def get_defect_breakdown(filters=None):
+	"""Get detailed defect breakdown with major/minor/critical counts"""
+	
+	conditions, values = _parse_daily_checking_filters(filters)
 	
 	# Query child table with parent join
 	data = frappe.db.sql(f"""
@@ -137,7 +189,15 @@ def get_defect_breakdown(filters=None):
             SUM(COALESCE(dc.ss_major, 0)) as ss_major,
             SUM(COALESCE(dc.ss_minor, 0)) as ss_minor,
             SUM(COALESCE(dc.ss_critical, 0)) as ss_critical,
-            SUM(COALESCE(dc.ss_qty1, 0)) as ss_total
+            SUM(COALESCE(dc.ss_qty1, 0)) as ss_total,
+			SUM(COALESCE(dc.owp_major, 0)) as owp_major,
+			SUM(COALESCE(dc.owp_minor, 0)) as owp_minor,
+			SUM(COALESCE(dc.owp_critical, 0)) as owp_critical,
+			SUM(
+				COALESCE(dc.owp_major, 0) + COALESCE(dc.owp_minor, 0) + COALESCE(dc.owp_critical, 0)
+			) as owp_total,
+			SUM(COALESCE(dc.finishing_qty, 0)) as finishing_other_total,
+			SUM(COALESCE(dc.sewing_qty, 0)) as sewing_other_total
 		FROM 
 			`tabDaily Checking Inspection CT` dc
 		INNER JOIN
