@@ -1,6 +1,6 @@
 function has_populated_inline_stitching_rows(frm) {
     return (frm.doc.inline_stitching_ct || []).some((row) =>
-        row.article || row.size || row.design || row.no_of_pcs
+        row.article || row.size || row.design || row.so_item || row.combo_item || row.no_of_pcs
     );
 }
 
@@ -30,7 +30,8 @@ function fetch_inline_stitching_from_order_sheet(frm) {
                 row.size = item.size;
                 row.color = item.color;
                 row.design = item.design;
-                row.no_of_pcs = item.no_of_pcs;
+                row.so_item = item.so_item;
+                row.combo_item = item.combo_item;
                 if (frm.doc.operator_name) row.operator_name = frm.doc.operator_name;
                 if (frm.doc.machine) row.machine = frm.doc.machine;
             });

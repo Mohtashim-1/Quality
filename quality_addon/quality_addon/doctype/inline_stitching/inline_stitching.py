@@ -97,15 +97,10 @@ def get_order_sheet_details(order_sheet):
 		design = _ensure_master("Stitching Design", "design", row.design) if row.design else None
 		color = _ensure_master("Stitching Colour", "colour", row.colour) if row.colour else ""
 
-		planned_qty = flt(row.planned_qty)
-		order_qty = flt(row.order_qty)
-
 		bundle_items = _get_bundle_items_for_so_item(so_item)
 		if bundle_items:
 			for bundle in bundle_items:
 				combo_item = bundle.get("item")
-				pcs = flt(bundle.get("pcs")) or 1
-				no_of_pcs = planned_qty * pcs
 				items.append(
 					{
 						"article": article,
@@ -114,7 +109,6 @@ def get_order_sheet_details(order_sheet):
 						"design": design,
 						"so_item": so_item,
 						"combo_item": combo_item,
-						"no_of_pcs": no_of_pcs or order_qty or 0,
 					}
 				)
 		else:
@@ -126,7 +120,6 @@ def get_order_sheet_details(order_sheet):
 					"design": design,
 					"so_item": so_item,
 					"combo_item": None,
-					"no_of_pcs": planned_qty or order_qty or 0,
 				}
 			)
 
