@@ -4,7 +4,8 @@
 
 function has_populated_daily_checking_rows(frm) {
     return (frm.doc.items || []).some((row) =>
-        row.customer || row.po || row.code || row.at_article || row.at_design || row.size
+        row.customer || row.po || row.code || row.so_item || row.combo_item ||
+        row.at_article || row.at_design || row.size
     );
 }
 
@@ -33,6 +34,8 @@ function fetch_daily_checking_from_order_sheet(frm) {
                 row.customer = item.customer;
                 row.po = item.po;
                 row.code = item.code;
+                row.so_item = item.so_item;
+                row.combo_item = item.combo_item;
                 row.at_article = item.at_article;
                 row.size = item.size;
                 row.at_design = item.at_design;

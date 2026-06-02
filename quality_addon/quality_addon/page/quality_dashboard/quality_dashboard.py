@@ -2,10 +2,17 @@
 
 import frappe
 
-from quality_addon.api.order_sheet_quality_dashboard import get_quality_dashboard_data
+from quality_addon.api.quality_dashboard_pages import (
+	get_daily_checking_dashboard_data,
+	get_inline_stitching_dashboard_data,
+)
 
 
 @frappe.whitelist()
-def get_dashboard_data(filters=None):
-	"""Page entry point for Quality Dashboard."""
-	return get_quality_dashboard_data(filters)
+def get_daily_checking_dashboard(filters=None):
+	return get_daily_checking_dashboard_data(filters)
+
+
+@frappe.whitelist()
+def get_inline_stitching_dashboard(filters=None):
+	return get_inline_stitching_dashboard_data(filters)

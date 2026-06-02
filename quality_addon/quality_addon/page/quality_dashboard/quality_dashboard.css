@@ -110,3 +110,26 @@
 	padding: 48px;
 	color: #6c757d;
 }
+
+.quality-dashboard-page .qd-tabs {
+	margin-bottom: 16px;
+	border-bottom: 2px solid #e9ecef;
+}
+
+.quality-dashboard-page .qd-tabs > li > a {
+	font-weight: 600;
+	padding: 10px 20px;
+}
+
+.quality-dashboard-page .qd-panel.hidden {
+	display: none;
+}
+
+.quality-dashboard-page .gradient-header-info {
+	background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+	color: #333;
+}
+
+.quality-dashboard-page .chart-container.chart-sm {
+	height: 220px;
+}

@@ -13,6 +13,8 @@
   "color",
   "column_break_audjl",
   "design",
+  "so_item",
+  "combo_item",
   "column_break_tud4l",
   "operation",
   "no_of_pcs",
@@ -118,6 +120,24 @@
    "label": "Design",
    "options": "Stitching Design",
    "width": "1"
+  },
+  {
+   "columns": 1,
+   "fieldname": "so_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "SO Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "combo_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Combo Item",
+   "options": "Item",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_tud4l",

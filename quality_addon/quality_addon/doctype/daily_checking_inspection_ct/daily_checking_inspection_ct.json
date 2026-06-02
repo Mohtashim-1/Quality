@@ -11,6 +11,8 @@
   "po",
   "section_break_jupgm",
   "code",
+  "so_item",
+  "combo_item",
   "at_article",
   "size",
   "at_design",
@@ -257,7 +259,6 @@
   "fdo_critical",
   "column_break_nh17a",
   "fdo_image",
-  "column_break_ywvns",
   "sewing_defects_section",
   "missing_label",
   "column_break_fdkzr",
@@ -417,6 +418,24 @@
   },
   {
    "columns": 1,
+   "fieldname": "so_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "SO Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "combo_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Combo Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
    "fieldname": "size",
    "fieldtype": "Link",
    "in_filter": 1,
@@ -502,7 +521,8 @@
   },
   {
    "fieldname": "section_break_su2wk",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "hidden": 1
   },
   {
    "fieldname": "column_break_uxvod",
@@ -548,6 +568,7 @@
   {
    "fieldname": "status",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Status",
    "options": "\nPass\nFail"
   },
@@ -1380,6 +1401,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.fdo_check==1",
    "fieldname": "fdo_defects",
    "fieldtype": "Link",
    "label": "Defects",
@@ -1424,10 +1446,6 @@
    "fieldname": "fdo_image",
    "fieldtype": "Attach Image",
    "label": "Image"
-  },
-  {
-   "fieldname": "column_break_ywvns",
-   "fieldtype": "Section Break"
   },
   {
    "fieldname": "sewing_defects_section",
@@ -2197,11 +2215,7 @@
    "columns": 1,
    "fieldname": "aql_accepted",
    "fieldtype": "Int",
-   "in_filter": 1,
    "in_global_search": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
    "label": "AQL Major Accepted",
    "width": "1"
   },
@@ -2209,11 +2223,7 @@
    "columns": 1,
    "fieldname": "aql_rejected",
    "fieldtype": "Int",
-   "in_filter": 1,
    "in_global_search": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "in_standard_filter": 1,
    "label": "AQL Minor Accepted",
    "width": "1"
   },
@@ -2228,6 +2238,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.sdo_check==1",
    "fieldname": "sdo_critical",
    "fieldtype": "Int",
    "label": "Other Critical"
@@ -2237,6 +2248,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.sdo_check==1",
    "fieldname": "sdo_image",
    "fieldtype": "Attach Image",
    "label": "Image"
@@ -2286,11 +2298,13 @@
    "label": "Total Qty"
   },
   {
+   "depends_on": "eval:doc.short_size==1",
    "fieldname": "ss_critical",
    "fieldtype": "Int",
    "label": "Short Size Critical"
   },
   {
+   "depends_on": "eval:doc.salvage==1",
    "fieldname": "salvage_image",
    "fieldtype": "Attach Image",
    "label": "Salvage Image"
@@ -2318,15 +2332,18 @@
    "label": "Fly Yarn Major"
   }
  ],
+ "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-25 16:07:02.541845",
+ "modified": "2026-06-02 19:16:01.975757",
  "modified_by": "Administrator",
  "module": "Quality Addon",
  "name": "Daily Checking Inspection CT",
  "owner": "Administrator",
  "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
