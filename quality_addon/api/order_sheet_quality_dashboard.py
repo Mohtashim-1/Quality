@@ -54,6 +54,38 @@ def get_order_sheet_quality_dashboard(order_sheet, from_date=None, to_date=None)
 	}
 
 
+@frappe.whitelist()
+def get_order_sheet_daily_checking_dashboard(order_sheet):
+	"""Daily Checking dashboard scoped to one Order Sheet (all dates)."""
+	if not order_sheet:
+		frappe.throw(_("Order Sheet is required"))
+
+	if not frappe.db.exists("Order Sheet", order_sheet):
+		frappe.throw(_("Order Sheet {0} not found").format(order_sheet))
+
+	frappe.has_permission("Order Sheet", doc=order_sheet, ptype="read", throw=True)
+
+	from quality_addon.api.quality_dashboard_pages import get_daily_checking_dashboard_data
+
+	return get_daily_checking_dashboard_data({"order_sheet": order_sheet})
+
+
+@frappe.whitelist()
+def get_order_sheet_inline_stitching_dashboard(order_sheet):
+	"""Inline Stitching dashboard scoped to one Order Sheet (all dates)."""
+	if not order_sheet:
+		frappe.throw(_("Order Sheet is required"))
+
+	if not frappe.db.exists("Order Sheet", order_sheet):
+		frappe.throw(_("Order Sheet {0} not found").format(order_sheet))
+
+	frappe.has_permission("Order Sheet", doc=order_sheet, ptype="read", throw=True)
+
+	from quality_addon.api.quality_dashboard_pages import get_inline_stitching_dashboard_data
+
+	return get_inline_stitching_dashboard_data({"order_sheet": order_sheet})
+
+
 def _parse_filters(filters=None):
 	if filters is None:
 		return {}
